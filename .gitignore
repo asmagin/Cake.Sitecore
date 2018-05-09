@@ -1,0 +1,13 @@
+bin/
+obj/
+packages/
+Components/
+tools/
+nupkg/
+*.userprefs
+*.suo
+.nugetapikey
+xtc-api-key
+xtc-email
+BuildArtifacts/
+.vs/
