@@ -20,6 +20,7 @@ public static partial class Sitecore
         // Build Server
         public static string BUILD_ID            { get; private set; }          
         public static string BUILD_NAME          { get; private set; }
+        public static string BUILD_NUMBER        { get; private set; }
 
         public static string ROOT_DIR            { get; private set; }        
 
@@ -65,6 +66,7 @@ public static partial class Sitecore
             string Commit                        = null,
             string BuildId                       = null,
             string BuildName                     = null,
+            string BuildNumber                   = null,
             string RootDir                       = null,
             string LibsDir                       = null,
             string LibsPackagesDir               = null,
@@ -108,6 +110,7 @@ public static partial class Sitecore
             COMMIT                            = Commit                        ?? "COMMIT";
             BUILD_ID                          = BuildId                       ?? "BUILD_ID";
             BUILD_NAME                        = BuildName                     ?? "BUILD_NAME";
+            BUILD_NUMBER                      = BuildNumber                   ?? "BUILD_NUMBER";
 
             ROOT_DIR                          = RootDir                       ?? "ROOT_DIR";
 

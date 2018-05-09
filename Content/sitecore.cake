@@ -1,6 +1,7 @@
 #load "./constants.cake"
 #load "./git.cake"
 #load "./parameters.cake"
+#load "./tasks.build.cake"
 #load "./tasks.cake"
 #load "./tasks.clean.cake"
 #load "./tasks.prepare.cake"

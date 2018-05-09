@@ -1,19 +1,29 @@
 public class Tasks {
     // Tasks
-    // 010 prepare
-    public CakeTaskBuilder<ActionTask> ConfigureToolsTask { get; set; }
-    public CakeTaskBuilder<ActionTask> CleanWildcardFoldersTask { get; set; }
+    public CakeTaskBuilder<ActionTask> BuildClientCodeTask { get; set; }
+    public CakeTaskBuilder<ActionTask> BuildServerCodeTask { get; set; }
     public CakeTaskBuilder<ActionTask> CleanArtifactsTask { get; set; }
-    // 020 restore
-    public CakeTaskBuilder<ActionTask> RestoreNuGetPackagesTask { get; set; }
+    public CakeTaskBuilder<ActionTask> CleanWildcardFoldersTask { get; set; }
+    public CakeTaskBuilder<ActionTask> ConfigureToolsTask { get; set; }
+    public CakeTaskBuilder<ActionTask> GenerateCodeTask { get; set; }
+    public CakeTaskBuilder<ActionTask> GenerateVersionFileTask { get; set; }
     public CakeTaskBuilder<ActionTask> RestoreNpmPackagesTask { get; set; }
+    public CakeTaskBuilder<ActionTask> RestoreNuGetPackagesTask { get; set; }
+    public CakeTaskBuilder<ActionTask> SetAssemblyVersionTask { get; set; }
+    public CakeTaskBuilder<ActionTask> SetPackageJsonVersionTask { get; set; }
 
     // Task Names
-    public string ConfigureToolsTaskName => GetTaskName(this.ConfigureToolsTask);
-    public string CleanWildcardFoldersTaskName => GetTaskName(this.CleanWildcardFoldersTask);
+    public string BuildClientCodeTaskName => GetTaskName(this.BuildClientCodeTask);
+    public string BuildServerCodeTaskName => GetTaskName(this.BuildServerCodeTask);
     public string CleanArtifactsTaskName => GetTaskName(this.CleanArtifactsTask);
-    public string RestoreNuGetPackagesTaskName => GetTaskName(this.RestoreNuGetPackagesTask);
+    public string CleanWildcardFoldersTaskName => GetTaskName(this.CleanWildcardFoldersTask);
+    public string ConfigureToolsTaskName => GetTaskName(this.ConfigureToolsTask);
+    public string GenerateCodeTaskName => GetTaskName(this.GenerateCodeTask);
+    public string GenerateVersionFileTaskName => GetTaskName(this.GenerateVersionFileTask);
     public string RestoreNpmPackagesTaskName => GetTaskName(this.RestoreNpmPackagesTask);
+    public string RestoreNuGetPackagesTaskName => GetTaskName(this.RestoreNuGetPackagesTask);
+    public string SetAssemblyVersionTaskName => GetTaskName(this.SetAssemblyVersionTask);
+    public string SetPackageJsonVersionTaskName => GetTaskName(this.SetPackageJsonVersionTask);
     
     // private helpers
     private static string GetTaskName(CakeTaskBuilder<ActionTask> taskBuilder) {

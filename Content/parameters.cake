@@ -29,6 +29,7 @@ public static partial class Sitecore
 
         public static string BuildId { get; private set; }
         public static string BuildName { get; private set; }
+        public static string BuildNumber { get; private set; }
 
         public static string RootDir { get; private set; }
 
@@ -89,6 +90,7 @@ public static partial class Sitecore
             //Build Server
             BuildId =                       GetParameterValue(Constants.BUILD_ID, "");
             BuildName =                     GetParameterValue(Constants.BUILD_NAME, "");
+            BuildNumber =                   GetParameterValue(Constants.BUILD_NUMBER, "n/a");
 
             RootDir =                       GetAbsoluteDirPath(GetParameterValue(Constants.ROOT_DIR, "./.."));
 
