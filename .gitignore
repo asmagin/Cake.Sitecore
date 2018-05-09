@@ -11,3 +11,4 @@ xtc-api-key
 xtc-email
 BuildArtifacts/
 .vs/
+.vscode/
