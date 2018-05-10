@@ -4,6 +4,7 @@
 #tool "nuget:?package=ReportGenerator"
 #tool "nuget:?package=xunit.runner.console"
 
+// TODO: pack non-CAKE files as TOOLS dependencies 
 #load "./scripts/coverage/coverage.cake"
 
 // extentions
