@@ -3,9 +3,6 @@
 #load "./parameters.cake"
 #load "./tasks.build.cake"
 #load "./tasks.cake"
-#load "./tasks.clean.cake"
-#load "./tasks.prepare.cake"
-#load "./tasks.restore.cake"
 #load "./utils.cake"
 
 Sitecore.Constants.SetNames();
