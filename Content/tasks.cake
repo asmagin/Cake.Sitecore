@@ -1,11 +1,3 @@
-#load "./tasks.clean.cake"
-#load "./tasks.packages.cake"
-#load "./tasks.prepare.cake"
-#load "./tasks.publish.cake"
-#load "./tasks.restore.cake"
-#load "./tasks.tests.unit.cake"
-#load "./tasks.unicorn.cake"
-
 public class Tasks {
     // Tasks
     public CakeTaskBuilder<ActionTask> BuildClientCodeTask { get; set; }

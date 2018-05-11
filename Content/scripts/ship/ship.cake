@@ -1,4 +1,6 @@
-Action<string, FilePathCollection> DeploySitecorePackages = (sitecoreInstanceUri, files) =>
+#addin "Cake.Powershell"
+
+Action<string, List<FilePath>> DeploySitecorePackages = (sitecoreInstanceUri, files) =>
 {
     foreach (var _file in files)
     {

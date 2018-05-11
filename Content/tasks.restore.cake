@@ -5,6 +5,7 @@ Sitecore.Tasks.RestoreNuGetPackagesTask = Task("Restore :: Restore NuGet Package
     .Does(() =>
     {
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SolutionFilePath, "SolutionFilePath", "SOLUTION_FILE_PATH");
+        Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.LibsNuGetDir, "LibsNuGetDir", "LIBS_NU_GET_DIR");
 
         NuGetRestore(
             Sitecore.Parameters.SolutionFilePath,
@@ -14,7 +15,7 @@ Sitecore.Tasks.RestoreNuGetPackagesTask = Task("Restore :: Restore NuGet Package
                 {
                     "https://api.nuget.org/v3/index.json;",
                     "https://sitecore.myget.org/F/sc-packages/api/v3/index.json",
-                    libsNuGetDir
+                    Sitecore.Parameters.LibsNuGetDir
                 }
             });
     });

@@ -1,3 +1,5 @@
+#addin "Cake.Powershell"
+
 Func<string, string> getUnicornSecret = (unicornConfigPath) => {
     if (FileExists(unicornConfigPath))
     {

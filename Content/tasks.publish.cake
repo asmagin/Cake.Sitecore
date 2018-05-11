@@ -139,7 +139,7 @@ Sitecore.Tasks.PublishFoundationTask = Task("Publish-Foundation")
         if(Sitecore.Parameters.BuildConfiguration != "Debug") {
             copySerializationFiles(Sitecore.Parameters.SrcDir, _layer);
         }        
-        copyClientAssets(srcDir, _layer);
+        copyClientAssets(Sitecore.Parameters.SrcDir, _layer);
         publishLayer(
             Sitecore.Parameters.SrcDir, 
             _layer, 
@@ -161,7 +161,7 @@ Sitecore.Tasks.PublishFeatureTask = Task("Publish-Features")
         if(Sitecore.Parameters.BuildConfiguration != "Debug") {
             copySerializationFiles(Sitecore.Parameters.SrcDir, _layer);
         }        
-        copyClientAssets(srcDir, _layer);
+        copyClientAssets(Sitecore.Parameters.SrcDir, _layer);
         publishLayer(
             Sitecore.Parameters.SrcDir, 
             _layer, 
@@ -183,7 +183,7 @@ Sitecore.Tasks.PublishProjectTask = Task("Publish-Projects")
         if(Sitecore.Parameters.BuildConfiguration != "Debug") {
             copySerializationFiles(Sitecore.Parameters.SrcDir, _layer);
         }        
-        copyClientAssets(srcDir, _layer);
+        copyClientAssets(Sitecore.Parameters.SrcDir, _layer);
         publishLayer(
             Sitecore.Parameters.SrcDir, 
             _layer, 

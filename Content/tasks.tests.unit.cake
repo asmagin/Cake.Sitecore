@@ -4,9 +4,6 @@
 #tool "nuget:?package=ReportGenerator"
 #tool "nuget:?package=xunit.runner.console"
 
-// TODO: pack non-CAKE files as TOOLS dependencies 
-#load "./scripts/coverage/coverage.cake"
-
 // extentions
 public static partial class Sitecore 
 { 
@@ -22,6 +19,8 @@ Sitecore.Tasks.RunServerUnitTestsTask = Task("Unit Tests :: Run Server Tests")
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SrcDir, "SrcDir", "SRC_DIR");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SolutionName, "SolutionName", "SOLUTION_NAME");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.XUnitTestsCoverageOutputDir, "XUnitTestsCoverageOutputDir", "XUNIT_TESTS_COVERAGE_OUTPUT_DIR");
+        Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.TestsOutputDir, "TestsOutputDir", "TESTS_OUTPUT_DIR");
+        Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.TestsOutputDir, "TestsOutputDir", "TESTS_OUTPUT_DIR");
 
         var _coverSettings = new OpenCoverSettings()
             .WithFilter($"+[{Sitecore.Parameters.SolutionName}.*]*")
@@ -49,7 +48,7 @@ Sitecore.Tasks.RunServerUnitTestsTask = Task("Unit Tests :: Run Server Tests")
                 XmlReport = true,
                 Parallelism = ParallelismOption.None,
                 NoAppDomain = false,
-                OutputDirectory = testsOutputDir,
+                OutputDirectory = Sitecore.Parameters.TestsOutputDir,
                 ReportName = "xUnitTestResults"
             };
 
@@ -101,10 +100,10 @@ Sitecore.Tasks.MergeCoverageReportsTask = Task("Unit Tests :: Merge Coverage Rep
 
         var _mergedReport = $"{Sitecore.Parameters.TestsCoverageOutputDir}/cobertura-coverage.xml";
 
-        var _sourceFilePaths = GetFiles($"{testsCoverageOutputDir}/*/cobertura-coverage.xml");
+        var _sourceFilePaths = GetFiles($"{Sitecore.Parameters.TestsCoverageOutputDir}/*/cobertura-coverage.xml");
 
-        mergeCoberturaReports(Context.Tools.Resolve("cobertura.tpl.xml").ToString(), _sourceFilePaths, _mergedReport);
+        mergeCoberturaReports(Context.Tools.Resolve("coverage/cobertura.tpl.xml").ToString(), _sourceFilePaths, _mergedReport);
 
-        var htmlReportFilePath = $"{testsCoverageOutputDir}/index.html";
-        mergeHtmlReports(Context.Tools.Resolve("coberturaReport.tpl.html").ToString(), htmlReportFilePath);
+        var htmlReportFilePath = $"{Sitecore.Parameters.TestsCoverageOutputDir}/index.html";
+        mergeHtmlReports(Context.Tools.Resolve("coverage/coberturaReport.tpl.html").ToString(), htmlReportFilePath);
     });    
