@@ -184,7 +184,7 @@ public static partial class Sitecore
 
         private static string GetPublishingTargetDir(){
             var path = GetParameterValue(Constants.PUBLISHING_TARGET_DIR, null);
-            var localWebRoot = GetParameterValue(Constants.SC_LOCAL_WEBSITE_ROOT_DIR, "\\\\192.168.50.4\\c$\\inetpub\\wwwroot\\sc90.local");
+            var localWebRoot = GetParameterValue(Constants.SC_LOCAL_WEBSITE_ROOT_DIR, "\\\\192.168.50.4\\c$\\inetpub\\wwwroot\\sc9.local");
 
             if (string.IsNullOrEmpty(path)) {
                 path = BuildConfiguration == "Debug"

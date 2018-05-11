@@ -1,9 +1,10 @@
 #load "./constants.cake"
-#load "./git.cake"
 #load "./parameters.cake"
 #load "./tasks.build.cake"
 #load "./tasks.cake"
-#load "./utils.cake"
+
+#load "./scripts/git/git.cake"
+#load "./scripts/utils.cake"
 
 Sitecore.Constants.SetNames();
 Sitecore.Parameters.InitParams(

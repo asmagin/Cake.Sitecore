@@ -1,3 +1,5 @@
+#load "./scripts/ship/ship.cake"
+
 Sitecore.Tasks.CopySpeRemotingFilesTask = Task("Packages :: Copy SPE remoting files")
     .Description("Copy folders with Spe to a target publishing location.")
     .Does(() =>
@@ -40,9 +42,13 @@ Sitecore.Tasks.PrepareWebConfigTask = Task("Packages :: Prepare web.config")
 // Installation will be skipped, if SC_SITE_URL is not set 
 Sitecore.Tasks.RunPackagesInstallationTask = Task("Packages :: Install")
     .Description("Run installation of Sitecore packages using PowerShell Remoting Tools.")
-    .WithCriteria(() => !string.IsNullOrEmpty(Sitecore.Parameters.ScSiteUrl))
     .Does(() =>
     {
+        if (string.IsNullOrEmpty(Sitecore.Parameters.ScSiteUrl))
+        {
+            Warning($"Variable 'ScSiteUrl' is not set. Skipping step...");
+        }
+
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.LibsPackagesDir, "LibsPackagesDir", "LIBS_PACKAGES_DIR");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.ScNodeEnv, "ScNodeEnv", "SC_NODE_ENV");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.ScSiteUrl, "ScSiteUrl", "SC_SITE_URL");
@@ -54,6 +60,5 @@ Sitecore.Tasks.RunPackagesInstallationTask = Task("Packages :: Install")
     })    
     .OnError(exception =>
     {
-        Warning("Installation of packages failed.");
-        Debug(exception.Message);
+        Warning("Installation of packages failed: " + exception.Message);
     });

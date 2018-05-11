@@ -1,9 +1,10 @@
 #load "./tasks.clean.cake"
-#load "./tasks.prepare.cake"
 #load "./tasks.packages.cake"
+#load "./tasks.prepare.cake"
 #load "./tasks.publish.cake"
 #load "./tasks.restore.cake"
 #load "./tasks.tests.unit.cake"
+#load "./tasks.unicorn.cake"
 
 public class Tasks {
     // Tasks
@@ -28,6 +29,7 @@ public class Tasks {
     public CakeTaskBuilder<ActionTask> RunServerUnitTestsTask { get; set; }
     public CakeTaskBuilder<ActionTask> SetAssemblyVersionTask { get; set; }
     public CakeTaskBuilder<ActionTask> SetPackageJsonVersionTask { get; set; }
+    public CakeTaskBuilder<ActionTask> SyncAllUnicornItems { get; set; }
 
     // Task Names
     public string BuildClientCodeTaskName => GetTaskName(this.BuildClientCodeTask);
@@ -51,6 +53,7 @@ public class Tasks {
     public string RunServerUnitTestsTaskName => GetTaskName(this.RunServerUnitTestsTask);
     public string SetAssemblyVersionTaskName => GetTaskName(this.SetAssemblyVersionTask);
     public string SetPackageJsonVersionTaskName => GetTaskName(this.SetPackageJsonVersionTask);
+    public string SyncAllUnicornItemsName => GetTaskName(this.SyncAllUnicornItems);
 
     // private helpers
     private static string GetTaskName(CakeTaskBuilder<ActionTask> taskBuilder) {
