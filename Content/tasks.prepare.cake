@@ -1,3 +1,4 @@
+#addin "Cake.Powershell"
 
 Sitecore.Tasks.ConfigureToolsTask = Task("Prepare :: Configure Tools")
     .Description("Provide configurations for tools")

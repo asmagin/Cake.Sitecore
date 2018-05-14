@@ -5,11 +5,24 @@ Sitecore.Tasks.RestoreNuGetPackagesTask = Task("Restore :: Restore NuGet Package
     .Does(() =>
     {
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SolutionFilePath, "SolutionFilePath", "SOLUTION_FILE_PATH");
-        Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.LibsNuGetDir, "LibsNuGetDir", "LIBS_NU_GET_DIR");
 
-        NuGetRestore(
-            Sitecore.Parameters.SolutionFilePath,
-            new NuGetRestoreSettings
+        // default NuGet settings
+        NuGetRestoreSettings _settings = null;
+
+        if (FileExists(Sitecore.Parameters.NuGetConfigPath))
+        {
+            Warning("NuGet configuration file found and will be used.");
+
+            _settings =new NuGetRestoreSettings 
+            {
+                ConfigFile = Sitecore.Parameters.NuGetConfigPath
+            };
+        }
+        else {
+            Warning("NuGet configuration file not found and defaults and local settings will be used.");
+            Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.LibsNuGetDir, "LibsNuGetDir", "LIBS_NUGET_DIR");
+            
+            _settings =new NuGetRestoreSettings
             {
                 Source = new List<string>
                 {
@@ -17,7 +30,10 @@ Sitecore.Tasks.RestoreNuGetPackagesTask = Task("Restore :: Restore NuGet Package
                     "https://sitecore.myget.org/F/sc-packages/api/v3/index.json",
                     Sitecore.Parameters.LibsNuGetDir
                 }
-            });
+            };
+        }
+
+        NuGetRestore(Sitecore.Parameters.SolutionFilePath, _settings);
     });
 
 Sitecore.Tasks.RestoreNpmPackagesTask = Task("Restore :: Restore NPM Packages")

@@ -26,7 +26,7 @@ public static partial class Sitecore
 
         public static string LIBS_DIR                          { get; private set; }
         public static string LIBS_PACKAGES_DIR                 { get; private set; }
-        public static string LIBS_NU_GET_DIR                   { get; private set; }
+        public static string LIBS_NUGET_DIR                    { get; private set; }
         public static string LIBS_SPE_DIR                      { get; private set; }
         public static string LIBS_SHIP_DIR                     { get; private set; }
         public static string BUILD_DIR                         { get; private set; }
@@ -49,6 +49,7 @@ public static partial class Sitecore
         public static string PUBLISHING_TARGET_DIR             { get; private set; }
         public static string SC_LOCAL_WEBSITE_ROOT_DIR         { get; private set; }
 
+        public static string NUGET_CONFIG_PATH                 { get; private set; }
         public static string SOLUTION_FILE_PATH                { get; private set; }
         public static string UNICORN_CONFIG_PATH               { get; private set; }
 
@@ -90,11 +91,12 @@ public static partial class Sitecore
             string TestsCoverageOutputDir        = null,
             string XunitTestsCoverageOutputDir   = null,
             string JestTestsCoverageOutputDir    = null,        
-            string PublishingTargetDir          = null,
-            string ScLocalWebsiteRootDir        = null,
+            string PublishingTargetDir           = null,
+            string ScLocalWebsiteRootDir         = null,
             
+            string NuGetConfigPath               = null,
             string SolutionFilePath              = null,
-            string UnicornConfigPath             = null     
+            string UnicornConfigPath             = null    
             )
         {
             BUILD_CONFIGURATION               = BuildConfiguration            ?? "BUILD_CONFIGURATION";
@@ -116,7 +118,7 @@ public static partial class Sitecore
 
             LIBS_DIR                          = LibsDir                       ?? "LIBS_DIR"; 
             LIBS_PACKAGES_DIR                 = LibsPackagesDir               ?? "LIBS_PACKAGES_DIR"; 
-            LIBS_NU_GET_DIR                   = LibsNuGetDir                  ?? "LIBS_NU_GET_DIR"; 
+            LIBS_NUGET_DIR                    = LibsNuGetDir                  ?? "LIBS_NUGET_DIR";
             LIBS_SPE_DIR                      = LibsSpeDir                    ?? "LIBS_SPE_DIR"; 
             LIBS_SHIP_DIR                     = LibsShipDir                   ?? "LIBS_SHIP_DIR"; 
             BUILD_DIR                         = BuildDir                      ?? "BUILD_DIR"; 
@@ -139,6 +141,7 @@ public static partial class Sitecore
             PUBLISHING_TARGET_DIR             = PublishingTargetDir           ?? "PUBLISHING_TARGET_DIR"; 
             SC_LOCAL_WEBSITE_ROOT_DIR         = ScLocalWebsiteRootDir         ?? "SC_LOCAL_WEBSITE_ROOT_DIR"; 
             
+            NUGET_CONFIG_PATH                 = NuGetConfigPath               ?? "NUGET_CONFIG_PATH";
             SOLUTION_FILE_PATH                = SolutionFilePath              ?? "SOLUTION_FILE_PATH"; 
             UNICORN_CONFIG_PATH               = UnicornConfigPath             ?? "UNICORN_CONFIG_PATH";
         }
