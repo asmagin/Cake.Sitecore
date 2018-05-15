@@ -1,5 +1,7 @@
 # Cake.Sitecore
 
+[![NuGet version](https://img.shields.io/nuget/v/Cake.Sitecore.svg)](https://www.nuget.org/packages/Cake.Sitecore/)
+
 ## Overview
 The library provides a set of pre-build [CAKE build] tasks. Those tasks could be used to simplify a configuration of CI/CD for Helix-based Sitecore projects.
 
