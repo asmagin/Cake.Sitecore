@@ -228,7 +228,7 @@ public static partial class Sitecore
 
             if (string.IsNullOrEmpty(path)) {
                 path =  BuildConfiguration == "Debug"
-                    ? $"{BuildDir}/App_Config/Include/Unicorn/Unicorn.UI.config" // TODO: check if this is correct location
+                    ? $"{PublishingTargetDir}/App_Config/Include/Unicorn/Unicorn.UI.config" // TODO: check if this is correct location
                     : $"{SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn/Unicorn.UI.config";
             }
 
