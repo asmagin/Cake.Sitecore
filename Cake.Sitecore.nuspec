@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package 
+  xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Cake.Sitecore</id>
+    <version>0.1.0</version>
+    <title></title>
+    <authors>Alex Smagin</authors>
+    <owners>Alex Smagin</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/asmagin/Cake.Sitecore/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/asmagin/Cake.Sitecore</projectUrl>
+    <description>My package description.</description>
+    <summary>A set of Cake scripts and tools to compile and deploy Sitecore Helix projects.</summary>
+    <tags>sitecore, cake, helix, powershell</tags>
+  </metadata>
+  <files>
+    <file src="content\" target="content\" />
+    <file src="tools\" target="tools\" />
+  </files>
+</package>

@@ -1,0 +1,17 @@
+bin/
+obj/
+packages/
+Components/
+nupkg/
+*.userprefs
+*.suo
+.nugetapikey
+xtc-api-key
+xtc-email
+BuildArtifacts/
+.vs/
+.vscode/
+
+/do-not-commit.md
+/nuget.exe
+*.nupkg
