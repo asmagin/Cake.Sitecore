@@ -39,19 +39,23 @@ Action<string, string, List<string>> transform = (sourceFile, targetFile, transf
         var _transformationsMessage = _appliedTransforms.Any()
             ? string.Join(">", _appliedTransforms)
             : "transforms not found!";
-        
+
         Information($" + updated '{targetFile}': {_transformationsMessage}");
     }
 };
 
 Action<string, string> copyClientAssets = (srcRootDir, layer) =>
 {
+    Verbose($"Executing [copyClientAssets] with params ({srcRootDir}, {layer})");
+
     var _template = $"{srcRootDir}/{layer}/*/client/build";
     var _directoryList = GetDirectories(_template);
 
     // iterate over every client build folder
     foreach(var _directory in _directoryList)
     {
+        Verbose($"Copy client assets from: {_directory.ToString()}");
+
         var _pathSegments =  _directory.ToString()
             .Replace("/client/build", "")
             .Split('/');
@@ -65,10 +69,14 @@ Action<string, string> copyClientAssets = (srcRootDir, layer) =>
 
 Action<string, string> copySerializationFiles = (srcRootDir, layer) =>
 {
+    Verbose($"Executing [copySerializationFiles] with params ({srcRootDir}, {layer})");
+
     var _directoryList = GetDirectories($"{srcRootDir}/{layer}/*/serialization");
 
     foreach(var _directory in _directoryList)
     {
+        Verbose($"Copy Unicorn files from: {_directory.ToString()}");
+
         var _pathSegments =  _directory.ToString().Split('/');
         var _project = _pathSegments[_pathSegments.Length - 2];
 
@@ -91,6 +99,8 @@ Action<string, string> copySerializationFiles = (srcRootDir, layer) =>
 
 Action<string, string, string, MSBuildToolVersion> publishProject = (projectFilePath, buildConfiguration, dest, msBuildToolVersion) =>
 {
+    Verbose($"Executing [publishProject] with params ({projectFilePath}, {buildConfiguration}, {dest}, {msBuildToolVersion.ToString()})");
+
     var _settings = new MSBuildSettings()
         .SetConfiguration(buildConfiguration)
         .SetVerbosity(Verbosity.Minimal)
@@ -108,6 +118,8 @@ Action<string, string, string, MSBuildToolVersion> publishProject = (projectFile
 
 Action<string, string, string, string, MSBuildToolVersion> publishLayer = (srcRootDir, layer, buildConfiguration, dest, msBuildToolVersion) =>
 {
+    Verbose($"Executing [publishLayer] with params ({srcRootDir}, {layer}, {buildConfiguration}, {dest}, {msBuildToolVersion.ToString()})");
+
     // perform cleanup layer configs directory operation for "Debug" configuration
     if (buildConfiguration == "Debug")
     {
@@ -138,11 +150,11 @@ Sitecore.Tasks.PublishFoundationTask = Task("Publish-Foundation")
 
         if(Sitecore.Parameters.BuildConfiguration != "Debug") {
             copySerializationFiles(Sitecore.Parameters.SrcDir, _layer);
-        }        
+        }
         copyClientAssets(Sitecore.Parameters.SrcDir, _layer);
         publishLayer(
-            Sitecore.Parameters.SrcDir, 
-            _layer, 
+            Sitecore.Parameters.SrcDir,
+            _layer,
             Sitecore.Parameters.BuildConfiguration,
             Sitecore.Parameters.PublishingTargetDir,
             Sitecore.Parameters.MsBuildToolVersion);
@@ -160,11 +172,11 @@ Sitecore.Tasks.PublishFeatureTask = Task("Publish-Features")
 
         if(Sitecore.Parameters.BuildConfiguration != "Debug") {
             copySerializationFiles(Sitecore.Parameters.SrcDir, _layer);
-        }        
+        }
         copyClientAssets(Sitecore.Parameters.SrcDir, _layer);
         publishLayer(
-            Sitecore.Parameters.SrcDir, 
-            _layer, 
+            Sitecore.Parameters.SrcDir,
+            _layer,
             Sitecore.Parameters.BuildConfiguration,
             Sitecore.Parameters.PublishingTargetDir,
             Sitecore.Parameters.MsBuildToolVersion);
@@ -182,11 +194,11 @@ Sitecore.Tasks.PublishProjectTask = Task("Publish-Projects")
 
         if(Sitecore.Parameters.BuildConfiguration != "Debug") {
             copySerializationFiles(Sitecore.Parameters.SrcDir, _layer);
-        }        
+        }
         copyClientAssets(Sitecore.Parameters.SrcDir, _layer);
         publishLayer(
-            Sitecore.Parameters.SrcDir, 
-            _layer, 
+            Sitecore.Parameters.SrcDir,
+            _layer,
             Sitecore.Parameters.BuildConfiguration,
             Sitecore.Parameters.PublishingTargetDir,
             Sitecore.Parameters.MsBuildToolVersion);

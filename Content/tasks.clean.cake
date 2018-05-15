@@ -24,10 +24,10 @@ Sitecore.Tasks.CleanArtifactsTask = Task("Clean-up :: Clean Artifacts")
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.OutputDir, "OutputDir", "OUTPUT_DIR");
         
         EnsureDirectoryExists(Sitecore.Parameters.ArtifactsDir);
-        Debug($"Cleaning '{Sitecore.Parameters.ArtifactsDir}' directory");
+        Verbose($"Cleaning '{Sitecore.Parameters.ArtifactsDir}' directory");
         CleanDirectory(Sitecore.Parameters.ArtifactsDir);
 
         EnsureDirectoryExists(Sitecore.Parameters.OutputDir);
-        Debug($"Cleaning '{Sitecore.Parameters.OutputDir}' directory");
+        Verbose($"Cleaning '{Sitecore.Parameters.OutputDir}' directory");
         CleanDirectory(Sitecore.Parameters.OutputDir);
     });

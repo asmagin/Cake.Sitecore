@@ -5,7 +5,7 @@ Sitecore.Tasks.CopySpeRemotingFilesTask = Task("Packages :: Copy SPE remoting fi
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.PublishingTargetDir, "PublishingTargetDir", "PUBLISHING_TARGET_DIR");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.LibsSpeDir, "LibsSpeDir", "LIBS_SPE_DIR");
 
-        Debug($"Copying files from {Sitecore.Parameters.LibsSpeDir} to {Sitecore.Parameters.PublishingTargetDir}.");
+        Verbose($"Copying files from {Sitecore.Parameters.LibsSpeDir} to {Sitecore.Parameters.PublishingTargetDir}.");
         CopyDirectory(Sitecore.Parameters.LibsSpeDir, Sitecore.Parameters.PublishingTargetDir);
     });
 
@@ -16,7 +16,7 @@ Sitecore.Tasks.CopyShipFilesTask = Task("Packages :: Copy Ship files")
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.PublishingTargetDir, "PublishingTargetDir", "PUBLISHING_TARGET_DIR");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.LibsShipDir, "LibsShipDir", "LIBS_SHIP_DIR");
 
-        Debug($"Copying files from {Sitecore.Parameters.LibsShipDir} to {Sitecore.Parameters.PublishingTargetDir}.");
+        Verbose($"Copying files from {Sitecore.Parameters.LibsShipDir} to {Sitecore.Parameters.PublishingTargetDir}.");
         CopyDirectory(Sitecore.Parameters.LibsShipDir, Sitecore.Parameters.PublishingTargetDir);
     });
 
@@ -33,7 +33,7 @@ Sitecore.Tasks.PrepareWebConfigTask = Task("Packages :: Prepare web.config")
         var _targetFilePath = $"{Sitecore.Parameters.PublishingTargetDir}/web.config";
         var _transforms = Sitecore.Parameters.ScNodeEnv.Split('|').ToList();
 
-        Debug($"Tranforming {_sourceFilePath} to {_targetFilePath}.");
+        Verbose($"Tranforming {_sourceFilePath} to {_targetFilePath}.");
         transform(_sourceFilePath, _targetFilePath, _transforms);
     });
 
@@ -54,7 +54,7 @@ Sitecore.Tasks.RunPackagesInstallationTask = Task("Packages :: Install")
         var _transforms = Sitecore.Parameters.ScNodeRole.Split('|').ToList();
         var _files = new List<FilePath>();
         foreach(var _role in _transforms){
-            Debug($"Installing packages from '{Sitecore.Parameters.LibsPackagesDir}/{_role}/*.zip' into '{Sitecore.Parameters.ScSiteUrl}'");
+            Verbose($"Installing packages from '{Sitecore.Parameters.LibsPackagesDir}/{_role}/*.zip' into '{Sitecore.Parameters.ScSiteUrl}'");
 
             _files.AddRange(GetFiles($"{Sitecore.Parameters.LibsPackagesDir}/{_role}/*.zip"));
         }

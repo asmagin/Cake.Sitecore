@@ -148,7 +148,7 @@ public static partial class Sitecore
 
             LibsDir =                       GetAbsoluteDirPath(GetParameterValue(Constants.LIBS_DIR,                          libsDir ??                       $"{RootDir}/libs"));
             LibsPackagesDir =               GetAbsoluteDirPath(GetParameterValue(Constants.LIBS_PACKAGES_DIR,                 libsPackagesDir ??               $"{LibsDir}/packages"));
-            LibsNuGetDir =                  GetAbsoluteDirPath(GetParameterValue(Constants.LIBS_NUGET_DIR,                   libsNuGetDir ??                  $"{LibsDir}/nuget"));
+            LibsNuGetDir =                  GetAbsoluteDirPath(GetParameterValue(Constants.LIBS_NUGET_DIR,                    libsNuGetDir ??                  $"{LibsDir}/nuget"));
             LibsSpeDir =                    GetAbsoluteDirPath(GetParameterValue(Constants.LIBS_SPE_DIR,                      libsSpeDir ??                    $"{LibsDir}/spe"));
             LibsShipDir =                   GetAbsoluteDirPath(GetParameterValue(Constants.LIBS_SHIP_DIR,                     libsShipDir ??                   $"{LibsDir}/ship"));
             BuildDir =                      GetAbsoluteDirPath(GetParameterValue(Constants.BUILD_DIR,                         buildDir ??                      $"{RootDir}/build"));
