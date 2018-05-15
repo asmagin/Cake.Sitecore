@@ -1,7 +1,7 @@
 #addin "Cake.Powershell"
 
 Sitecore.Tasks.ConfigureToolsTask = Task("Prepare :: Configure Tools")
-    .Description("Provide configurations for tools")
+    .Description("Executes basic configuration to optimize build performance (e.g. hide progress bars)")
     .Does(() =>
     {
         StartPowershellScript("$ProgressPreference='SilentlyContinue';");

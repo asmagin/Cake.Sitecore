@@ -1,7 +1,7 @@
 #addin "Cake.Npm"
 
 Sitecore.Tasks.RestoreNuGetPackagesTask = Task("Restore :: Restore NuGet Packages")
-    .Description("Restore NuGet packages for solution")
+    .Description("Restore NuGet packages for a solution")
     .Does(() =>
     {
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SolutionFilePath, "SolutionFilePath", "SOLUTION_FILE_PATH");
@@ -37,7 +37,7 @@ Sitecore.Tasks.RestoreNuGetPackagesTask = Task("Restore :: Restore NuGet Package
     });
 
 Sitecore.Tasks.RestoreNpmPackagesTask = Task("Restore :: Restore NPM Packages")
-    .Description("Restore Npm packages for solution")
+    .Description("Restore Npm packages for a solution")
     .Does(() => {
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SrcDir, "SrcDir", "SRC_DIR");
 

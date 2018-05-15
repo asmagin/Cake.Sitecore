@@ -13,13 +13,12 @@ public static partial class Sitecore
 }
 
 Sitecore.Tasks.RunServerUnitTestsTask = Task("Unit Tests :: Run Server Tests")
-    .Description("Execute all available tests available for server-side code (xUnit)")
+    .Description("Executes all available tests for server-side code using xUnit. Result will be placed into (`TESTS_OUTPUT_DIR`), also code coverage reports will be created in `cobertura` format in (`XUNIT_TESTS_COVERAGE_OUTPUT_DIR`) directory.")
     .Does(() =>
     {
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SrcDir, "SrcDir", "SRC_DIR");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SolutionName, "SolutionName", "SOLUTION_NAME");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.XUnitTestsCoverageOutputDir, "XUnitTestsCoverageOutputDir", "XUNIT_TESTS_COVERAGE_OUTPUT_DIR");
-        Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.TestsOutputDir, "TestsOutputDir", "TESTS_OUTPUT_DIR");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.TestsOutputDir, "TestsOutputDir", "TESTS_OUTPUT_DIR");
 
         var _coverSettings = new OpenCoverSettings()
@@ -73,7 +72,7 @@ Sitecore.Tasks.RunServerUnitTestsTask = Task("Unit Tests :: Run Server Tests")
     });
 
 Sitecore.Tasks.RunClientUnitTestsTask = Task("Unit Tests :: Run Client Tests")
-    .Description("Run Jest tests")
+    .Description("Executes all available tests for client-side code via `npm run test-cover`. Result **should** be placed into (`TESTS_OUTPUT_DIR`) including code coverage reports in `cobertura`. ")
     .Does(() => {
         var settings = new NpmRunScriptSettings();
 
@@ -89,7 +88,7 @@ Sitecore.Tasks.RunClientUnitTestsTask = Task("Unit Tests :: Run Client Tests")
 
 
 Sitecore.Tasks.MergeCoverageReportsTask = Task("Unit Tests :: Merge Coverage Reports")
-    .Description("Merge test coverage reports")
+    .Description("Merges available code coverage reports produces by previous steps. Generates an `index` file in a coverage directory (`TESTS_COVERAGE_OUTPUT_DIR`).")
     .Does(() => {
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SrcDir, "SrcDir", "SRC_DIR");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.TestsCoverageOutputDir, "TestsCoverageOutputDir", "TESTS_COVERAGE_OUTPUT_DIR");

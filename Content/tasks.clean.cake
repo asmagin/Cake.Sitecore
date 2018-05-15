@@ -15,9 +15,8 @@ Sitecore.Tasks.CleanWildcardFoldersTask = Task("Clean-up :: Clean Wildcard Folde
         }
     });
 
-
 Sitecore.Tasks.CleanArtifactsTask = Task("Clean-up :: Clean Artifacts")
-    .Description("Clean artifacts folder")
+    .Description("Clean artifacts (ARTIFACTS_DIR) and output (OUTPUT_DIR) directories")
     .Does(() =>
     {
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.ArtifactsDir, "ArtifactsDir", "ARTIFACTS_DIR");

@@ -138,8 +138,8 @@ Action<string, string, string, string, MSBuildToolVersion> publishLayer = (srcRo
     }
 };
 
-Sitecore.Tasks.PublishFoundationTask = Task("Publish-Foundation")
-    .Description("Publish projects in /Foundation folder")
+Sitecore.Tasks.PublishFoundationTask = Task("Publish :: Foundation")
+    .Description("Publishes all Foundation-layer projects to the publishing target directory (`PUBLISHING_TARGET_DIR`) using MsBuild.")
     .Does(() =>
     {
         var _layer = "Foundation";
@@ -160,8 +160,8 @@ Sitecore.Tasks.PublishFoundationTask = Task("Publish-Foundation")
             Sitecore.Parameters.MsBuildToolVersion);
     });
 
-Sitecore.Tasks.PublishFeatureTask = Task("Publish-Features")
-    .Description("Publish projects in /Feature folder")
+Sitecore.Tasks.PublishFeatureTask = Task("Publish :: Features")
+    .Description("Publishes all Feature-layer projects to the publishing target directory (`PUBLISHING_TARGET_DIR`) using MsBuild.")
     .Does(() =>
     {
         var _layer = "Feature";
@@ -182,8 +182,8 @@ Sitecore.Tasks.PublishFeatureTask = Task("Publish-Features")
             Sitecore.Parameters.MsBuildToolVersion);
     });
 
-Sitecore.Tasks.PublishProjectTask = Task("Publish-Projects")
-    .Description("Publish projects in /Project folder")
+Sitecore.Tasks.PublishProjectTask = Task("Publish :: Projects")
+    .Description("Publishes all Project-layer projects to the publishing target directory (`PUBLISHING_TARGET_DIR`) using MsBuild.")
     .Does(() =>
     {
         var _layer = "Project";

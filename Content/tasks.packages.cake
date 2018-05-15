@@ -1,5 +1,5 @@
 Sitecore.Tasks.CopySpeRemotingFilesTask = Task("Packages :: Copy SPE remoting files")
-    .Description("Copy folders with Spe to a target publishing location.")
+    .Description("Copy Sitecore PowerShell Remoting (SPE) plugin assets from (`LIBS_SPE_DIR`) to the publishing target directory (`PUBLISHING_TARGET_DIR`).")
     .Does(() =>
     {
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.PublishingTargetDir, "PublishingTargetDir", "PUBLISHING_TARGET_DIR");
@@ -10,7 +10,7 @@ Sitecore.Tasks.CopySpeRemotingFilesTask = Task("Packages :: Copy SPE remoting fi
     });
 
 Sitecore.Tasks.CopyShipFilesTask = Task("Packages :: Copy Ship files")
-    .Description("Copy folders with Spe to a target publishing location.")
+    .Description("Copy Sitecore Ship plugin assets from (`LIBS_SHIP_DIR`) to the publishing target directory (`PUBLISHING_TARGET_DIR`).")
     .Does(() =>
     {
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.PublishingTargetDir, "PublishingTargetDir", "PUBLISHING_TARGET_DIR");
@@ -22,7 +22,7 @@ Sitecore.Tasks.CopyShipFilesTask = Task("Packages :: Copy Ship files")
 
 
 Sitecore.Tasks.PrepareWebConfigTask = Task("Packages :: Prepare web.config")
-    .Description("Transfor and copy web.config to target folder, to make packages working")
+    .Description("Transform `web.config` file located in config directory (`SRC_CONFIGS_DIR`) and copy it the publishing target directory (`PUBLISHING_TARGET_DIR`). This is required to make plugins work.")
     .Does(() =>
     {
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.PublishingTargetDir, "PublishingTargetDir", "PUBLISHING_TARGET_DIR");
@@ -39,7 +39,7 @@ Sitecore.Tasks.PrepareWebConfigTask = Task("Packages :: Prepare web.config")
 
 // Installation will be skipped, if SC_SITE_URL is not set 
 Sitecore.Tasks.RunPackagesInstallationTask = Task("Packages :: Install")
-    .Description("Run installation of Sitecore packages using PowerShell Remoting Tools.")
+    .Description("Installs packages from a `libs/packages` directory (`LIBS_PACKAGES_DIR`) according to a node role (`SC_NODE_ROLE`). packages will be delivered via Sitecore Ship (`SC_SITE_URL`).")
     .Does(() =>
     {
         if (string.IsNullOrEmpty(Sitecore.Parameters.ScSiteUrl))
