@@ -11,3 +11,7 @@ xtc-email
 BuildArtifacts/
 .vs/
 .vscode/
+
+/do-not-commit.md
+/nuget.exe
+*.nupkg

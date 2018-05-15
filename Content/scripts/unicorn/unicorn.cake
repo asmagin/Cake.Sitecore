@@ -31,7 +31,7 @@ Action<string, string, string> runUnicornSync = (siteUrl, secret, scriptDir) =>
     var url = $"{siteUrl.Trim('/')}/unicorn.aspx";
 
     StartPowershellFile(
-        Context.Tools.Resolve("Unicorn/Sync.ps1"),
+        $"{scriptDir}/Sync.ps1",
         new PowershellSettings()
             .WithArguments(args => {
                 args.Append("url", url).Append("secret", secret);

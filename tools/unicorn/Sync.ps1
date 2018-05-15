@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 
 # This is an example PowerShell script that will remotely execute a Unicorn sync using the new CHAP authentication system.
 
-Import-Module $scriptDir\unicorn\Unicorn.psm1
+Import-Module "$scriptDir/Unicorn.psm1"
 
 Sync-Unicorn -ControlPanelUrl $url -SharedSecret $secret
 
