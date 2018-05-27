@@ -3,7 +3,7 @@
   xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Cake.Sitecore</id>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <title></title>
     <authors>Alex Smagin</authors>
     <owners>Alex Smagin</owners>
@@ -12,7 +12,8 @@
     <projectUrl>https://github.com/asmagin/Cake.Sitecore</projectUrl>
     <description>My package description.</description>
     <summary>A set of Cake scripts and tools to compile and deploy Sitecore Helix projects.</summary>
-    <tags>sitecore, cake, helix, powershell</tags>
+    <tags>sitecore, cake, build, helix, powershell</tags>
+    <iconUrl>https://cdn.rawgit.com/cake-contrib/graphics/a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png</iconUrl>
   </metadata>
   <files>
     <file src="content\" target="content\" />
