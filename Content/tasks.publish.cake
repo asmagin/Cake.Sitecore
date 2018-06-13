@@ -44,9 +44,9 @@ Action<string, string, List<string>> transform = (sourceFile, targetFile, transf
     }
 };
 
-Action<string, string> copyClientAssets = (srcRootDir, layer) =>
+Action<string, string, string> copyClientAssets = (srcRootDir, layer, solutionName) =>
 {
-    Verbose($"Executing [copyClientAssets] with params ({srcRootDir}, {layer})");
+    Verbose($"Executing [copyClientAssets] with params ({srcRootDir}, {layer}, {solutionName})");
 
     var _template = $"{srcRootDir}/{layer}/*/client/build";
     var _directoryList = GetDirectories(_template);
@@ -62,7 +62,7 @@ Action<string, string> copyClientAssets = (srcRootDir, layer) =>
         var _project = _pathSegments[_pathSegments.Length -1];
 
         // copy client build artifacts into a project wildcard folder
-        var _targetDir = $"{_directory}/../../code/dist/TMNA/{layer}/{_project}";
+        var _targetDir = $"{_directory}/../../code/dist/{solutionName}/{layer}/{_project}";
         CopyDirectory(_directory, _targetDir);
     }
 };
@@ -151,7 +151,7 @@ Sitecore.Tasks.PublishFoundationTask = Task("Publish :: Foundation")
         if(Sitecore.Parameters.BuildConfiguration != "Debug") {
             copySerializationFiles(Sitecore.Parameters.SrcDir, _layer);
         }
-        copyClientAssets(Sitecore.Parameters.SrcDir, _layer);
+        copyClientAssets(Sitecore.Parameters.SrcDir, _layer, Sitecore.Parameters.SolutionName);
         publishLayer(
             Sitecore.Parameters.SrcDir,
             _layer,
@@ -173,7 +173,7 @@ Sitecore.Tasks.PublishFeatureTask = Task("Publish :: Features")
         if(Sitecore.Parameters.BuildConfiguration != "Debug") {
             copySerializationFiles(Sitecore.Parameters.SrcDir, _layer);
         }
-        copyClientAssets(Sitecore.Parameters.SrcDir, _layer);
+        copyClientAssets(Sitecore.Parameters.SrcDir, _layer, Sitecore.Parameters.SolutionName);
         publishLayer(
             Sitecore.Parameters.SrcDir,
             _layer,
@@ -195,7 +195,7 @@ Sitecore.Tasks.PublishProjectTask = Task("Publish :: Projects")
         if(Sitecore.Parameters.BuildConfiguration != "Debug") {
             copySerializationFiles(Sitecore.Parameters.SrcDir, _layer);
         }
-        copyClientAssets(Sitecore.Parameters.SrcDir, _layer);
+        copyClientAssets(Sitecore.Parameters.SrcDir, _layer, Sitecore.Parameters.SolutionName);
         publishLayer(
             Sitecore.Parameters.SrcDir,
             _layer,
