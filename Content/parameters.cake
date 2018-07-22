@@ -61,6 +61,7 @@ public static partial class Sitecore
         public static string NuGetConfigPath { get; private set; }
         public static string SolutionFilePath { get; private set; }
         public static string UnicornConfigPath { get; private set; }
+        public static string UnicornConfigurations { get; private set; }
 
         public static void InitParams(
             ICakeContext context,
@@ -114,7 +115,8 @@ public static partial class Sitecore
 
             string nuGetConfigPath =               null,
             string solutionFilePath =              null,
-            string unicornConfigPath =             null      
+            string unicornConfigPath =             null,
+            string unicornConfigurations =         null
             )
         {
             _context =                      context;
@@ -174,6 +176,7 @@ public static partial class Sitecore
             NuGetConfigPath =               GetAbsoluteFilePath(GetParameterValue(Constants.NUGET_CONFIG_PATH,                nuGetConfigPath ??               $"{SrcDir}/nuget.config"));
             SolutionFilePath =              GetAbsoluteFilePath(GetParameterValue(Constants.SOLUTION_FILE_PATH,               solutionFilePath ??              $"{SrcDir}/{SolutionName}.sln"));
             UnicornConfigPath =             GetUnicornConfigPath(                                                             unicornConfigPath);
+            UnicornConfigurations =         GetParameterValue(Constants.UNICORN_CONFIGURATIONS,                               unicornConfigurations ??         "");
 
             // Those parameters absolutely needed 
             Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SolutionName, "SolutionName", "SOLUTION_NAME");

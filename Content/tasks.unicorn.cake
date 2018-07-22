@@ -7,7 +7,7 @@ Sitecore.Tasks.SyncAllUnicornItems = Task("Sync :: Unicorn")
 
         var _unicornSecret = getUnicornSecret(Sitecore.Parameters.UnicornConfigPath);
         var _scriptsDir = Context.Tools.Resolve("unicorn/*.psm1").GetDirectory().ToString(); // TODO: resolve dir from tools
-
-        runUnicornSync(Sitecore.Parameters.ScSiteUrl, _unicornSecret, _scriptsDir);
+        
+        runUnicornSync(Sitecore.Parameters.ScSiteUrl, _unicornSecret, _scriptsDir, Sitecore.Parameters.UnicornConfigurations);
     });
  
