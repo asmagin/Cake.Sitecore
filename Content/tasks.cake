@@ -1,27 +1,27 @@
 public class Tasks {
     // Tasks
-    public CakeTaskBuilder<ActionTask> BuildClientCodeTask { get; set; }
-    public CakeTaskBuilder<ActionTask> BuildServerCodeTask { get; set; }
-    public CakeTaskBuilder<ActionTask> CleanArtifactsTask { get; set; }
-    public CakeTaskBuilder<ActionTask> CleanWildcardFoldersTask { get; set; }
-    public CakeTaskBuilder<ActionTask> ConfigureToolsTask { get; set; }
-    public CakeTaskBuilder<ActionTask> CopyShipFilesTask { get; set; }
-    public CakeTaskBuilder<ActionTask> CopySpeRemotingFilesTask { get; set; }
-    public CakeTaskBuilder<ActionTask> GenerateCodeTask { get; set; }
-    public CakeTaskBuilder<ActionTask> GenerateVersionFileTask { get; set; }
-    public CakeTaskBuilder<ActionTask> MergeCoverageReportsTask { get; set; }
-    public CakeTaskBuilder<ActionTask> PrepareWebConfigTask { get; set; }
-    public CakeTaskBuilder<ActionTask> PublishFeatureTask { get; set; }
-    public CakeTaskBuilder<ActionTask> PublishFoundationTask { get; set; }
-    public CakeTaskBuilder<ActionTask> PublishProjectTask { get; set; }
-    public CakeTaskBuilder<ActionTask> RestoreNpmPackagesTask { get; set; }
-    public CakeTaskBuilder<ActionTask> RestoreNuGetPackagesTask { get; set; }
-    public CakeTaskBuilder<ActionTask> RunClientUnitTestsTask { get; set; }
-    public CakeTaskBuilder<ActionTask> RunPackagesInstallationTask { get; set; }
-    public CakeTaskBuilder<ActionTask> RunServerUnitTestsTask { get; set; }
-    public CakeTaskBuilder<ActionTask> SetAssemblyVersionTask { get; set; }
-    public CakeTaskBuilder<ActionTask> SetPackageJsonVersionTask { get; set; }
-    public CakeTaskBuilder<ActionTask> SyncAllUnicornItems { get; set; }
+    public CakeTaskBuilder BuildClientCodeTask { get; set; }
+    public CakeTaskBuilder BuildServerCodeTask { get; set; }
+    public CakeTaskBuilder CleanArtifactsTask { get; set; }
+    public CakeTaskBuilder CleanWildcardFoldersTask { get; set; }
+    public CakeTaskBuilder ConfigureToolsTask { get; set; }
+    public CakeTaskBuilder CopyShipFilesTask { get; set; }
+    public CakeTaskBuilder CopySpeRemotingFilesTask { get; set; }
+    public CakeTaskBuilder GenerateCodeTask { get; set; }
+    public CakeTaskBuilder GenerateVersionFileTask { get; set; }
+    public CakeTaskBuilder MergeCoverageReportsTask { get; set; }
+    public CakeTaskBuilder PrepareWebConfigTask { get; set; }
+    public CakeTaskBuilder PublishFeatureTask { get; set; }
+    public CakeTaskBuilder PublishFoundationTask { get; set; }
+    public CakeTaskBuilder PublishProjectTask { get; set; }
+    public CakeTaskBuilder RestoreNpmPackagesTask { get; set; }
+    public CakeTaskBuilder RestoreNuGetPackagesTask { get; set; }
+    public CakeTaskBuilder RunClientUnitTestsTask { get; set; }
+    public CakeTaskBuilder RunPackagesInstallationTask { get; set; }
+    public CakeTaskBuilder RunServerUnitTestsTask { get; set; }
+    public CakeTaskBuilder SetAssemblyVersionTask { get; set; }
+    public CakeTaskBuilder SetPackageJsonVersionTask { get; set; }
+    public CakeTaskBuilder SyncAllUnicornItems { get; set; }
 
     // Task Names
     public string BuildClientCodeTaskName => GetTaskName(this.BuildClientCodeTask);
@@ -48,7 +48,7 @@ public class Tasks {
     public string SyncAllUnicornItemsName => GetTaskName(this.SyncAllUnicornItems);
 
     // private helpers
-    private static string GetTaskName(CakeTaskBuilder<ActionTask> taskBuilder) {
+    private static string GetTaskName(CakeTaskBuilder taskBuilder) {
         if (taskBuilder != null)
         {
             return taskBuilder.Task.Name;
