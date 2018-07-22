@@ -52,6 +52,7 @@ public static partial class Sitecore
         public static string NUGET_CONFIG_PATH                 { get; private set; }
         public static string SOLUTION_FILE_PATH                { get; private set; }
         public static string UNICORN_CONFIG_PATH               { get; private set; }
+        public static string UNICORN_CONFIGURATIONS            { get; private set; }
 
         public static void SetNames(
             string BuildConfiguration            = null,
@@ -96,7 +97,8 @@ public static partial class Sitecore
             
             string NuGetConfigPath               = null,
             string SolutionFilePath              = null,
-            string UnicornConfigPath             = null    
+            string UnicornConfigPath             = null,
+            string UnicornConfigurations         = null    
             )
         {
             BUILD_CONFIGURATION               = BuildConfiguration            ?? "BUILD_CONFIGURATION";
@@ -144,6 +146,7 @@ public static partial class Sitecore
             NUGET_CONFIG_PATH                 = NuGetConfigPath               ?? "NUGET_CONFIG_PATH";
             SOLUTION_FILE_PATH                = SolutionFilePath              ?? "SOLUTION_FILE_PATH"; 
             UNICORN_CONFIG_PATH               = UnicornConfigPath             ?? "UNICORN_CONFIG_PATH";
+            UNICORN_CONFIGURATIONS            = UnicornConfigurations         ?? "UNICORN_CONFIGURATIONS";
         }
     }
 }

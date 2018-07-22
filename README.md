@@ -150,7 +150,7 @@ Publishes all Project-layer projects to the publishing target directory (`PUBLIS
 
 ### Sync
 #### Sync :: Unicorn (`Sitecore.Tasks.SyncAllUnicornItemsName`)
-Executes Unicorn content synchronization using (`SC_SITE_URL`). Secret required to authenticate services should be located in a config file (`UNICORN_CONFIG_PATH`)
+Executes Unicorn content synchronization using (`SC_SITE_URL`). Secret required to authenticate services should be located in a config file (`UNICORN_CONFIG_PATH`). List of configurations can be passed via parameter (`UNICORN_CONFIGURATIONS`)
 
 ## Samples
 Sample usage of a CAKE-build with Habitat could be found in [here](https://github.com/asmagin/Habitat/tree/cake)  

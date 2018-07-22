@@ -26,7 +26,7 @@ Func<string, string> getSiteUrlFromPublishSettings = (srcRoot) => {
     return null;
 };
 
-Action<string, string, string> runUnicornSync = (siteUrl, secret, scriptDir) =>
+Action<string, string, string, string> runUnicornSync = (siteUrl, secret, scriptDir, configurations) =>
 {
     var url = $"{siteUrl.Trim('/')}/unicorn.aspx";
 
@@ -39,6 +39,10 @@ Action<string, string, string> runUnicornSync = (siteUrl, secret, scriptDir) =>
                 if (!string.IsNullOrEmpty(scriptDir))
                 {
                     args.Append("scriptDir", scriptDir);
+                }
+                if (!string.IsNullOrEmpty(configurations))
+                {
+                    args.Append("Configurations", configurations);
                 }
             })
     );
