@@ -24,6 +24,7 @@ public static partial class Sitecore
         public static string Version { get; private set; }
         public static string AssemblyVersion { get; private set; }
 
+        public static string Branch { get; private set; }
         public static string BranchName { get; private set; }
         public static string Commit { get; private set; }
 
@@ -78,6 +79,7 @@ public static partial class Sitecore
             string scNodeRole =                    null,
             string scSiteUrl =                     null,
 
+            string branch =                        null,
             string branchName =                    null,
             string commit =                        null,
 
@@ -136,6 +138,7 @@ public static partial class Sitecore
             ScSiteUrl =                     GetParameterValue(Constants.SC_SITE_URL,                                          scSiteUrl ??                     "");
 
             // Source Control
+            Branch =                        GetParameterValue(Constants.BRANCH,                                               branch ??                        "develop");
             BranchName =                    GetParameterValue(Constants.BRANCH_NAME,                                          branchName ??                    "develop");
             Commit =                        GetParameterValue(Constants.COMMIT,                                               commit ??                        "");
 
