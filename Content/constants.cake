@@ -45,6 +45,7 @@ public static partial class Sitecore
         public static string TESTS_OUTPUT_DIR                  { get; private set; }
         public static string TESTS_COVERAGE_OUTPUT_DIR         { get; private set; }
         public static string XUNIT_TESTS_COVERAGE_OUTPUT_DIR   { get; private set; }
+        public static string XUNIT_TESTS_COVERAGE_REGISTER     { get; private set; }
         public static string JEST_TESTS_COVERAGE_OUTPUT_DIR    { get; private set; }
         public static string PUBLISHING_TARGET_DIR             { get; private set; }
         public static string SC_LOCAL_WEBSITE_ROOT_DIR         { get; private set; }
@@ -91,10 +92,11 @@ public static partial class Sitecore
             string TestsOutputDir                = null,
             string TestsCoverageOutputDir        = null,
             string XunitTestsCoverageOutputDir   = null,
-            string JestTestsCoverageOutputDir    = null,        
+            string XunitTestsCoverageRegister    = null,
+            string JestTestsCoverageOutputDir    = null,
             string PublishingTargetDir           = null,
             string ScLocalWebsiteRootDir         = null,
-            
+
             string NuGetConfigPath               = null,
             string SolutionFilePath              = null,
             string UnicornConfigPath             = null,
@@ -138,7 +140,8 @@ public static partial class Sitecore
             OUTPUT_DIR                        = OutputDir                     ?? "OUTPUT_DIR"; 
             TESTS_OUTPUT_DIR                  = TestsOutputDir                ?? "TESTS_OUTPUT_DIR"; 
             TESTS_COVERAGE_OUTPUT_DIR         = TestsCoverageOutputDir        ?? "TESTS_COVERAGE_OUTPUT_DIR"; 
-            XUNIT_TESTS_COVERAGE_OUTPUT_DIR   = XunitTestsCoverageOutputDir   ?? "XUNIT_TESTS_COVERAGE_OUTPUT_DIR"; 
+            XUNIT_TESTS_COVERAGE_OUTPUT_DIR   = XunitTestsCoverageOutputDir   ?? "XUNIT_TESTS_COVERAGE_OUTPUT_DIR";
+            XUNIT_TESTS_COVERAGE_REGISTER     = XunitTestsCoverageRegister    ?? "XUNIT_TESTS_COVERAGE_REGISTER"; 
             JEST_TESTS_COVERAGE_OUTPUT_DIR    = JestTestsCoverageOutputDir    ?? "JEST_TESTS_COVERAGE_OUTPUT_DIR"; 
             PUBLISHING_TARGET_DIR             = PublishingTargetDir           ?? "PUBLISHING_TARGET_DIR"; 
             SC_LOCAL_WEBSITE_ROOT_DIR         = ScLocalWebsiteRootDir         ?? "SC_LOCAL_WEBSITE_ROOT_DIR"; 

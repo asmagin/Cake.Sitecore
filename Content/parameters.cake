@@ -54,6 +54,7 @@ public static partial class Sitecore
         public static string TestsOutputDir { get; private set; }
         public static string TestsCoverageOutputDir { get; private set; }
         public static string XUnitTestsCoverageOutputDir { get; private set; }
+        public static string XUnitTestsCoverageRegister { get; private set; }
         public static string JestTestsCoverageOutputDir { get; private set; }
         public static string PublishingTargetDir { get; private set; }
         public static string ScLocalWebsiteRootDir { get; private set; }
@@ -110,6 +111,7 @@ public static partial class Sitecore
             string testsOutputDir =                null,
             string testsCoverageOutputDir =        null,
             string xUnitTestsCoverageOutputDir =   null,
+            string xUnitTestsCoverageRegister =    null,
             string jestTestsCoverageOutputDir =    null,
             string publishingTargetDir =           null,
 
@@ -169,6 +171,7 @@ public static partial class Sitecore
             TestsOutputDir =                GetAbsoluteDirPath(GetParameterValue(Constants.TESTS_OUTPUT_DIR,                  testsOutputDir ??                $"{OutputDir}/tests"));
             TestsCoverageOutputDir =        GetAbsoluteDirPath(GetParameterValue(Constants.TESTS_COVERAGE_OUTPUT_DIR,         testsCoverageOutputDir ??        $"{TestsOutputDir}/coverage"));
             XUnitTestsCoverageOutputDir =   GetAbsoluteDirPath(GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_OUTPUT_DIR,   xUnitTestsCoverageOutputDir ??   $"{TestsCoverageOutputDir}/xUnit"));
+            XUnitTestsCoverageRegister =    GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_REGISTER,                        xUnitTestsCoverageRegister ??    $"user");
             JestTestsCoverageOutputDir =    GetAbsoluteDirPath(GetParameterValue(Constants.JEST_TESTS_COVERAGE_OUTPUT_DIR,    jestTestsCoverageOutputDir ??    $"{TestsCoverageOutputDir}/jest"));
             PublishingTargetDir =           GetPublishingTargetDir(                                                           publishingTargetDir);
 
