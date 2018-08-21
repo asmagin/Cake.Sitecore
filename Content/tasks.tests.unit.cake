@@ -19,13 +19,14 @@ Sitecore.Tasks.RunServerUnitTestsTask = Task("Unit Tests :: Run Server Tests")
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SrcDir, "SrcDir", "SRC_DIR");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SolutionName, "SolutionName", "SOLUTION_NAME");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.XUnitTestsCoverageOutputDir, "XUnitTestsCoverageOutputDir", "XUNIT_TESTS_COVERAGE_OUTPUT_DIR");
+        Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.XUnitTestsCoverageRegister, "XUnitTestsCoverageRegister", "XUNIT_TESTS_COVERAGE_REGISTER");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.TestsOutputDir, "TestsOutputDir", "TESTS_OUTPUT_DIR");
 
         var _coverSettings = new OpenCoverSettings()
             .WithFilter($"+[{Sitecore.Parameters.SolutionName}.*]*")
             .WithFilter($"-[{Sitecore.Parameters.SolutionName}.*.Tests*]*");
         _coverSettings.SkipAutoProps = true;
-        _coverSettings.Register = "user";
+        _coverSettings.Register = Sitecore.Parameters.XUnitTestsCoverageRegister;
         _coverSettings.MergeByHash = true;
         _coverSettings.NoDefaultFilters = true;
         _coverSettings.ReturnTargetCodeOffset = 0;
