@@ -3,7 +3,7 @@
   xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Cake.Sitecore</id>
-    <version>0.2.0</version>
+    <version>1.0.0</version>
     <title></title>
     <authors>Alex Smagin</authors>
     <owners>Alex Smagin</owners>

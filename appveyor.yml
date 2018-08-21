@@ -1,0 +1,14 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+build_script:
+- ps: ./build.ps1 -Script "./tests.cake" -Verbosity Diagnostic
+- ps: nuget pack
+artifacts:
+- path: Cake.Sitecore.*.nupkg
+deploy:
+- provider: NuGet
+  api_key:
+    secure: v9d8gq7HMMQmycGaETquocCafRNRhhZU8jOSlVqHiwSSWWkiBAe2o88f2OmPPKlM
+  skip_symbols: true
+  on:
+    branch: master
