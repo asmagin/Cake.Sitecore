@@ -15,3 +15,5 @@ BuildArtifacts/
 /do-not-commit.md
 /nuget.exe
 *.nupkg
+
+tests/tools

@@ -1,0 +1,12 @@
+language: csharp
+os:
+  - linux
+
+# Ubuntu 14.04
+sudo: required
+dist: trusty
+
+dotnet: 2.1.400
+
+script:
+  - ./tests/build.sh --verbosity diagnostic
