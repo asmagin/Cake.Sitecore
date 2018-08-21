@@ -15,6 +15,7 @@ public static partial class Sitecore
         public static string VERSION             { get; private set; }             
         public static string ASSEMBLY_VERSION    { get; private set; }     
         // Source Control
+        public static string BRANCH              { get; private set; }          
         public static string BRANCH_NAME         { get; private set; }          
         public static string COMMIT              { get; private set; }
         // Build Server
@@ -65,6 +66,7 @@ public static partial class Sitecore
             string ScSiteUrl                     = null,         
             string Version                       = null,           
             string AssemblyVersion               = null,   
+            string Branch                        = null,        
             string BranchName                    = null,        
             string Commit                        = null,
             string BuildId                       = null,
@@ -112,6 +114,7 @@ public static partial class Sitecore
             SC_SITE_URL                       = ScSiteUrl                     ?? "SC_SITE_URL";
             VERSION                           = Version                       ?? "VERSION";
             ASSEMBLY_VERSION                  = AssemblyVersion               ?? "ASSEMBLY_VERSION";
+            BRANCH                            = Branch                        ?? "BRANCH";
             BRANCH_NAME                       = BranchName                    ?? "BRANCH_NAME";
             COMMIT                            = Commit                        ?? "COMMIT";
             BUILD_ID                          = BuildId                       ?? "BUILD_ID";
