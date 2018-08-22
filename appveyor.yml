@@ -1,8 +1,15 @@
 version: 1.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+branches:
+  only:
+  - master
 image: Visual Studio 2017
 build_script:
-- ps: ./build.ps1 -Script "./tests.cake" -Verbosity Diagnostic
-- ps: nuget pack
+- ps: Push-Location ./tests;
+- ps: ./build.ps1 -Script "./tests.cake" -Verbosity Diagnostic;
+- ps: Pop-Location
+- ps: nuget pack ./Cake.Sitecore.nuspec -Version $env:APPVEYOR_BUILD_VERSION
 artifacts:
 - path: Cake.Sitecore.*.nupkg
 deploy:
