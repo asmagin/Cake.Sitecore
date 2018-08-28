@@ -231,14 +231,14 @@ public static partial class Sitecore
         // if parameter not passed via env or args default values would be provided
         // "Debug" is assumed as a build configuration for local dev installation. 
         // In this case, unicorn configuration could be found in src
-        // Otherwise - in artifacts folder.   
+        // In case of "Release" unicorm configuration can be found in build folder.   
         private static string GetUnicornConfigPath(string defaultValue){
             var path = GetParameterValue(Constants.UNICORN_CONFIG_PATH, defaultValue);
 
             if (string.IsNullOrEmpty(path)) {
                 path =  BuildConfiguration == "Debug"
-                    ? $"{PublishingTargetDir}/App_Config/Include/Unicorn/Unicorn.UI.config" // TODO: check if this is correct location
-                    : $"{SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn/Unicorn.UI.config";
+                    ? $"{SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn/Unicorn.UI.config"
+                    : $"{BuildDir}/App_Config/Include/Unicorn/Unicorn.UI.config";
             }
 
             return GetAbsoluteFilePath(path);
