@@ -56,6 +56,9 @@ public static partial class Sitecore
         public static string TestsCoverageOutputDir { get; private set; }
         public static string XUnitTestsCoverageOutputDir { get; private set; }
         public static string XUnitTestsCoverageRegister { get; private set; }
+        public static string XUnitTestsCoverageExcludeAttributeFilters { get; private set; }
+        public static string XUnitTestsCoverageExcludeFileFilters { get; private set; }
+        public static string XUnitTestsCoverageExcludeDirectories { get; private set; }
         public static string JestTestsCoverageOutputDir { get; private set; }
         public static string PublishingTargetDir { get; private set; }
         public static string ScLocalWebsiteRootDir { get; private set; }
@@ -114,6 +117,9 @@ public static partial class Sitecore
             string testsCoverageOutputDir =        null,
             string xUnitTestsCoverageOutputDir =   null,
             string xUnitTestsCoverageRegister =    null,
+            string xUnitTestsCoverageExcludeAttributeFilters = null,
+            string xUnitTestsCoverageExcludeFileFilters      = null,
+            string xUnitTestsCoverageExcludeDirectories      = null,
             string jestTestsCoverageOutputDir =    null,
             string publishingTargetDir =           null,
 
@@ -175,6 +181,9 @@ public static partial class Sitecore
             TestsCoverageOutputDir =        GetAbsoluteDirPath(GetParameterValue(Constants.TESTS_COVERAGE_OUTPUT_DIR,         testsCoverageOutputDir ??        $"{TestsOutputDir}/coverage"));
             XUnitTestsCoverageOutputDir =   GetAbsoluteDirPath(GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_OUTPUT_DIR,   xUnitTestsCoverageOutputDir ??   $"{TestsCoverageOutputDir}/xUnit"));
             XUnitTestsCoverageRegister =    GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_REGISTER,                        xUnitTestsCoverageRegister ??    $"user");
+            XUnitTestsCoverageExcludeAttributeFilters  = GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS,  xUnitTestsCoverageExcludeAttributeFilters  ?? "");
+            XUnitTestsCoverageExcludeFileFilters       = GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS,       xUnitTestsCoverageExcludeFileFilters       ?? "");
+            XUnitTestsCoverageExcludeDirectories       = GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES,        xUnitTestsCoverageExcludeDirectories       ?? "");
             JestTestsCoverageOutputDir =    GetAbsoluteDirPath(GetParameterValue(Constants.JEST_TESTS_COVERAGE_OUTPUT_DIR,    jestTestsCoverageOutputDir ??    $"{TestsCoverageOutputDir}/jest"));
             PublishingTargetDir =           GetPublishingTargetDir(                                                           publishingTargetDir);
 

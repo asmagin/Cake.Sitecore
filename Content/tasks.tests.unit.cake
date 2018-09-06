@@ -31,6 +31,19 @@ Sitecore.Tasks.RunServerUnitTestsTask = Task("Unit Tests :: Run Server Tests")
         _coverSettings.NoDefaultFilters = true;
         _coverSettings.ReturnTargetCodeOffset = 0;
 
+        void applyExclude<T>(ISet<T> filtersSet, string paramValue, Func<string, T> mapper)
+        {
+            if (!string.IsNullOrEmpty(paramValue))
+            {
+                var excludes = paramValue.Split(',').Select(mapper);
+                filtersSet.UnionWith(excludes);
+            }
+        }
+
+        applyExclude(_coverSettings.ExcludedAttributeFilters, Sitecore.Parameters.XUnitTestsCoverageExcludeAttributeFilters, x => x);
+        applyExclude(_coverSettings.ExcludedFileFilters,      Sitecore.Parameters.XUnitTestsCoverageExcludeFileFilters, x => x);
+        applyExclude(_coverSettings.ExcludeDirectories,       Sitecore.Parameters.XUnitTestsCoverageExcludeDirectories, x => Directory($"{Sitecore.Parameters.SrcDir}/{x}"));
+
         var _directories = GetDirectories(
                 $"{Sitecore.Parameters.SrcDir}/**/bin", 
                 fileSystemInfo => fileSystemInfo.Path.FullPath.IndexOf("node_modules", StringComparison.OrdinalIgnoreCase) < 0
