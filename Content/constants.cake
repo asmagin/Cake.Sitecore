@@ -3,27 +3,27 @@ public static partial class Sitecore
     public static class Constants
     {
         // Generic parameters
-        public static string BUILD_CONFIGURATION { get; private set; }  
-        public static string SOLUTION_NAME       { get; private set; }        
+        public static string BUILD_CONFIGURATION { get; private set; }
+        public static string SOLUTION_NAME       { get; private set; }
         // Sitecore parameters
-        public static string SC_ADMIN_USER       { get; private set; }         
-        public static string SC_ADMIN_PASSWORD   { get; private set; }     
-        public static string SC_NODE_ENV         { get; private set; }           
-        public static string SC_NODE_ROLE        { get; private set; }          
-        public static string SC_SITE_URL         { get; private set; }           
+        public static string SC_ADMIN_USER       { get; private set; }
+        public static string SC_ADMIN_PASSWORD   { get; private set; }
+        public static string SC_NODE_ENV         { get; private set; }
+        public static string SC_NODE_ROLE        { get; private set; }
+        public static string SC_SITE_URL         { get; private set; }
         // Versioning
-        public static string VERSION             { get; private set; }             
-        public static string ASSEMBLY_VERSION    { get; private set; }     
+        public static string VERSION             { get; private set; }
+        public static string ASSEMBLY_VERSION    { get; private set; }
         // Source Control
-        public static string BRANCH              { get; private set; }          
-        public static string BRANCH_NAME         { get; private set; }          
+        public static string BRANCH              { get; private set; }
+        public static string BRANCH_NAME         { get; private set; }
         public static string COMMIT              { get; private set; }
         // Build Server
-        public static string BUILD_ID            { get; private set; }          
+        public static string BUILD_ID            { get; private set; }
         public static string BUILD_NAME          { get; private set; }
         public static string BUILD_NUMBER        { get; private set; }
 
-        public static string ROOT_DIR            { get; private set; }        
+        public static string ROOT_DIR            { get; private set; }
 
         public static string LIBS_DIR                          { get; private set; }
         public static string LIBS_PACKAGES_DIR                 { get; private set; }
@@ -47,6 +47,9 @@ public static partial class Sitecore
         public static string TESTS_COVERAGE_OUTPUT_DIR         { get; private set; }
         public static string XUNIT_TESTS_COVERAGE_OUTPUT_DIR   { get; private set; }
         public static string XUNIT_TESTS_COVERAGE_REGISTER     { get; private set; }
+        public static string XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS { get; private set; }
+        public static string XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS      { get; private set; }
+        public static string XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES       { get; private set; }
         public static string JEST_TESTS_COVERAGE_OUTPUT_DIR    { get; private set; }
         public static string PUBLISHING_TARGET_DIR             { get; private set; }
         public static string SC_LOCAL_WEBSITE_ROOT_DIR         { get; private set; }
@@ -58,16 +61,16 @@ public static partial class Sitecore
 
         public static void SetNames(
             string BuildConfiguration            = null,
-            string SolutionName                  = null,      
-            string ScAdminUser                   = null,       
-            string ScAdminPassword               = null,   
-            string ScNodeEnv                     = null,         
-            string ScNodeRole                    = null,        
-            string ScSiteUrl                     = null,         
-            string Version                       = null,           
-            string AssemblyVersion               = null,   
-            string Branch                        = null,        
-            string BranchName                    = null,        
+            string SolutionName                  = null,
+            string ScAdminUser                   = null,
+            string ScAdminPassword               = null,
+            string ScNodeEnv                     = null,
+            string ScNodeRole                    = null,
+            string ScSiteUrl                     = null,
+            string Version                       = null,
+            string AssemblyVersion               = null,
+            string Branch                        = null,
+            string BranchName                    = null,
             string Commit                        = null,
             string BuildId                       = null,
             string BuildName                     = null,
@@ -95,6 +98,9 @@ public static partial class Sitecore
             string TestsCoverageOutputDir        = null,
             string XunitTestsCoverageOutputDir   = null,
             string XunitTestsCoverageRegister    = null,
+            string XunitTestsCoverageExcludeAttributeFilters = null,
+            string XunitTestsCoverageExcludeFileFilters      = null,
+            string XunitTestsCoverageExcludeDirectories      = null,
             string JestTestsCoverageOutputDir    = null,
             string PublishingTargetDir           = null,
             string ScLocalWebsiteRootDir         = null,
@@ -144,7 +150,10 @@ public static partial class Sitecore
             TESTS_OUTPUT_DIR                  = TestsOutputDir                ?? "TESTS_OUTPUT_DIR"; 
             TESTS_COVERAGE_OUTPUT_DIR         = TestsCoverageOutputDir        ?? "TESTS_COVERAGE_OUTPUT_DIR"; 
             XUNIT_TESTS_COVERAGE_OUTPUT_DIR   = XunitTestsCoverageOutputDir   ?? "XUNIT_TESTS_COVERAGE_OUTPUT_DIR";
-            XUNIT_TESTS_COVERAGE_REGISTER     = XunitTestsCoverageRegister    ?? "XUNIT_TESTS_COVERAGE_REGISTER"; 
+            XUNIT_TESTS_COVERAGE_REGISTER     = XunitTestsCoverageRegister    ?? "XUNIT_TESTS_COVERAGE_REGISTER";
+            XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS = XunitTestsCoverageExcludeAttributeFilters ?? "XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS";
+            XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS      = XunitTestsCoverageExcludeFileFilters      ?? "XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS";
+            XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES       = XunitTestsCoverageExcludeDirectories      ?? "XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES";
             JEST_TESTS_COVERAGE_OUTPUT_DIR    = JestTestsCoverageOutputDir    ?? "JEST_TESTS_COVERAGE_OUTPUT_DIR"; 
             PUBLISHING_TARGET_DIR             = PublishingTargetDir           ?? "PUBLISHING_TARGET_DIR"; 
             SC_LOCAL_WEBSITE_ROOT_DIR         = ScLocalWebsiteRootDir         ?? "SC_LOCAL_WEBSITE_ROOT_DIR"; 
