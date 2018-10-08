@@ -7,9 +7,13 @@ public class Tasks {
     public CakeTaskBuilder ConfigureToolsTask { get; set; }
     public CakeTaskBuilder CopyShipFilesTask { get; set; }
     public CakeTaskBuilder CopySpeRemotingFilesTask { get; set; }
+    public CakeTaskBuilder GatherBuildConfigsTask { get; set; }
+    public CakeTaskBuilder GatherBuildScriptsTask { get; set; }
+    public CakeTaskBuilder GatherSitecorePackagesTask { get; set; }
     public CakeTaskBuilder GenerateCodeTask { get; set; }
     public CakeTaskBuilder GenerateVersionFileTask { get; set; }
     public CakeTaskBuilder MergeCoverageReportsTask { get; set; }
+    public CakeTaskBuilder OptimizeBuildArtifactsTask { get; set; }
     public CakeTaskBuilder PrepareWebConfigTask { get; set; }
     public CakeTaskBuilder PublishFeatureTask { get; set; }
     public CakeTaskBuilder PublishFoundationTask { get; set; }
@@ -31,9 +35,13 @@ public class Tasks {
     public string ConfigureToolsTaskName => GetTaskName(this.ConfigureToolsTask);
     public string CopyShipFilesTaskName => GetTaskName(this.CopyShipFilesTask);
     public string CopySpeRemotingFilesTaskName => GetTaskName(this.CopySpeRemotingFilesTask);
+    public string GatherBuildConfigsTaskName => GetTaskName(this.GatherBuildConfigsTask);
+    public string GatherBuildScriptsTaskName => GetTaskName(this.GatherBuildScriptsTask);
+    public string GatherSitecorePackagesTaskName => GetTaskName(this.GatherSitecorePackagesTask);
     public string GenerateCodeTaskName => GetTaskName(this.GenerateCodeTask);
     public string GenerateVersionFileTaskName => GetTaskName(this.GenerateVersionFileTask);
     public string MergeCoverageReportsTaskName => GetTaskName(this.MergeCoverageReportsTask);
+    public string OptimizeBuildArtifactsTaskName => GetTaskName(this.OptimizeBuildArtifactsTask);
     public string PrepareWebConfigTaskName => GetTaskName(this.PrepareWebConfigTask);
     public string PublishFeatureTaskName => GetTaskName(this.PublishFeatureTask);
     public string PublishFoundationTaskName => GetTaskName(this.PublishFoundationTask);
