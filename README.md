@@ -107,6 +107,9 @@ Updates version in `packages.json` with current build version (`VERSION`)
 #### Build :: Set Version in Assembly.cs files (`Sitecore.Tasks.SetAssemblyVersionTaskName`)
 Updates `Assembly.cs` version(`ASSEMBLY_VERSION`)before the build in each project in source directory (`SRC_DIR`).
 
+#### Build :: Download License File (`Sitecore.Tasks.DownloadLicenseFileTaskName`)
+Download license file from remote address (`SC_LICENSE_URI`) to the (`ROOT_DIR`).
+
 #### Build :: Generate Code (`Sitecore.Tasks.GenerateCodeTaskName`)
 Executes JS plugin to parse Unicorn files via `npm run` and generate code. Script should be called `sc:codegen`.
 

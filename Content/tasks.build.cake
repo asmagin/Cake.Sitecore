@@ -47,6 +47,23 @@ Sitecore.Tasks.SetAssemblyVersionTask = Task("Build :: Set Version in Assembly.c
         }
     });
 
+// As of now it is expected that task will be excuted on the build server
+Sitecore.Tasks.DownloadLicenseFileTask = Task("Build :: Download License File")
+    .Description("Download license file from remote address (`SC_LICENSE_URI`) to the (`ROOT_DIR`)")
+    .Does(() =>
+    {
+        Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.BuildConfiguration, "BuildConfiguration", "BUILD_CONFIGURATION");
+        Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.RootDir, "RootDir", "ROOT_DIR");
+        Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.ScLicenseUri, "ScLicenseUri", "SC_LICENSE_URI");
+
+        var license_file_token = ArgumentOrEnvironmentVariable("SC_LICENSE_TOKEN", "", "");
+        var license_file_uri = ArgumentOrEnvironmentVariable("SC_LICENSE_URI", "", "");
+        
+        var url = $"{license_file_uri}" + $"{license_file_token}";
+
+        DownloadFile(url, $"{Sitecore.Parameters.RootDir}/license.xml");
+    });
+
 // As of now it is expected that your packages.json file will have tasks "sc:codegen" to use code generation
 Sitecore.Tasks.GenerateCodeTask = Task("Build :: Generate Code")
     .Description("Executes JS plugin to parse Unicorn files via `npm run` and generate code.")

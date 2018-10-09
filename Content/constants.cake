@@ -11,6 +11,8 @@ public static partial class Sitecore
         public static string SC_NODE_ENV         { get; private set; }           
         public static string SC_NODE_ROLE        { get; private set; }          
         public static string SC_SITE_URL         { get; private set; }           
+        public static string SC_LICENSE_URI      { get; private set; }           
+        public static string SC_LICENSE_TOKEN    { get; private set; }           
         // Versioning
         public static string VERSION             { get; private set; }             
         public static string ASSEMBLY_VERSION    { get; private set; }     
@@ -64,6 +66,8 @@ public static partial class Sitecore
             string ScNodeEnv                     = null,         
             string ScNodeRole                    = null,        
             string ScSiteUrl                     = null,         
+            string ScLicenseUri                  = null,         
+            string ScLicenseToken                = null,         
             string Version                       = null,           
             string AssemblyVersion               = null,   
             string Branch                        = null,        
@@ -112,6 +116,8 @@ public static partial class Sitecore
             SC_NODE_ENV                       = ScNodeEnv                     ?? "SC_NODE_ENV";
             SC_NODE_ROLE                      = ScNodeRole                    ?? "SC_NODE_ROLE";
             SC_SITE_URL                       = ScSiteUrl                     ?? "SC_SITE_URL";
+            SC_LICENSE_URI                    = ScLicenseUri                  ?? "SC_LICENSE_URI";
+            SC_LICENSE_TOKEN                  = ScLicenseToken                ?? "SC_LICENSE_TOKEN";
             VERSION                           = Version                       ?? "VERSION";
             ASSEMBLY_VERSION                  = AssemblyVersion               ?? "ASSEMBLY_VERSION";
             BRANCH                            = Branch                        ?? "BRANCH";

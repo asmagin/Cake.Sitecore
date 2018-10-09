@@ -20,6 +20,8 @@ public static partial class Sitecore
         public static string ScNodeEnv { get; private set; }
         public static string ScNodeRole { get; private set; }
         public static string ScSiteUrl { get; private set; }
+        public static string ScLicenseUri { get; private set; }
+        public static string ScLicenseToken { get; private set; }
 
         public static string Version { get; private set; }
         public static string AssemblyVersion { get; private set; }
@@ -78,6 +80,8 @@ public static partial class Sitecore
             string scNodeEnv =                     null,
             string scNodeRole =                    null,
             string scSiteUrl =                     null,
+            string scLicenseUri =                  null,
+            string scLicenseToken =                null,
 
             string branch =                        null,
             string branchName =                    null,
@@ -136,6 +140,8 @@ public static partial class Sitecore
             ScNodeEnv =                     GetParameterValue(Constants.SC_NODE_ENV,                                          scNodeEnv ??                     "local|standalone");
             ScNodeRole =                    GetParameterValue(Constants.SC_NODE_ROLE,                                         scNodeRole ??                    "cm");
             ScSiteUrl =                     GetParameterValue(Constants.SC_SITE_URL,                                          scSiteUrl ??                     "");
+            ScLicenseUri =                  GetParameterValue(Constants.SC_LICENSE_URI,                                       scLicenseUri ??                  "https://{sc_license_uri}");
+            ScLicenseToken =                GetParameterValue(Constants.SC_LICENSE_TOKEN,                                     scLicenseToken ??                "");
 
             // Source Control
             Branch =                        GetParameterValue(Constants.BRANCH,                                               branch ??                        "develop");

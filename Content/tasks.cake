@@ -7,6 +7,7 @@ public class Tasks {
     public CakeTaskBuilder ConfigureToolsTask { get; set; }
     public CakeTaskBuilder CopyShipFilesTask { get; set; }
     public CakeTaskBuilder CopySpeRemotingFilesTask { get; set; }
+    public CakeTaskBuilder DownloadLicenseFileTask { get; set; }
     public CakeTaskBuilder GatherBuildConfigsTask { get; set; }
     public CakeTaskBuilder GatherBuildScriptsTask { get; set; }
     public CakeTaskBuilder GatherSitecorePackagesTask { get; set; }
@@ -35,6 +36,7 @@ public class Tasks {
     public string ConfigureToolsTaskName => GetTaskName(this.ConfigureToolsTask);
     public string CopyShipFilesTaskName => GetTaskName(this.CopyShipFilesTask);
     public string CopySpeRemotingFilesTaskName => GetTaskName(this.CopySpeRemotingFilesTask);
+    public string DownloadLicenseFileTaskName => GetTaskName(this.DownloadLicenseFileTask);
     public string GatherBuildConfigsTaskName => GetTaskName(this.GatherBuildConfigsTask);
     public string GatherBuildScriptsTaskName => GetTaskName(this.GatherBuildScriptsTask);
     public string GatherSitecorePackagesTaskName => GetTaskName(this.GatherSitecorePackagesTask);
