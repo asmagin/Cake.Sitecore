@@ -107,6 +107,9 @@ Updates version in `packages.json` with current build version (`VERSION`)
 #### Build :: Set Version in Assembly.cs files (`Sitecore.Tasks.SetAssemblyVersionTaskName`)
 Updates `Assembly.cs` version(`ASSEMBLY_VERSION`)before the build in each project in source directory (`SRC_DIR`).
 
+#### Build :: Download License File (`Sitecore.Tasks.DownloadLicenseFileTaskName`)
+Download license file from remote address (`SC_LICENSE_URI`) to the (`ROOT_DIR`).
+
 #### Build :: Generate Code (`Sitecore.Tasks.GenerateCodeTaskName`)
 Executes JS plugin to parse Unicorn files via `npm run` and generate code. Script should be called `sc:codegen`.
 
@@ -148,6 +151,19 @@ Publishes all Feature-layer projects to the publishing target directory (`PUBLIS
 
 #### Publish :: Projects (`Sitecore.Tasks.PublishProjectTaskName`)
 Publishes all Project-layer projects to the publishing target directory (`PUBLISHING_TARGET_DIR`) using MsBuild.
+
+### Artifacts
+#### Artifacts :: Optimize (`Sitecore.Tasks.OptimizeBuildArtifactsTaskName`)
+Exclude unnecessary files from target directory (`ARTIFACTS_BUILD_DIR`).
+
+#### Artifacts :: Copy configuration files (`Sitecore.Tasks.GatherBuildConfigsTaskName`)
+Copy configuration files from source config directory (`SRC_CONFIGS_DIR`) to artifact directory (`ARTIFACTS_SRC_CONFIGS_DIR`).
+
+#### Artifacts :: Copy build scripts (`Sitecore.Tasks.GatherBuildScriptsTaskName`)
+Copy build scripts from source directory (`SRC_SCRIPTS_DIR`) to artifact directory (`ARTIFACTS_SRC_DIR`).
+
+#### Artifacts :: Copy Sitecore packages (`Sitecore.Tasks.GatherSitecorePackagesTaskName`)
+Copy Sitecore packages from source directory (`LIBS_PACKAGES_DIR`) to artifact directory (`ARTIFACTS_LIBS_PACKAGES_DIR`).
 
 ### Sync
 #### Sync :: Unicorn (`Sitecore.Tasks.SyncAllUnicornItemsName`)
