@@ -14,7 +14,6 @@ Sitecore.Tasks.GenerateVersionFileTask = Task("Build :: Generate Version.txt fil
         var file = $"{Sitecore.Parameters.PublishingTargetDir}/version.txt";
         string[] lines = {
             $"Version:    {Sitecore.Parameters.ReleaseVersion}",
-            $"AssemblyVersion:    {Sitecore.Parameters.AssemblyVersion}",
             $"Branch:     {Sitecore.Parameters.BranchName}",
             $"Commit:     {Sitecore.Parameters.Commit}",
             $"Build:      {Sitecore.Parameters.BuildNumber}",
