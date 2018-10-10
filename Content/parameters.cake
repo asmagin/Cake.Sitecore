@@ -23,7 +23,7 @@ public static partial class Sitecore
         public static string ScLicenseUri { get; private set; }
         public static string ScLicenseToken { get; private set; }
 
-        public static string Version { get; private set; }
+        public static string ReleaseVersion { get; private set; }
         public static string AssemblyVersion { get; private set; }
 
         public static string Branch { get; private set; }
@@ -90,7 +90,7 @@ public static partial class Sitecore
             string branchName =                    null,
             string commit =                        null,
 
-            string version =                       null,
+            string releaseVersion =                null,
             string assemblyVersion =               null,
 
             string buildId =                       null,
@@ -154,15 +154,16 @@ public static partial class Sitecore
             BranchName =                    GetParameterValue(Constants.BRANCH_NAME,                                          branchName ??                    "develop");
             Commit =                        GetParameterValue(Constants.COMMIT,                                               commit ??                        "");
 
-            // Versioning
-            Version =                       GetVersion(                                                                       version ??                       "0.0.0");
-            AssemblyVersion =               GetAssemblyVersion(                                                               assemblyVersion ??               "0.0.0");
-
-            //Build Server
-            BuildId =                       GetParameterValue(Constants.BUILD_ID,                                             buildId ??                       "");
+            //Build info
+            BuildId =                       GetParameterValue(Constants.BUILD_ID,                                             buildId ??                       "0");
             BuildName =                     GetParameterValue(Constants.BUILD_NAME,                                           buildName ??                     "");
             BuildNumber =                   GetParameterValue(Constants.BUILD_NUMBER,                                         buildNumber ??                   "n/a");
 
+            // Versioning
+            ReleaseVersion =                GetVersion(                                                                       releaseVersion ??                "0.0.0");
+            AssemblyVersion =               GetAssemblyVersion(                                                               assemblyVersion ??               "0.0.0");
+
+            //Build server
             RootDir =                       GetAbsoluteDirPath(GetParameterValue(Constants.ROOT_DIR,                          rootDir ??                       "./.."));
 
             LibsDir =                       GetAbsoluteDirPath(GetParameterValue(Constants.LIBS_DIR,                          libsDir ??                       $"{RootDir}/libs"));
@@ -208,11 +209,11 @@ public static partial class Sitecore
         }
 
         private static string GetVersion(string defaultValue) {
-            var version = Utils.ArgumentOrEnvironmentVariable(_context, Constants.VERSION, defaultValue);
-
+            var version = Utils.ArgumentOrEnvironmentVariable(_context, Constants.RELEASE_VERSION, defaultValue);
+  
             var regex = new Regex(SEM_VER_REGEX);
             if (!regex.IsMatch(version)){
-                throw new Exception($"Environmental variable or argument {Constants.VERSION} = {version} should follow SemVer format (0.0.0).");
+                throw new Exception($"Environmental variable or argument {Constants.RELEASE_VERSION} = {version} should follow SemVer format (0.0.0).");
             }
 
             if (!BranchName.IsRelease()) {
@@ -224,14 +225,14 @@ public static partial class Sitecore
         }
 
         private static string GetAssemblyVersion(string defaultValue) {
-            var version = Utils.ArgumentOrEnvironmentVariable(_context, Constants.VERSION, defaultValue);
+            var version = Utils.ArgumentOrEnvironmentVariable(_context, Constants.RELEASE_VERSION, defaultValue);
 
             var regex = new Regex(SEM_VER_REGEX);
             if (!regex.IsMatch(version)){
-                throw new Exception($"Environmental variable or argument {Constants.VERSION} = {version} should follow SemVer format (0.0.0).");
+                throw new Exception($"Environmental variable or argument {Constants.RELEASE_VERSION} = {version} should follow SemVer format (0.0.0).");
             }
 
-            return $"{version}.0";
+            return $"{version}.{BuildId}";
         }
 
         private static string GetAbsoluteDirPath(string path){
