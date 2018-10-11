@@ -14,7 +14,7 @@ public static partial class Sitecore
         public static string SC_LICENSE_URI      { get; private set; }
         public static string SC_LICENSE_TOKEN    { get; private set; }
         // Versioning
-        public static string VERSION             { get; private set; }
+        public static string RELEASE_VERSION     { get; private set; }
         public static string ASSEMBLY_VERSION    { get; private set; }
         // Source Control
         public static string BRANCH              { get; private set; }
@@ -71,7 +71,7 @@ public static partial class Sitecore
             string ScSiteUrl                     = null,
             string ScLicenseUri                  = null,
             string ScLicenseToken                = null,
-            string Version                       = null,
+            string ReleaseVersion                = null,
             string AssemblyVersion               = null,
             string Branch                        = null,
             string BranchName                    = null,
@@ -124,7 +124,7 @@ public static partial class Sitecore
             SC_SITE_URL                       = ScSiteUrl                     ?? "SC_SITE_URL";
             SC_LICENSE_URI                    = ScLicenseUri                  ?? "SC_LICENSE_URI";
             SC_LICENSE_TOKEN                  = ScLicenseToken                ?? "SC_LICENSE_TOKEN";
-            VERSION                           = Version                       ?? "VERSION";
+            RELEASE_VERSION                   = ReleaseVersion                ?? "RELEASE_VERSION";
             ASSEMBLY_VERSION                  = AssemblyVersion               ?? "ASSEMBLY_VERSION";
             BRANCH                            = Branch                        ?? "BRANCH";
             BRANCH_NAME                       = BranchName                    ?? "BRANCH_NAME";

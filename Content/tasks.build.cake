@@ -4,7 +4,7 @@ Sitecore.Tasks.GenerateVersionFileTask = Task("Build :: Generate Version.txt fil
     .Description("Creates a file with detailed information about the build in publishing target directory (`PUBLISHING_TARGET_DIR`)")
     .Does(() => {
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.PublishingTargetDir, "PublishingTargetDir", "PUBLISHING_TARGET_DIR");
-        Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.Version, "Version", "VERSION");
+        Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.ReleaseVersion, "ReleaseVersion", "RELEASE_VERSION");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.BranchName, "BranchName", "BRANCH_NAME");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.Commit, "Commit", "COMMIT");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.BuildNumber, "BuildNumber", "BUILD_NUMBER");
@@ -13,7 +13,7 @@ Sitecore.Tasks.GenerateVersionFileTask = Task("Build :: Generate Version.txt fil
 
         var file = $"{Sitecore.Parameters.PublishingTargetDir}/version.txt";
         string[] lines = {
-            $"Version:    {Sitecore.Parameters.Version}",
+            $"Version:    {Sitecore.Parameters.ReleaseVersion}",
             $"Branch:     {Sitecore.Parameters.BranchName}",
             $"Commit:     {Sitecore.Parameters.Commit}",
             $"Build:      {Sitecore.Parameters.BuildNumber}",
@@ -28,10 +28,10 @@ Sitecore.Tasks.SetPackageJsonVersionTask = Task("Build :: Set Version in package
     .Description("Updates version in `packages.json` with current build version (`VERSION`)")
     .Does(() => {
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SrcDir, "SrcDir", "SRC_DIR");
-        Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.Version, "Version", "VERSION");
+        Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.ReleaseVersion, "Version", "VERSION");
 
         var file = $"{Sitecore.Parameters.SrcDir}/package.json";
-        ReplaceRegexInFiles(file, "(?<=\"version\": \")(.+?)(?=\",)", Sitecore.Parameters.Version);
+        ReplaceRegexInFiles(file, "(?<=\"version\": \")(.+?)(?=\",)", Sitecore.Parameters.ReleaseVersion);
     });
 
 Sitecore.Tasks.SetAssemblyVersionTask = Task("Build :: Set Version in Assembly.cs files")
