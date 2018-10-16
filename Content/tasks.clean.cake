@@ -9,7 +9,7 @@ Sitecore.Tasks.CleanWildcardFoldersTask = Task("Clean-up :: Clean Wildcard Folde
             CleanDirectory(directory);
         }
 
-        foreach(var directory in GetDirectories($"{Sitecore.Parameters.SrcDir}/**/code/App_Data/unicorn"))
+        foreach(var directory in GetDirectories($"{Sitecore.Parameters.SrcDir}/**/code/App_Data/{Sitecore.Parameters.UnicornSerializationRoot}"))
         {
             CleanDirectory(directory);
         }
