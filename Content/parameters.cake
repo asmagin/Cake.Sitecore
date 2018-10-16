@@ -261,10 +261,10 @@ public static partial class Sitecore
                     : $"{BuildDir}/App_Config/Include/Unicorn/Unicorn.UI.config";
             }
             
-            if (string.IsNullOrEmpty(path)) {
+            if (!_context.FileExists(path)) {
                 path =  BuildConfiguration == "Debug"
-                    ? $"{Sitecore.Parameters.SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn/Unicorn.zSharedSecret.config"
-                    : $"{Sitecore.Parameters.BuildDir}/App_Config/Include/Unicorn/Unicorn.zSharedSecret.config";
+                    ? $"{SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn/Unicorn.zSharedSecret.config"
+                    : $"{BuildDir}/App_Config/Include/Unicorn/Unicorn.zSharedSecret.config";
             }
 
             return GetAbsoluteFilePath(path);
