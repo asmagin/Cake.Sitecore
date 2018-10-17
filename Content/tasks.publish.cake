@@ -80,7 +80,7 @@ Action<string, string> copySerializationFiles = (srcRootDir, layer) =>
         var _pathSegments =  _directory.ToString().Split('/');
         var _project = _pathSegments[_pathSegments.Length - 2];
 
-        var _targetDir = $"{_directory}/../code/App_Data/unicorn/{layer}/{_project}/serialization";
+        var _targetDir = $"{_directory}/../code/App_Data/{Sitecore.Parameters.UnicornSerializationRoot}/{layer}/{_project}/serialization";
         CopyDirectory(_directory, _targetDir);
     }
 
@@ -92,7 +92,7 @@ Action<string, string> copySerializationFiles = (srcRootDir, layer) =>
         var _pathSegments = _directory.ToString().Split('/');
         var _project = _pathSegments[_pathSegments.Length - 2];
 
-        var _targetDir = $"{_directory}/../code/App_Data/unicorn/{layer}/{_project}/serialization.content";
+        var _targetDir = $"{_directory}/../code/App_Data/{Sitecore.Parameters.UnicornSerializationRoot}/{layer}/{_project}/serialization.content";
         CopyDirectory(_directory, _targetDir);
     }
 };

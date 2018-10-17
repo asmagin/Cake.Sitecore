@@ -69,6 +69,8 @@ public static partial class Sitecore
         public static string SolutionFilePath { get; private set; }
         public static string UnicornConfigPath { get; private set; }
         public static string UnicornConfigurations { get; private set; }
+        public static string UnicornSerializationRoot { get; private set; }
+
 
         public static void InitParams(
             ICakeContext context,
@@ -130,7 +132,8 @@ public static partial class Sitecore
             string nuGetConfigPath =               null,
             string solutionFilePath =              null,
             string unicornConfigPath =             null,
-            string unicornConfigurations =         null
+            string unicornConfigurations =         null,
+            string unicornSerializationRoot =      null
             )
         {
             _context =                      context;
@@ -199,6 +202,7 @@ public static partial class Sitecore
             SolutionFilePath =              GetAbsoluteFilePath(GetParameterValue(Constants.SOLUTION_FILE_PATH,               solutionFilePath ??              $"{SrcDir}/{SolutionName}.sln"));
             UnicornConfigPath =             GetUnicornConfigPath(                                                             unicornConfigPath);
             UnicornConfigurations =         GetParameterValue(Constants.UNICORN_CONFIGURATIONS,                               unicornConfigurations ??         "");
+            UnicornSerializationRoot =      GetParameterValue(Constants.UNICORN_SERIALIZATION_ROOT,                           unicornSerializationRoot ??         "unicorn");
 
             // Those parameters absolutely needed 
             Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SolutionName, "SolutionName", "SOLUTION_NAME");
@@ -255,6 +259,12 @@ public static partial class Sitecore
                 path =  BuildConfiguration == "Debug"
                     ? $"{SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn/Unicorn.UI.config"
                     : $"{BuildDir}/App_Config/Include/Unicorn/Unicorn.UI.config";
+            }
+            
+            if (!_context.FileExists(path)) {
+                path =  BuildConfiguration == "Debug"
+                    ? $"{SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn/Unicorn.zSharedSecret.config"
+                    : $"{BuildDir}/App_Config/Include/Unicorn/Unicorn.zSharedSecret.config";
             }
 
             return GetAbsoluteFilePath(path);
