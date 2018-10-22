@@ -121,14 +121,15 @@ Action<string, string, string, string, MSBuildToolVersion> publishLayer = (srcRo
     Verbose($"Executing [publishLayer] with params ({srcRootDir}, {layer}, {buildConfiguration}, {dest}, {msBuildToolVersion.ToString()})");
 
     // perform cleanup layer configs directory operation for "Debug" configuration
-    if (buildConfiguration == "Debug")
+    // Disable configs cleanup as Cake doesn't support glob patterns for UNC and CleanDirectory won't delete configs correctly in multiproject setup
+    /*/if (buildConfiguration == "Debug")
     {
         var _configsDirPath = $"{dest}/App_Config/Include/{layer}";
         if (DirectoryExists(_configsDirPath)) {
             Information($"Cleaning configs directory: {_configsDirPath}");
             CleanDirectory(_configsDirPath);
         }
-    }
+    }*/
 
     var _projectFilePathList = GetFiles($"{srcRootDir}/{layer}/**/code/*.csproj");
 
