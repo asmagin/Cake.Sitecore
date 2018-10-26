@@ -56,6 +56,7 @@ public static partial class Sitecore
         public static string OutputDir { get; private set; }
         public static string TestsOutputDir { get; private set; }
         public static string TestsCoverageOutputDir { get; private set; }
+        public static bool   TestsFailImmediately { get; private set; }
         public static string XUnitTestsCoverageOutputDir { get; private set; }
         public static string XUnitTestsCoverageRegister { get; private set; }
         public static string XUnitTestsCoverageExcludeAttributeFilters { get; private set; }
@@ -121,6 +122,7 @@ public static partial class Sitecore
             string outputDir =                     null,
             string testsOutputDir =                null,
             string testsCoverageOutputDir =        null,
+            string testsFailImmediately =          null,
             string xUnitTestsCoverageOutputDir =   null,
             string xUnitTestsCoverageRegister =    null,
             string xUnitTestsCoverageExcludeAttributeFilters = null,
@@ -189,6 +191,7 @@ public static partial class Sitecore
             OutputDir =                     GetAbsoluteDirPath(GetParameterValue(Constants.OUTPUT_DIR,                        outputDir ??                     $"{RootDir}/output"));
             TestsOutputDir =                GetAbsoluteDirPath(GetParameterValue(Constants.TESTS_OUTPUT_DIR,                  testsOutputDir ??                $"{OutputDir}/tests"));
             TestsCoverageOutputDir =        GetAbsoluteDirPath(GetParameterValue(Constants.TESTS_COVERAGE_OUTPUT_DIR,         testsCoverageOutputDir ??        $"{TestsOutputDir}/coverage"));
+            TestsFailImmediately =          ToBoolean(GetParameterValue(Constants.TESTS_FAIL_IMMEDIATELY,                     testsFailImmediately ??          "true"));
             XUnitTestsCoverageOutputDir =   GetAbsoluteDirPath(GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_OUTPUT_DIR,   xUnitTestsCoverageOutputDir ??   $"{TestsCoverageOutputDir}/xUnit"));
             XUnitTestsCoverageRegister =    GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_REGISTER,                        xUnitTestsCoverageRegister ??    $"user");
             XUnitTestsCoverageExcludeAttributeFilters  = GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS,  xUnitTestsCoverageExcludeAttributeFilters  ?? "");
@@ -281,6 +284,17 @@ public static partial class Sitecore
             }
             
             return GetAbsoluteFilePath(path);
-        }   
+        }
+
+        private static bool ToBoolean(string defaultValue) {
+            bool result = false;
+
+            if (bool.TryParse(defaultValue, out result))
+            {
+                return result;
+            }
+            
+            return false;
+        }
     }
 }
