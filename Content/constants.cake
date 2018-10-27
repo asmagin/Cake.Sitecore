@@ -47,6 +47,7 @@ public static partial class Sitecore
         public static string OUTPUT_DIR                        { get; private set; }
         public static string TESTS_OUTPUT_DIR                  { get; private set; }
         public static string TESTS_COVERAGE_OUTPUT_DIR         { get; private set; }
+        public static string TESTS_FAIL_IMMEDIATELY            { get; private set; }
         public static string XUNIT_TESTS_COVERAGE_OUTPUT_DIR   { get; private set; }
         public static string XUNIT_TESTS_COVERAGE_REGISTER     { get; private set; }
         public static string XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS { get; private set; }
@@ -101,6 +102,7 @@ public static partial class Sitecore
             string OutputDir                     = null,
             string TestsOutputDir                = null,
             string TestsCoverageOutputDir        = null,
+            string TestsFailImmediately          = null,
             string XunitTestsCoverageOutputDir   = null,
             string XunitTestsCoverageRegister    = null,
             string XunitTestsCoverageExcludeAttributeFilters = null,
@@ -158,6 +160,7 @@ public static partial class Sitecore
             OUTPUT_DIR                        = OutputDir                     ?? "OUTPUT_DIR"; 
             TESTS_OUTPUT_DIR                  = TestsOutputDir                ?? "TESTS_OUTPUT_DIR"; 
             TESTS_COVERAGE_OUTPUT_DIR         = TestsCoverageOutputDir        ?? "TESTS_COVERAGE_OUTPUT_DIR"; 
+            TESTS_FAIL_IMMEDIATELY            = TestsFailImmediately          ?? "TESTS_FAIL_IMMEDIATELY"; 
             XUNIT_TESTS_COVERAGE_OUTPUT_DIR   = XunitTestsCoverageOutputDir   ?? "XUNIT_TESTS_COVERAGE_OUTPUT_DIR";
             XUNIT_TESTS_COVERAGE_REGISTER     = XunitTestsCoverageRegister    ?? "XUNIT_TESTS_COVERAGE_REGISTER";
             XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS = XunitTestsCoverageExcludeAttributeFilters ?? "XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS";

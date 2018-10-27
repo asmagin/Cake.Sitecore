@@ -10,7 +10,13 @@ Func<XElement, string, string> getAttributeStringValue = (element, attributeName
 
 Func<XElement, string, double> getAttributeDoubleValue = (element, attributeName) => {
     var attributeValueStr = getAttributeStringValue(element, attributeName);
-    return double.Parse(attributeValueStr);
+
+    double d = 0;
+    if (double.TryParse(attributeValueStr, out d)){
+        return d;
+    }
+
+    return 0;
 };
 
 Func<XElement, string, int> getAttributeIntegerValue = (element, attributeName) => {
@@ -23,10 +29,8 @@ Action<string, Cake.Core.IO.FilePathCollection, string> mergeCoberturaReports = 
     var sources = new List<XElement>();
     
     const string lineRateAttributeName = "line-rate";
-    var lineRateList = new List<double>();
 
     const string branchRateAttributeName = "branch-rate";
-    var branchRateList = new List<double>();
     
     const string linesCoveredAttributeName = "lines-covered";
     var linesCoveredList = new List<int>();
@@ -60,12 +64,6 @@ Action<string, Cake.Core.IO.FilePathCollection, string> mergeCoberturaReports = 
         var selectedSources = rootNode.XPathSelectElements("//coverage/sources/*");
         sources.AddRange(selectedSources);
 
-        // get line-rate
-        lineRateList.Add(getAttributeDoubleValue(rootNode, lineRateAttributeName));
-
-        // get branch-rate
-        branchRateList.Add(getAttributeDoubleValue(rootNode, branchRateAttributeName));
-
         // get lines-covered
         linesCoveredList.Add(getAttributeIntegerValue(rootNode, linesCoveredAttributeName));
 
@@ -96,11 +94,9 @@ Action<string, Cake.Core.IO.FilePathCollection, string> mergeCoberturaReports = 
     Information($"Merged packages count: {packages.Count}");
     Information($"Merged sources count: {sources.Count}");
     
-    var mergedlineRate = lineRateList.Average().ToString();
-    Information($"Merged {lineRateAttributeName}: {mergedlineRate}; {string.Join(", ", lineRateList.ToArray())}");
+    var mergedlineRate = (linesCoveredList.Sum() / (float)(linesValidList.Sum())).ToString();
     
-    var mergedBranchRate = branchRateList.Average().ToString();
-    Information($"Merged {branchRateAttributeName}: {mergedBranchRate}; {string.Join(", ", branchRateList.ToArray())}");
+    var mergedBranchRate = (branchesCoveredList.Sum() / (float)(branchesValidList.Sum())).ToString();
     
     var mergedLinesCovered = linesCoveredList.Sum().ToString();
     Information($"Merged {linesCoveredAttributeName}: {mergedLinesCovered}; {string.Join(", ", linesCoveredList.ToArray())}");

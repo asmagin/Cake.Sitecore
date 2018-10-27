@@ -3,6 +3,14 @@
 [![NuGet version](https://img.shields.io/nuget/v/Cake.Sitecore.svg)](https://www.nuget.org/packages/Cake.Sitecore/)
 [![Build status](https://ci.appveyor.com/api/projects/status/tjmhfjucua3xko9q?svg=true)](https://ci.appveyor.com/project/asmagin/cake-sitecore)
 
+## Release notes
+# v.1.0.8
+Added new parameter Sitecore.Parameters.TestsFailImmediately with default boolean value = true. 
+In case of failed unit tests parameter Sitecore.Parameters.TestsFailImmediately controls if tasks Sitecore.Tasks.RunServerUnitTestsTaskName and Sitecore.Tasks.RunClientUnitTestsTaskName should fail immediately or not. Otherwise if Sitecore.Parameters.TestsFailImmediately = false unit test execution will throw an exception in the task Sitecore.Tasks.MergeCoverageReportsTaskName.
+You can pass value to the parameter with argument:
+-TESTS_FAIL_IMMEDIATELY=false
+
+
 ## Overview
 The library provides a set of pre-build [CAKE build] tasks. Those tasks could be used to simplify a configuration of CI/CD for Helix-based Sitecore projects.
 
