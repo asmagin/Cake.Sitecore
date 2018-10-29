@@ -83,6 +83,10 @@ Sitecore.Tasks.RunServerUnitTestsTask = Task("Unit Tests :: Run Server Tests")
     .OnError(exception =>
     {
         Sitecore.Variables.UnitTestsFailed = true;
+
+        if (Sitecore.Parameters.TestsFailImmediately) {
+            throw new Exception("One or more tests are failing");
+        }
     });
 
 Sitecore.Tasks.RunClientUnitTestsTask = Task("Unit Tests :: Run Client Tests")
@@ -98,6 +102,10 @@ Sitecore.Tasks.RunClientUnitTestsTask = Task("Unit Tests :: Run Client Tests")
     .OnError(exception =>
     {
         Sitecore.Variables.UnitTestsFailed = true;
+
+        if (Sitecore.Parameters.TestsFailImmediately) {
+            throw new Exception("One or more tests are failing");
+        }
     });
 
 
