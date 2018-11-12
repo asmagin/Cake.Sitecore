@@ -54,10 +54,12 @@ Sitecore.Tasks.GatherBuildScriptsTask = Task("Artifacts :: Copy build scripts")
         Debug($"Copy cake scripts to '{Sitecore.Parameters.ArtifactsSrcDir}'");
         var files = new [] {
                 "./build.cake",
-                "./cake.config",
                 "./build.ps1"
             };
         CopyFiles(files, Directory(Sitecore.Parameters.ArtifactsSrcDir));
+
+        Debug($"Copy .config files '{Sitecore.Parameters.ArtifactsSrcDir}'");
+        CopyFiles("*.config", Directory(Sitecore.Parameters.ArtifactsSrcDir));
 
         var targetDir = Directory(Sitecore.Parameters.ArtifactsSrcScriptsDir);
         EnsureDirectoryExists(targetDir);
