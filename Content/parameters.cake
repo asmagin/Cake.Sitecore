@@ -43,6 +43,7 @@ public static partial class Sitecore
         public static string LibsShipDir { get; private set; }
         public static string BuildDir { get; private set; }
         public static string SrcDir { get; private set; }
+        public static string SrcConfigFiles { get; private set; }
         public static string SrcConfigsDir { get; private set; }
         public static string SrcScriptsDir { get; private set; }
         public static string SrcScriptsGitDir { get; private set; }
@@ -109,6 +110,7 @@ public static partial class Sitecore
             string libsShipDir =                   null,
             string buildDir =                      null,
             string srcDir =                        null,
+            string srcConfigFiles =                 null,
             string srcConfigsDir =                 null,
             string srcScriptsDir =                 null,
             string srcScriptsGitDir =              null,
@@ -178,6 +180,7 @@ public static partial class Sitecore
             LibsShipDir =                   GetAbsoluteDirPath(GetParameterValue(Constants.LIBS_SHIP_DIR,                     libsShipDir ??                   $"{LibsDir}/ship"));
             BuildDir =                      GetAbsoluteDirPath(GetParameterValue(Constants.BUILD_DIR,                         buildDir ??                      $"{RootDir}/build"));
             SrcDir =                        GetAbsoluteDirPath(GetParameterValue(Constants.SRC_DIR,                           srcDir ??                        $"{RootDir}/src"));
+            SrcConfigFiles =                GetParameterValue(Constants.SRC_CONFIG_FILES,                                     srcConfigFiles ??                $"cake.config, Nuget.config");
             SrcConfigsDir =                 GetAbsoluteDirPath(GetParameterValue(Constants.SRC_CONFIGS_DIR,                   srcConfigsDir ??                 $"{SrcDir}/configs"));
             SrcScriptsDir =                 GetAbsoluteDirPath(GetParameterValue(Constants.SRC_SCRIPTS_DIR,                   srcScriptsDir ??                 $"{SrcDir}/scripts"));
             SrcScriptsGitDir =              GetAbsoluteDirPath(GetParameterValue(Constants.SRC_SCRIPTS_GIT_DIR,               srcScriptsGitDir ??              $"{SrcScriptsDir}/git"));

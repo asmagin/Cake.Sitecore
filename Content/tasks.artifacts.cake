@@ -51,6 +51,7 @@ Sitecore.Tasks.GatherBuildScriptsTask = Task("Artifacts :: Copy build scripts")
     {
         EnsureDirectoryExists(Sitecore.Parameters.ArtifactsSrcDir);
 
+        // Copy mandatory scripts
         Debug($"Copy cake scripts to '{Sitecore.Parameters.ArtifactsSrcDir}'");
         var files = new [] {
                 "./build.cake",
@@ -58,9 +59,17 @@ Sitecore.Tasks.GatherBuildScriptsTask = Task("Artifacts :: Copy build scripts")
             };
         CopyFiles(files, Directory(Sitecore.Parameters.ArtifactsSrcDir));
 
-        Debug($"Copy .config files '{Sitecore.Parameters.ArtifactsSrcDir}'");
-        CopyFiles("*.config", Directory(Sitecore.Parameters.ArtifactsSrcDir));
-
+        // Copy optional configuration files
+        var configfilelist = (Sitecore.Parameters.SrcConfigFiles);
+        char[] delimiterChars = {',', ';'};
+        Debug($"Copy optional configuration files {configfilelist} to '{Sitecore.Parameters.ArtifactsSrcDir}'");      
+        var configfiles = (configfilelist.Replace(" ","")).Split(delimiterChars);
+        foreach(var configfile in configfiles)
+        {
+            CopyFiles(configfile, Directory(Sitecore.Parameters.ArtifactsSrcDir));
+        }
+        
+        // Copy mandatory configuration files
         var targetDir = Directory(Sitecore.Parameters.ArtifactsSrcScriptsDir);
         EnsureDirectoryExists(targetDir);
 
