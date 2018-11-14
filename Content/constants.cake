@@ -34,6 +34,7 @@ public static partial class Sitecore
         public static string LIBS_SHIP_DIR                     { get; private set; }
         public static string BUILD_DIR                         { get; private set; }
         public static string SRC_DIR                           { get; private set; }
+        public static string SRC_CONFIG_FILES                  { get; private set; }
         public static string SRC_CONFIGS_DIR                   { get; private set; }
         public static string SRC_SCRIPTS_DIR                   { get; private set; }
         public static string SRC_SCRIPTS_GIT_DIR               { get; private set; }
@@ -89,6 +90,7 @@ public static partial class Sitecore
             string LibsShipDir                   = null,
             string BuildDir                      = null,
             string SrcDir                        = null,
+            string SrcConfigFiles                = null,
             string SrcConfigsDir                 = null,
             string SrcScriptsDir                 = null,
             string SrcScriptsGitDir              = null,
@@ -147,6 +149,7 @@ public static partial class Sitecore
             LIBS_SHIP_DIR                     = LibsShipDir                   ?? "LIBS_SHIP_DIR"; 
             BUILD_DIR                         = BuildDir                      ?? "BUILD_DIR"; 
             SRC_DIR                           = SrcDir                        ?? "SRC_DIR"; 
+            SRC_CONFIG_FILES                  = SrcConfigFiles                ?? "SRC_CONFIG_FILES"; 
             SRC_CONFIGS_DIR                   = SrcConfigsDir                 ?? "SRC_CONFIGS_DIR"; 
             SRC_SCRIPTS_DIR                   = SrcScriptsDir                 ?? "SRC_SCRIPTS_DIR"; 
             SRC_SCRIPTS_GIT_DIR               = SrcScriptsGitDir              ?? "SRC_SCRIPTS_GIT_DIR"; 
