@@ -71,6 +71,7 @@ public static partial class Sitecore
         public static string SolutionFilePath { get; private set; }
         public static string UnicornConfigPath { get; private set; }
         public static string UnicornConfigurations { get; private set; }
+        public static string UnicornSecret { get; private set; }
         public static string UnicornSerializationRoot { get; private set; }
 
 
@@ -137,6 +138,7 @@ public static partial class Sitecore
             string solutionFilePath =              null,
             string unicornConfigPath =             null,
             string unicornConfigurations =         null,
+            string unicornSecret =                 null,
             string unicornSerializationRoot =      null
             )
         {
@@ -206,9 +208,10 @@ public static partial class Sitecore
             // Pathes
             NuGetConfigPath =               GetAbsoluteFilePath(GetParameterValue(Constants.NUGET_CONFIG_PATH,                nuGetConfigPath ??               $"{SrcDir}/nuget.config"));
             SolutionFilePath =              GetAbsoluteFilePath(GetParameterValue(Constants.SOLUTION_FILE_PATH,               solutionFilePath ??              $"{SrcDir}/{SolutionName}.sln"));
-            UnicornConfigPath =             GetUnicornConfigPath(                                                             unicornConfigPath);
+            UnicornConfigPath =             GetUnicornConfigPath(GetParameterValue(Constants.UNICORN_CONFIG_PATH,             unicornConfigPath ??             ""));
             UnicornConfigurations =         GetParameterValue(Constants.UNICORN_CONFIGURATIONS,                               unicornConfigurations ??         "");
-            UnicornSerializationRoot =      GetParameterValue(Constants.UNICORN_SERIALIZATION_ROOT,                           unicornSerializationRoot ??         "unicorn");
+            UnicornSecret =                 GetParameterValue(Constants.UNICORN_SECRET,                                       unicornSecret ??                 "");
+            UnicornSerializationRoot =      GetParameterValue(Constants.UNICORN_SERIALIZATION_ROOT,                           unicornSerializationRoot ??      "unicorn");
 
             // Those parameters absolutely needed 
             Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SolutionName, "SolutionName", "SOLUTION_NAME");
@@ -257,10 +260,8 @@ public static partial class Sitecore
         // if parameter not passed via env or args default values would be provided
         // "Debug" is assumed as a build configuration for local dev installation. 
         // In this case, unicorn configuration could be found in src
-        // In case of "Release" unicorm configuration can be found in build folder.   
-        private static string GetUnicornConfigPath(string defaultValue){
-            var path = GetParameterValue(Constants.UNICORN_CONFIG_PATH, defaultValue);
-
+        // In case of "Release" unicorm configuration can be found in artifacts build folder.
+        private static string GetUnicornConfigPath(string path){
             if (string.IsNullOrEmpty(path)) {
                 path =  BuildConfiguration == "Debug"
                     ? $"{SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn/Unicorn.UI.config"

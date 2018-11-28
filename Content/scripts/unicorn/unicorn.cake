@@ -1,15 +1,21 @@
 #addin "Cake.Powershell"
 
-Func<string, string> getUnicornSecret = (unicornConfigPath) => {
-    if (FileExists(unicornConfigPath))
+Func<string, string, string> getUnicornSecret = (unicornConfigPath, unicornSecret) => {
+    if (string.IsNullOrEmpty(unicornSecret))
     {
-        return XmlPeek(
-            unicornConfigPath,
-            "//configuration/sitecore/unicorn/authenticationProvider/SharedSecret"
-        );
+        if (FileExists(unicornConfigPath))
+        {
+            return XmlPeek(
+                unicornConfigPath,
+                "//configuration/sitecore/unicorn/authenticationProvider/SharedSecret"
+            );
+        }
+        return null;
     }
-
-    return null;
+    else
+    {
+        return unicornSecret;
+    }
 };
 
 Func<string, string> getSiteUrlFromPublishSettings = (srcRoot) => {
@@ -34,7 +40,7 @@ Action<string, string, string, string> runUnicornSync = (siteUrl, secret, script
         $"{scriptDir}/Sync.ps1",
         new PowershellSettings()
             .WithArguments(args => {
-                args.Append("url", url).Append("secret", secret);
+                args.Append("url", url).AppendSecret("secret", secret);
 
                 if (!string.IsNullOrEmpty(scriptDir))
                 {
