@@ -1,7 +1,7 @@
 #addin "Cake.Powershell"
 
-Func<string, string> getUnicornSecret = (unicornConfigPath) => {
-    if (string.IsNullOrEmpty(Sitecore.Parameters.UnicornSecret))
+Func<string, string, string> getUnicornSecret = (unicornConfigPath, unicornSecret) => {
+    if (string.IsNullOrEmpty(unicornSecret))
     {
         if (FileExists(unicornConfigPath))
         {
@@ -14,7 +14,7 @@ Func<string, string> getUnicornSecret = (unicornConfigPath) => {
     }
     else
     {
-        return Sitecore.Parameters.UnicornSecret;
+        return unicornSecret;
     }
 };
 
