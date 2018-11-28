@@ -62,6 +62,7 @@ public static partial class Sitecore
         public static string SOLUTION_FILE_PATH                { get; private set; }
         public static string UNICORN_CONFIG_PATH               { get; private set; }
         public static string UNICORN_CONFIGURATIONS            { get; private set; }
+        public static string UNICORN_SECRET                    { get; private set; }
         public static string UNICORN_SERIALIZATION_ROOT        { get; private set; }
 
         public static void SetNames(
@@ -118,6 +119,7 @@ public static partial class Sitecore
             string SolutionFilePath              = null,
             string UnicornConfigPath             = null,
             string UnicornConfigurations         = null,
+            string UnicornSecret                 = null,
             string UnicornSerializationRoot      = null
 
             )
@@ -177,6 +179,7 @@ public static partial class Sitecore
             SOLUTION_FILE_PATH                = SolutionFilePath              ?? "SOLUTION_FILE_PATH"; 
             UNICORN_CONFIG_PATH               = UnicornConfigPath             ?? "UNICORN_CONFIG_PATH";
             UNICORN_CONFIGURATIONS            = UnicornConfigurations         ?? "UNICORN_CONFIGURATIONS";
+            UNICORN_SECRET                    = UnicornSecret                 ?? "UNICORN_SECRET";
             UNICORN_SERIALIZATION_ROOT        = UnicornSerializationRoot      ?? "UNICORN_SERIALIZATION_ROOT";
         }
     }
