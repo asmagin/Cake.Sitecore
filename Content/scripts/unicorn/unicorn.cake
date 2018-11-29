@@ -32,10 +32,10 @@ Func<string, string> getSiteUrlFromPublishSettings = (srcRoot) => {
     return null;
 };
 
-Action<string, string, string, string> runUnicornSync = (siteUrl, secret, scriptDir, configurations) =>
+Action<string, string, string, string, string> runUnicornSync = (siteUrl, secret, scriptDir, configurations, basicAuth) =>
 {
     var url = $"{siteUrl.Trim('/')}/unicorn.aspx";
-
+    
     StartPowershellFile(
         $"{scriptDir}/Sync.ps1",
         new PowershellSettings()
@@ -49,6 +49,10 @@ Action<string, string, string, string> runUnicornSync = (siteUrl, secret, script
                 if (!string.IsNullOrEmpty(configurations))
                 {
                     args.Append("Configurations", configurations);
+                }
+                if (!string.IsNullOrEmpty(basicAuth))
+                {
+                    args.AppendSecret("basicAuth", basicAuth);
                 }
             })
     );

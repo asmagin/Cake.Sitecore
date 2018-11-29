@@ -17,6 +17,7 @@ public static partial class Sitecore
 
         public static string ScAdminUser { get; private set; }
         public static string ScAdminPassword { get; private set; }
+        public static string ScBasicAuth { get; private set; }
         public static string ScNodeEnv { get; private set; }
         public static string ScNodeRole { get; private set; }
         public static string ScSiteUrl { get; private set; }
@@ -85,6 +86,7 @@ public static partial class Sitecore
 
             string scAdminUser =                   null,
             string scAdminPassword =               null,
+            string scBasicAuth =                   null,
             string scNodeEnv =                     null,
             string scNodeRole =                    null,
             string scSiteUrl =                     null,
@@ -152,6 +154,7 @@ public static partial class Sitecore
             // Sitecore parameters
             ScAdminUser =                   GetParameterValue(Constants.SC_ADMIN_USER,                                        scAdminUser ??                   "b");
             ScAdminPassword =               GetParameterValue(Constants.SC_ADMIN_PASSWORD,                                    scAdminPassword ??               "b");
+            ScBasicAuth =                   GetParameterValue(Constants.SC_BASICAUTH,                                         scBasicAuth ??                   "");
             ScNodeEnv =                     GetParameterValue(Constants.SC_NODE_ENV,                                          scNodeEnv ??                     "local|standalone");
             ScNodeRole =                    GetParameterValue(Constants.SC_NODE_ROLE,                                         scNodeRole ??                    "cm");
             ScSiteUrl =                     GetParameterValue(Constants.SC_SITE_URL,                                          scSiteUrl ??                     "");
@@ -300,5 +303,6 @@ public static partial class Sitecore
             
             return false;
         }
+
     }
 }
