@@ -32,7 +32,7 @@ Func<string, string> getSiteUrlFromPublishSettings = (srcRoot) => {
     return null;
 };
 
-Action<string, string, string, string, string, bool> runUnicornSync = (siteUrl, secret, scriptDir, configurations, basicAuth, basicAuthUse) =>
+Action<string, string, string, string, string> runUnicornSync = (siteUrl, secret, scriptDir, configurations, basicAuth) =>
 {
     var url = $"{siteUrl.Trim('/')}/unicorn.aspx";
     
@@ -50,7 +50,7 @@ Action<string, string, string, string, string, bool> runUnicornSync = (siteUrl, 
                 {
                     args.Append("Configurations", configurations);
                 }
-                if (basicAuthUse)
+                if (!string.IsNullOrEmpty(basicAuth))
                 {
                     args.AppendSecret("basicAuth", basicAuth);
                 }

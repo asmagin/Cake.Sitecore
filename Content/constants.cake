@@ -9,7 +9,6 @@ public static partial class Sitecore
         public static string SC_ADMIN_USER       { get; private set; }
         public static string SC_ADMIN_PASSWORD   { get; private set; }
         public static string SC_BASICAUTH        { get; private set; }
-        public static string SC_BASICAUTHUSE     { get; private set; }
         public static string SC_NODE_ENV         { get; private set; }
         public static string SC_NODE_ROLE        { get; private set; }
         public static string SC_SITE_URL         { get; private set; }
@@ -73,7 +72,6 @@ public static partial class Sitecore
             string ScAdminUser                   = null,
             string ScAdminPassword               = null,
             string ScBasicAuth                   = null,
-            string ScBasicAuthUse                = null,
             string ScNodeEnv                     = null,
             string ScNodeRole                    = null,
             string ScSiteUrl                     = null,
@@ -133,7 +131,6 @@ public static partial class Sitecore
             SC_ADMIN_USER                     = ScAdminUser                   ?? "SC_ADMIN_USER";
             SC_ADMIN_PASSWORD                 = ScAdminPassword               ?? "SC_ADMIN_PASSWORD";
             SC_BASICAUTH                      = ScBasicAuth                   ?? "SC_BASICAUTH";
-            SC_BASICAUTHUSE                   = ScBasicAuthUse                ?? "SC_BASICAUTHUSE";
             SC_NODE_ENV                       = ScNodeEnv                     ?? "SC_NODE_ENV";
             SC_NODE_ROLE                      = ScNodeRole                    ?? "SC_NODE_ROLE";
             SC_SITE_URL                       = ScSiteUrl                     ?? "SC_SITE_URL";
