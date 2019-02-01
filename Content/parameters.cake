@@ -248,7 +248,7 @@ public static partial class Sitecore
                 throw new Exception($"Environmental variable or argument {Constants.RELEASE_VERSION} = {version} should follow SemVer format (0.0.0).");
             }
 
-            return $"{version}.{BuildId}";
+            return $"{version}.0";
         }
 
         private static string GetAbsoluteDirPath(string path){
