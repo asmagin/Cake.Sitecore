@@ -4,6 +4,10 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/tjmhfjucua3xko9q?svg=true)](https://ci.appveyor.com/project/asmagin/cake-sitecore)
 
 ## Release notes
+# v.1.0.14
+Fixed issue with wrong assembly version generation. Removed build number from assemsbly version and make it 0 by default. Otherwise it breaks reference for the nuget packages generated for the same {Major}.{Minor}.{Patch} version
+
+
 # v.1.0.8
 Added new parameter Sitecore.Parameters.TestsFailImmediately with default boolean value = true. 
 In case of failed unit tests parameter Sitecore.Parameters.TestsFailImmediately controls if tasks Sitecore.Tasks.RunServerUnitTestsTaskName and Sitecore.Tasks.RunClientUnitTestsTaskName should fail immediately or not. Otherwise if Sitecore.Parameters.TestsFailImmediately = false unit test execution will throw an exception in the task Sitecore.Tasks.MergeCoverageReportsTaskName.
