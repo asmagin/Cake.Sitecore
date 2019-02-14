@@ -152,7 +152,7 @@ public static partial class Sitecore
             SolutionName =                  GetParameterValue(Constants.SOLUTION_NAME,                                        solutionName ??                  "");
             
             // Sitecore parameters
-            ScAdminUser =                   GetParameterValue(Constants.SC_ADMIN_USER,                                        scAdminUser ??                   "b");
+            ScAdminUser =                   GetParameterValue(Constants.SC_ADMIN_USER,                                        scAdminUser ??                   "admin");
             ScAdminPassword =               GetParameterValue(Constants.SC_ADMIN_PASSWORD,                                    scAdminPassword ??               "b");
             ScBasicAuth =                   GetParameterValue(Constants.SC_BASICAUTH,                                         scBasicAuth ??                   "");
             ScNodeEnv =                     GetParameterValue(Constants.SC_NODE_ENV,                                          scNodeEnv ??                     "local|standalone");

@@ -4,9 +4,13 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/tjmhfjucua3xko9q?svg=true)](https://ci.appveyor.com/project/asmagin/cake-sitecore)
 
 ## Release notes
+# v.1.0.15
+Sitecore Powershell Extensions updated to version 5.0
+"ScAdminUser" parameter default fixed - "admin"
+.nuspec version bumped 
+
 # v.1.0.14
 Fixed issue with wrong assembly version generation. Removed build number from assemsbly version and make it 0 by default. Otherwise it breaks reference for the nuget packages generated for the same {Major}.{Minor}.{Patch} version
-
 
 # v.1.0.8
 Added new parameter Sitecore.Parameters.TestsFailImmediately with default boolean value = true. 
