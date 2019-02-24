@@ -1,4 +1,4 @@
-#addin "Microsoft.Web.Xdt"
+#addin "Microsoft.Web.Xdt&version=3.0.0"
 
 using Microsoft.Web.XmlTransform;
 

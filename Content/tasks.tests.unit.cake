@@ -1,8 +1,7 @@
-
-#tool "nuget:?package=OpenCover"
-#tool "nuget:?package=OpenCoverToCoberturaConverter"
-#tool "nuget:?package=ReportGenerator"
-#tool "nuget:?package=xunit.runner.console"
+#tool "nuget:?package=OpenCover&version=4.7.922"
+#tool "nuget:?package=OpenCoverToCoberturaConverter&version=0.3.4"
+#tool "nuget:?package=ReportGenerator&version=4.0.13.1"
+#tool "nuget:?package=xunit.runner.console&version=2.4.1"
 
 // extentions
 public static partial class Sitecore 

@@ -34,8 +34,8 @@ In order to use the library you need to follow the standard [initial setup from 
 // //////////////////////////////////////////////////
 // Dependencies
 // //////////////////////////////////////////////////
-#tool nuget:?package=Cake.Sitecore&prerelease
-#load nuget:?package=Cake.Sitecore&prerelease
+#tool nuget:?package=Cake.Sitecore&version=<current>
+#load nuget:?package=Cake.Sitecore&version=<current>
 
 // ... other includes 
 

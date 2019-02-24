@@ -1,8 +1,8 @@
 // //////////////////////////////////////////////////
 // Dependencies
 // //////////////////////////////////////////////////
-#tool nuget:?package=Cake.Sitecore&prerelease
-#load nuget:?package=Cake.Sitecore&prerelease
+#tool nuget:?package=Cake.Sitecore
+#load nuget:?package=Cake.Sitecore
 
 using System;
 using System.Text.RegularExpressions

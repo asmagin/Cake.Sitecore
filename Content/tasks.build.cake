@@ -1,4 +1,4 @@
-#addin "Cake.FileHelpers"
+#addin "Cake.FileHelpers&version=3.1.0"
 
 Sitecore.Tasks.GenerateVersionFileTask = Task("Build :: Generate Version.txt file")
     .Description("Creates a file with detailed information about the build in publishing target directory (`PUBLISHING_TARGET_DIR`)")
