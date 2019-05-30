@@ -106,7 +106,7 @@ Function Invoke-StreamingWebRequest($Uri, $MAC, $Nonce, $BasicAuth) {
 		$encodedCreds = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes($BasicAuth))
 		$request.Headers.Add("Authorization", "Basic $encodedCreds")
 		Write-Host($Uri)
-		Write-Host($request.Headers["Authorization"])
+		Write-Host($request.Headers["Authorization"].Replace($encodedCreds, "*"*$encodedCreds.Length))
 	}
 
 	$request.Timeout = 10800000
