@@ -4,12 +4,19 @@ Sitecore.Tasks.CleanWildcardFoldersTask = Task("Clean-up :: Clean Wildcard Folde
     {
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SrcDir, "SrcDir", "SRC_DIR");
 
-        foreach(var directory in GetDirectories($"{Sitecore.Parameters.SrcDir}/**/code/dist"))
-        {
-            CleanDirectory(directory);
-        }
+        var _layerDirectories =
+            GetDirectories($"{Sitecore.Parameters.SrcDir}/Foundation") +
+            GetDirectories($"{Sitecore.Parameters.SrcDir}/Feature") +
+            GetDirectories($"{Sitecore.Parameters.SrcDir}/Project");
 
-        foreach(var directory in GetDirectories($"{Sitecore.Parameters.SrcDir}/**/code/App_Data/{Sitecore.Parameters.UnicornSerializationRoot}"))
+        var _projectDirectories = _layerDirectories
+            .SelectMany(_dir => GetDirectories($"{_dir}/*/code"));
+
+        var _wildcardDirectories = _projectDirectories
+            .SelectMany(_dir => GetDirectories($"{_dir}/dist") + GetDirectories($"{_dir}/App_Data/{Sitecore.Parameters.UnicornSerializationRoot}"))
+            .ToArray();
+
+        foreach (var directory in _wildcardDirectories)
         {
             CleanDirectory(directory);
         }
