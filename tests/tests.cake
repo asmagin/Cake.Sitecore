@@ -1,5 +1,6 @@
 #load "../content/scripts/coverage/coverage.cake"
 #load "../content/scripts/git/git.cake"
+#load "../content/scripts/json-transform/json-transform.cake"
 #load "../content/scripts/ship/ship.cake"
 #load "../content/scripts/unicorn/unicorn.cake"
 
@@ -16,6 +17,10 @@
 #load "../content/tasks.restore.cake"
 #load "../content/tasks.tests.unit.cake"
 #load "../content/tasks.unicorn.cake"
+
+#load "../content/commerce.constants.cake"
+#load "../content/commerce.parameters.cake"
+#load "../content/commerce.tasks.cake"
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS

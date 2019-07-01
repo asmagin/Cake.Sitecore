@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 public static partial class Sitecore 
 {
-    public static class Parameters
+    public static partial class Parameters
     {
         private const string SEM_VER_REGEX = "\\d+\\.\\d+\\.\\d+";
 
@@ -66,6 +66,7 @@ public static partial class Sitecore
         public static string XUnitTestsCoverageExcludeDirectories { get; private set; }
         public static string JestTestsCoverageOutputDir { get; private set; }
         public static string PublishingTargetDir { get; private set; }
+        public static string LocalWebsitesRootDir { get; private set; }
         public static string ScLocalWebsiteRootDir { get; private set; }
 
         public static string NuGetConfigPath { get; private set; }
@@ -282,7 +283,8 @@ public static partial class Sitecore
 
         private static string GetPublishingTargetDir(string defaultValue){
             var path = GetParameterValue(Constants.PUBLISHING_TARGET_DIR, defaultValue);
-            var localWebRoot = GetParameterValue(Constants.SC_LOCAL_WEBSITE_ROOT_DIR, "\\\\192.168.50.4\\c$\\inetpub\\wwwroot\\sc9.local");
+            var localWebsitesRoot = GetParameterValue(Constants.LOCAL_WEBSITES_ROOT_DIR, "\\\\192.168.50.4\\c$\\inetpub\\wwwroot");
+            var localWebRoot = GetParameterValue(Constants.SC_LOCAL_WEBSITE_ROOT_DIR, $"{localWebsitesRoot}\\sc9.local");
 
             if (string.IsNullOrEmpty(path)) {
                 path = BuildConfiguration == "Debug"
@@ -303,6 +305,5 @@ public static partial class Sitecore
             
             return false;
         }
-
     }
 }

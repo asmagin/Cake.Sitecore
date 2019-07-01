@@ -1,3 +1,12 @@
+public static class TaskExtensions {
+    public static string GetTaskName(CakeTaskBuilder taskBuilder) {
+        if (taskBuilder == null)
+            throw new ArgumentNullException(nameof(taskBuilder), "Cannot retrieve a name of a task as the task is undefined (null).");
+
+        return taskBuilder.Task.Name;
+    }
+}
+
 public class Tasks {
     // Tasks
     public CakeTaskBuilder BuildClientCodeTask { get; set; }
@@ -58,14 +67,7 @@ public class Tasks {
     public string SyncAllUnicornItemsName => GetTaskName(this.SyncAllUnicornItems);
 
     // private helpers
-    private static string GetTaskName(CakeTaskBuilder taskBuilder) {
-        if (taskBuilder != null)
-        {
-            return taskBuilder.Task.Name;
-        }
-
-        throw new Exception("Cannot retrieve a name of a task as the task is undefined (null).");
-    }
+    private static string GetTaskName(CakeTaskBuilder taskBuilder) => TaskExtensions.GetTaskName(taskBuilder);
 }
 
 public static partial class Sitecore 
