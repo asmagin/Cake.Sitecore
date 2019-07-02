@@ -44,7 +44,7 @@ public static partial class Sitecore
             {
                 _context =                      context;
 
-                BuildConfiguration =            GetParameterValue(Constants.Commerce.BUILD_CONFIGURATION,               buildConfiguration      ?? "Debug");
+                BuildConfiguration =            GetParameterValue(Constants.Commerce.BUILD_CONFIGURATION,               buildConfiguration      ?? Sitecore.Parameters.BuildConfiguration);
 
                 ArtifactsBuildDir =             GetAbsoluteDirPath(
                                                     GetParameterValue(Constants.Commerce.ARTIFACTS_BUILD_DIR,           artifactsBuildDir       ?? $"{Sitecore.Parameters.ArtifactsDir}/commerce"));
@@ -56,13 +56,13 @@ public static partial class Sitecore
                 SolutionName =                  GetParameterValue(Constants.Commerce.SOLUTION_NAME,                     solutionName            ?? $"{Sitecore.Parameters.SolutionName}.Commerce");
                 SolutionPath =                  GetParameterValue(Constants.Commerce.SOLUTION_PATH,                     solutionPath            ?? $"{Sitecore.Parameters.SrcDir}/{Sitecore.Parameters.Commerce.SolutionName}.sln");
 
-                OpsServerUrl =                  GetParameterValue(Constants.Commerce.OPS_SERVER_URL,                    opsServerUrl            ?? "https://sc9.identityserver");
-                IdentityServerUrl =             GetParameterValue(Constants.Commerce.IDENTITY_SERVER_URL,               identityServerUrl       ?? "https://commerceops.sc9.local");
-                ScAdminUser =                   GetParameterValue(Constants.Commerce.SC_ADMIN_USER,                     scAdminUser             ?? Sitecore.Parameters.ScAdminUser);
-                ScAdminPassword =               GetParameterValue(Constants.Commerce.SC_ADMIN_PASSWORD,                 scAdminPassword         ?? Sitecore.Parameters.ScAdminPassword);
+                OpsServerUrl =                  GetParameterValue(Constants.Commerce.OPS_SERVER_URL,                    opsServerUrl            ?? "https://commerceops.sc9.local");
+                IdentityServerUrl =             GetParameterValue(Constants.Commerce.IDENTITY_SERVER_URL,               identityServerUrl       ?? "https://sc9.identityserver");
+                ScAdminUser =                   GetParameterValue(Constants.Commerce.SC_ADMIN_USER,                     scAdminUser             ?? "sitecore\\admin");
+                ScAdminPassword =               GetParameterValue(Constants.Commerce.SC_ADMIN_PASSWORD,                 scAdminPassword         ?? "b");
 
                 // Those parameters absolutely needed
-                Utils.AssertIfNull(Sitecore.Parameters.Commerce.RolesConfiguration, "RolesConfiguration", "COMMERCE_ROLES_CONFIGURATION");
+                Utils.AssertIfNull(RolesConfiguration, "RolesConfiguration", "COMMERCE_ROLES_CONFIGURATION");
             }
 
             private static string GetParameterValue(string argumentName, string defaultValue, string environmentNamePrefix = null) {
