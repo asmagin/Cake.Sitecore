@@ -65,9 +65,9 @@ public static partial class Sitecore
         public static string XUnitTestsCoverageExcludeFileFilters { get; private set; }
         public static string XUnitTestsCoverageExcludeDirectories { get; private set; }
         public static string JestTestsCoverageOutputDir { get; private set; }
-        public static string PublishingTargetDir { get; private set; }
-        public static string LocalWebsitesRootDir { get; private set; }
+        public static string BaseLocalWebsiteRootDir { get; private set; }
         public static string ScLocalWebsiteRootDir { get; private set; }
+        public static string PublishingTargetDir { get; private set; }
 
         public static string NuGetConfigPath { get; private set; }
         public static string SolutionFilePath { get; private set; }
@@ -135,6 +135,8 @@ public static partial class Sitecore
             string xUnitTestsCoverageExcludeFileFilters      = null,
             string xUnitTestsCoverageExcludeDirectories      = null,
             string jestTestsCoverageOutputDir =    null,
+            string baseLocalWebsiteRootDir =       null,
+            string scLocalWebsiteRootDir =         null,
             string publishingTargetDir =           null,
 
             string nuGetConfigPath =               null,
@@ -207,7 +209,9 @@ public static partial class Sitecore
             XUnitTestsCoverageExcludeFileFilters       = GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS,       xUnitTestsCoverageExcludeFileFilters       ?? "");
             XUnitTestsCoverageExcludeDirectories       = GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES,        xUnitTestsCoverageExcludeDirectories       ?? "");
             JestTestsCoverageOutputDir =    GetAbsoluteDirPath(GetParameterValue(Constants.JEST_TESTS_COVERAGE_OUTPUT_DIR,    jestTestsCoverageOutputDir ??    $"{TestsCoverageOutputDir}/jest"));
-            PublishingTargetDir =           GetPublishingTargetDir(                                                           publishingTargetDir);
+            BaseLocalWebsiteRootDir =       GetAbsoluteDirPath(GetParameterValue(Constants.BASE_LOCAL_WEBSITE_ROOT_DIR,       baseLocalWebsiteRootDir ??       "\\\\192.168.50.4\\c$\\inetpub\\wwwroot"));
+            ScLocalWebsiteRootDir =         GetAbsoluteDirPath(GetParameterValue(Constants.SC_LOCAL_WEBSITE_ROOT_DIR,         scLocalWebsiteRootDir ??         $"{BaseLocalWebsiteRootDir}\\sc9.local"));
+            PublishingTargetDir =           GetPublishingTargetDir(publishingTargetDir);
 
             // Pathes
             NuGetConfigPath =               GetAbsoluteFilePath(GetParameterValue(Constants.NUGET_CONFIG_PATH,                nuGetConfigPath ??               $"{SrcDir}/nuget.config"));
@@ -281,14 +285,12 @@ public static partial class Sitecore
             return GetAbsoluteFilePath(path);
         }
 
-        private static string GetPublishingTargetDir(string defaultValue){
+        private static string GetPublishingTargetDir(string defaultValue) {
             var path = GetParameterValue(Constants.PUBLISHING_TARGET_DIR, defaultValue);
-            var localWebsitesRoot = GetParameterValue(Constants.LOCAL_WEBSITES_ROOT_DIR, "\\\\192.168.50.4\\c$\\inetpub\\wwwroot");
-            var localWebRoot = GetParameterValue(Constants.SC_LOCAL_WEBSITE_ROOT_DIR, $"{localWebsitesRoot}\\sc9.local");
 
             if (string.IsNullOrEmpty(path)) {
                 path = BuildConfiguration == "Debug"
-                    ? localWebRoot
+                    ? ScLocalWebsiteRootDir
                     : ArtifactsBuildDir;
             }
             

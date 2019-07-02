@@ -105,7 +105,7 @@ Sitecore.Commerce.Tasks.PublishEngineTask = Task("Commerce :: Publish :: Publish
 
             // ToDo: does it make sense to reuse task.publish.cake?
             var _msBuildSettings = new MSBuildSettings()
-                .SetConfiguration(Sitecore.Parameters.BuildConfiguration)
+                .SetConfiguration(Sitecore.Parameters.Commerce.BuildConfiguration)
                 .SetVerbosity(Verbosity.Minimal)
                 .UseToolVersion(Sitecore.Parameters.MsBuildToolVersion)
                 .WithTarget("Rebuild")

@@ -5,6 +5,9 @@ public static partial class Sitecore
         public static partial class Commerce
         {
             public static string BUILD_CONFIGURATION            { get; private set; }
+
+            public static string ARTIFACTS_BUILD_DIR            { get; private set; }
+            public static string BASE_LOCAL_WEBSITE_ROOT_DIR    { get; private set; }
             public static string ROLES_CONFIGURATION            { get; private set; }
 
             public static string ENGINE_PROJECT_PATH            { get; private set; }
@@ -16,9 +19,11 @@ public static partial class Sitecore
             public static string IDENTITY_SERVER_URL            { get; private set; }
             public static string SC_ADMIN_USER                  { get; private set; }
             public static string SC_ADMIN_PASSWORD              { get; private set; }
-
+ 
             public static void SetNames(
                 string BuildConfiguration           = null,
+                string ArtifactsBuildDir            = null,
+                string BaseLocalWebsiteRootDir      = null,
                 string RolesConfiguration           = null,
                 string EngineProjectPath            = null,
                 string SolutionName                 = null,
@@ -29,6 +34,8 @@ public static partial class Sitecore
                 string ScAdminPassword              = null
             ) {
                 BUILD_CONFIGURATION             = BuildConfiguration            ?? "COMMERCE_BUILD_CONFIGURATION";
+                ARTIFACTS_BUILD_DIR             = ArtifactsBuildDir             ?? "COMMERCE_ARTIFACTS_BUILD_DIR";
+                BASE_LOCAL_WEBSITE_ROOT_DIR     = BaseLocalWebsiteRootDir       ?? "COMMERCE_BASE_LOCAL_WEBSITE_ROOT_DIR";
                 ROLES_CONFIGURATION             = RolesConfiguration            ?? "COMMERCE_ROLES_CONFIGURATION";
                 ENGINE_PROJECT_PATH             = EngineProjectPath             ?? "COMMERCE_ENGINE_PROJECT_PATH";
                 SOLUTION_NAME                   = SolutionName                  ?? "COMMERCE_SOLUTION_NAME";
