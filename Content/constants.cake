@@ -56,9 +56,8 @@ public static partial class Sitecore
         public static string XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS      { get; private set; }
         public static string XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES       { get; private set; }
         public static string JEST_TESTS_COVERAGE_OUTPUT_DIR    { get; private set; }
-        public static string BASE_LOCAL_WEBSITE_ROOT_DIR       { get; private set; }
-        public static string SC_LOCAL_WEBSITE_ROOT_DIR         { get; private set; }
         public static string PUBLISHING_TARGET_DIR             { get; private set; }
+        public static string SC_LOCAL_WEBSITE_ROOT_DIR         { get; private set; }
 
         public static string NUGET_CONFIG_PATH                 { get; private set; }
         public static string SOLUTION_FILE_PATH                { get; private set; }
@@ -115,9 +114,8 @@ public static partial class Sitecore
             string XunitTestsCoverageExcludeFileFilters      = null,
             string XunitTestsCoverageExcludeDirectories      = null,
             string JestTestsCoverageOutputDir    = null,
-            string BaseLocalWebsiteRootDir       = null,
-            string ScLocalWebsiteRootDir         = null,
             string PublishingTargetDir           = null,
+            string ScLocalWebsiteRootDir         = null,
 
             string NuGetConfigPath               = null,
             string SolutionFilePath              = null,
@@ -177,9 +175,8 @@ public static partial class Sitecore
             XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS      = XunitTestsCoverageExcludeFileFilters      ?? "XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS";
             XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES       = XunitTestsCoverageExcludeDirectories      ?? "XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES";
             JEST_TESTS_COVERAGE_OUTPUT_DIR    = JestTestsCoverageOutputDir    ?? "JEST_TESTS_COVERAGE_OUTPUT_DIR"; 
-            BASE_LOCAL_WEBSITE_ROOT_DIR       = BaseLocalWebsiteRootDir       ?? "BASE_LOCAL_WEBSITE_ROOT_DIR"; 
-            SC_LOCAL_WEBSITE_ROOT_DIR         = ScLocalWebsiteRootDir         ?? "SC_LOCAL_WEBSITE_ROOT_DIR"; 
             PUBLISHING_TARGET_DIR             = PublishingTargetDir           ?? "PUBLISHING_TARGET_DIR"; 
+            SC_LOCAL_WEBSITE_ROOT_DIR         = ScLocalWebsiteRootDir         ?? "SC_LOCAL_WEBSITE_ROOT_DIR"; 
             
             NUGET_CONFIG_PATH                 = NuGetConfigPath               ?? "NUGET_CONFIG_PATH";
             SOLUTION_FILE_PATH                = SolutionFilePath              ?? "SOLUTION_FILE_PATH"; 

@@ -21,6 +21,8 @@
 #load "../content/commerce.constants.cake"
 #load "../content/commerce.parameters.cake"
 #load "../content/commerce.tasks.cake"
+#load "../content/commerce.tasks.publish.cake"
+#load "../content/commerce.tasks.bootstrap.cake"
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS

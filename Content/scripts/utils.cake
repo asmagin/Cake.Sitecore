@@ -20,17 +20,6 @@ public static partial class Sitecore
                 throw new Exception($"Variable '{varName}' cannot be null. Please, set it in code or provide argument on environment variable '{envName ?? varName}'");
             }
         }
-
-        public static IDictionary<string, string> ParseStringAsNameValueCollection(string value) {
-            if (string.IsNullOrEmpty(value))
-                throw new ArgumentException("String shouldnot be empty", nameof(value));
-
-            return value.Split(';')
-                .Where(x => !string.IsNullOrEmpty(x))
-                .ToDictionary(
-                    x => x.IndexOf("=") > -1 ? x.Substring(0, x.IndexOf("=")) : x, 
-                    x => x.IndexOf("=") > -1 ? x.Substring(x.IndexOf("=") + 1) : string.Empty);
-        }
     }
 }
 
