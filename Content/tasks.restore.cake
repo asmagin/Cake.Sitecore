@@ -30,7 +30,7 @@ Action<string, string, string, IEnumerable<string>> restoreNuGetPackages = (stri
         };
     }
 
-    NuGetRestore(Sitecore.Parameters.SolutionFilePath, _settings);
+    NuGetRestore(solutionPath, _settings);
 };
 
 Sitecore.Tasks.RestoreNuGetPackagesTask = Task("Restore :: Restore NuGet Packages")
