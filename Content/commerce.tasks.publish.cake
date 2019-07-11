@@ -102,3 +102,5 @@ Sitecore.Commerce.Tasks.PublishArtifactsTask = Task("Commerce :: Publish :: Publ
         var _commerceSiteRootDir = DirectoryPath.FromString(Sitecore.Parameters.Commerce.ArtifactsBuildDir);
         publishCommerceEngineProject(_commerceSiteRootDir);
     });
+
+// ToDo: transformation apply for CI: how to do it better for 4 roles?

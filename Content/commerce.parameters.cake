@@ -14,6 +14,14 @@ public static partial class Sitecore
             public static string SolutionName                   { get; private set; }
             public static string SolutionFilePath               { get; private set; }
 
+            public static string TestsOutputDir                             { get; private set; }
+            public static string TestsCoverageOutputDir                     { get; private set; }
+            public static string XUnitTestsCoverageOutputDir                { get; private set; }
+            public static string XUnitTestsCoverageRegister                 { get; private set; }
+            public static string XUnitTestsCoverageExcludeAttributeFilters  { get; private set; }
+            public static string XUnitTestsCoverageExcludeFileFilters       { get; private set; }
+            public static string XUnitTestsCoverageExcludeDirectories       { get; private set; }
+
             public static string ArtifactsBuildDir              { get; private set; }
             public static string BaseLocalWebsiteRootDir        { get; private set; }
             public static string AuthoringLocalWebsiteRootDir   { get; private set; }
@@ -39,6 +47,14 @@ public static partial class Sitecore
                 string solutionName =                               null,
                 string solutionFilePath =                           null,
 
+                string testsOutputDir =                             null,
+                string testsCoverageOutputDir =                     null,
+                string xUnitTestsCoverageOutputDir =                null,
+                string xUnitTestsCoverageRegister =                 null,
+                string xUnitTestsCoverageExcludeAttributeFilters =  null,
+                string xUnitTestsCoverageExcludeFileFilters =       null,
+                string xUnitTestsCoverageExcludeDirectories =       null,
+
                 string artifactsBuildDir =                          null,
                 string baseLocalWebsiteRootDir =                    null,
                 string authoringLocalWebsiteRootDir =               null,
@@ -60,8 +76,16 @@ public static partial class Sitecore
                                                 GetParameterValue(Constants.Commerce.LIBS_NUGET_DIR,                    libsNuGetDir            ?? Sitecore.Parameters.LibsNuGetDir));
 
                 EngineProjectPath =             GetParameterValue(Constants.Commerce.ENGINE_PROJECT_PATH,               engineProjectPath       ?? $"{Sitecore.Parameters.SrcDir}\\Commerce\\Sitecore.Commerce.Engine\\Sitecore.Commerce.Engine.csproj");
-                SolutionName =                  GetParameterValue(Constants.Commerce.SOLUTION_NAME,                     solutionName            ?? $"{Sitecore.Parameters.SolutionName}.Commerce");
-                SolutionFilePath =              GetParameterValue(Constants.Commerce.SOLUTION_FILE_PATH,                solutionFilePath        ?? $"{Sitecore.Parameters.SrcDir}/{Sitecore.Parameters.Commerce.SolutionName}.sln");
+                SolutionName =                  GetParameterValue(Constants.Commerce.SOLUTION_NAME,                     solutionName            ?? Sitecore.Parameters.SolutionName);
+                SolutionFilePath =              GetParameterValue(Constants.Commerce.SOLUTION_FILE_PATH,                solutionFilePath        ?? $"{Sitecore.Parameters.SrcDir}/{Sitecore.Parameters.Commerce.SolutionName}.Commerce.sln");
+
+                TestsOutputDir =                            GetAbsoluteDirPath(GetParameterValue(Constants.Commerce.TESTS_OUTPUT_DIR,                   testsOutputDir                              ?? $"{Sitecore.Parameters.OutputDir}/tests"));
+                TestsCoverageOutputDir =                    GetAbsoluteDirPath(GetParameterValue(Constants.Commerce.TESTS_COVERAGE_OUTPUT_DIR,          testsCoverageOutputDir                      ?? $"{TestsOutputDir}/coverage"));
+                XUnitTestsCoverageOutputDir =               GetAbsoluteDirPath(GetParameterValue(Constants.Commerce.XUNIT_TESTS_COVERAGE_OUTPUT_DIR,    xUnitTestsCoverageOutputDir                 ?? $"{TestsCoverageOutputDir}/commerce-xUnit"));
+                XUnitTestsCoverageRegister =                GetParameterValue(Constants.Commerce.XUNIT_TESTS_COVERAGE_REGISTER,                         xUnitTestsCoverageRegister                  ?? Sitecore.Parameters.XUnitTestsCoverageRegister);
+                XUnitTestsCoverageExcludeAttributeFilters = GetParameterValue(Constants.Commerce.XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS,        xUnitTestsCoverageExcludeAttributeFilters   ?? Sitecore.Parameters.XUnitTestsCoverageExcludeAttributeFilters);
+                XUnitTestsCoverageExcludeFileFilters =      GetParameterValue(Constants.Commerce.XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS,             xUnitTestsCoverageExcludeFileFilters        ?? Sitecore.Parameters.XUnitTestsCoverageExcludeFileFilters);
+                XUnitTestsCoverageExcludeDirectories =      GetParameterValue(Constants.Commerce.XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES,              xUnitTestsCoverageExcludeDirectories        ?? Sitecore.Parameters.XUnitTestsCoverageExcludeDirectories);
 
                 ResolveTargetDirs(
                     baseLocalWebsiteRootDir,

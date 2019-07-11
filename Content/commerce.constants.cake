@@ -12,6 +12,14 @@ public static partial class Sitecore
             public static string SOLUTION_NAME                      { get; private set; }
             public static string SOLUTION_FILE_PATH                 { get; private set; }
 
+            public static string TESTS_OUTPUT_DIR                               { get; private set; }
+            public static string TESTS_COVERAGE_OUTPUT_DIR                      { get; private set; }
+            public static string XUNIT_TESTS_COVERAGE_OUTPUT_DIR                { get; private set; }
+            public static string XUNIT_TESTS_COVERAGE_REGISTER                  { get; private set; }
+            public static string XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS { get; private set; }
+            public static string XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS      { get; private set; }
+            public static string XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES       { get; private set; }
+
             public static string ARTIFACTS_BUILD_DIR                { get; private set; }
             public static string BASE_LOCAL_WEBSITE_ROOT_DIR        { get; private set; }
             public static string AUTHORING_LOCAL_WEBSITE_ROOT_DIR   { get; private set; }
@@ -32,6 +40,13 @@ public static partial class Sitecore
                 string EngineProjectPath                = null,
                 string SolutionName                     = null,
                 string SolutionFilePath                 = null,
+                string TestsOutputDir                               = null,
+                string TestsCoverageOutputDir                       = null,
+                string XUnitTestsCoverageOutputDir                  = null,
+                string XUnitTestsCoverageRegister                   = null,
+                string XUnitTestsCoverageExcludeAttributeFilters    = null,
+                string XUnitTestsCoverageExcludeFileFilters         = null,
+                string XUnitTestsCoverageExcludeDirectories         = null,
                 string ArtifactsBuildDir                = null,
                 string BaseLocalWebsiteRootDir          = null,
                 string AuthoringLocalWebsiteRootDir     = null,
@@ -49,6 +64,15 @@ public static partial class Sitecore
                 ENGINE_PROJECT_PATH                 = EngineProjectPath                 ?? "COMMERCE_ENGINE_PROJECT_PATH";
                 SOLUTION_NAME                       = SolutionName                      ?? "COMMERCE_SOLUTION_NAME";
                 SOLUTION_FILE_PATH                  = SolutionFilePath                  ?? "COMMERCE_SOLUTION_FILE_PATH";
+
+                TESTS_OUTPUT_DIR                                = TestsOutputDir                            ?? "COMMERCE_TESTS_OUTPUT_DIR";        
+                TESTS_COVERAGE_OUTPUT_DIR                       = TestsCoverageOutputDir                    ?? "COMMERCE_TESTS_COVERAGE_OUTPUT_DIR";
+                XUNIT_TESTS_COVERAGE_OUTPUT_DIR                 = XUnitTestsCoverageOutputDir               ?? "COMMERCE_XUNIT_TESTS_COVERAGE_OUTPUT_DIR";
+                XUNIT_TESTS_COVERAGE_REGISTER                   = XUnitTestsCoverageRegister                ?? "COMMERCE_XUNIT_TESTS_COVERAGE_REGISTER";
+                XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS  = XUnitTestsCoverageExcludeAttributeFilters ?? "COMMERCE_XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS";
+                XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS       = XUnitTestsCoverageExcludeFileFilters      ?? "COMMERCE_XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS";
+                XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES        = XUnitTestsCoverageExcludeDirectories      ?? "COMMERCE_XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES";
+
                 ARTIFACTS_BUILD_DIR                 = ArtifactsBuildDir                 ?? "COMMERCE_ARTIFACTS_BUILD_DIR";
                 BASE_LOCAL_WEBSITE_ROOT_DIR         = BaseLocalWebsiteRootDir           ?? "COMMERCE_BASE_LOCAL_WEBSITE_ROOT_DIR";
                 AUTHORING_LOCAL_WEBSITE_ROOT_DIR    = AuthoringLocalWebsiteRootDir      ?? "COMMERCE_AUTHORING_LOCAL_WEBSITE_ROOT_DIR";

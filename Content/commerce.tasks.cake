@@ -3,6 +3,7 @@ public class CommerceTasks {
     public CakeTaskBuilder RestoreNuGetPackagesTask { get; set; }
 
     public CakeTaskBuilder BuildCommerceEngineCodeTask { get; set; }
+    public CakeTaskBuilder RunServerUnitTestsTask { get; set; }
 
     public CakeTaskBuilder PublishEngineAuthoringTask { get; set; }
     public CakeTaskBuilder PublishEngineMinionsTask { get; set; }
@@ -15,6 +16,7 @@ public class CommerceTasks {
     // Task names
     public string RestoreNuGetPackagesTaskName =>           GetTaskName(this.RestoreNuGetPackagesTask);
     public string BuildCommerceEngineCodeTaskName =>        GetTaskName(this.BuildCommerceEngineCodeTask);
+    public string RunServerUnitTestsTaskName =>             GetTaskName(this.RunServerUnitTestsTask);
     public string PublishEngineAuthoringTaskName =>         GetTaskName(this.PublishEngineAuthoringTask);
     public string PublishEngineMinionsTaskName =>           GetTaskName(this.PublishEngineMinionsTask);
     public string PublishEngineOpsTaskName =>               GetTaskName(this.PublishEngineOpsTask);
@@ -63,5 +65,3 @@ Sitecore.Commerce.Tasks.BuildCommerceEngineCodeTask = Task("Commerce :: Build ::
 
         MSBuild(Sitecore.Parameters.Commerce.SolutionFilePath, _msBuildSettings);
     });
-
-// ToDo: unit testing for Commerce Engine + looks like RunServerUnitTestsTask consumes all the test project inside SRC folder
