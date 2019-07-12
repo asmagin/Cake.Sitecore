@@ -57,11 +57,13 @@ Sitecore.Commerce.Tasks.BuildCommerceEngineCodeTask = Task("Commerce :: Build ::
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.Commerce.BuildConfiguration, "BuildConfiguration", "COMMERCE_BUILD_CONFIGURATION");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.Commerce.SolutionFilePath, "SolutionFilePath", "COMMERCE_SOLUTION_FILE_PATH");
 
-        var _msBuildSettings = new MSBuildSettings()
-            .SetConfiguration(Sitecore.Parameters.Commerce.BuildConfiguration)
-            .SetVerbosity(Verbosity.Minimal) // TODO: figure out how to get access to -Verbosity flag
-            .UseToolVersion(Sitecore.Parameters.MsBuildToolVersion)
-            .WithTarget("Rebuild"); // TODO: move to configuration
+        var _dotNetCoreBuildSettings = new DotNetCoreBuildSettings
+        {
+            Configuration = Sitecore.Parameters.Commerce.BuildConfiguration,
+            NoRestore = true,
+            NoIncremental = true, // TODO: move to configuration
+            Verbosity = DotNetCoreVerbosity.Minimal // TODO: figure out how to get access to -Verbosity flag
+        };
 
-        MSBuild(Sitecore.Parameters.Commerce.SolutionFilePath, _msBuildSettings);
+        DotNetCoreBuild(Sitecore.Parameters.Commerce.SolutionFilePath, _dotNetCoreBuildSettings);
     });

@@ -22,20 +22,17 @@ Action<DirectoryPath> publishCommerceEngineProject = (publishingTargetDir) => {
 
     EnsureDirectoryExists(publishingTargetDir);
 
-    // ToDo: does it make sense to reuse task.publish.cake?
-    var _msBuildSettings = new MSBuildSettings()
-        .SetConfiguration(Sitecore.Parameters.Commerce.BuildConfiguration)
-        .SetVerbosity(Verbosity.Minimal)
-        .UseToolVersion(Sitecore.Parameters.MsBuildToolVersion)
-        .WithTarget("Rebuild")
-        .WithProperty("DeployOnBuild", "true")
-        .WithProperty("DeployDefaultTarget", "WebPublish")
-        .WithProperty("WebPublishMethod", "FileSystem")
-        .WithProperty("DeleteExistingFiles", "false")
-        .WithProperty("PublishUrl", publishingTargetDir.ToString());
+    var _dotNetCorePublishSettings = new DotNetCorePublishSettings
+    {
+        Configuration = Sitecore.Parameters.Commerce.BuildConfiguration,
+        OutputDirectory = publishingTargetDir,
+        NoRestore = true,
+        NoBuild = true,
+        Verbosity = DotNetCoreVerbosity.Minimal
+    };
 
     var _projectFilePath = FilePath.FromString(Sitecore.Parameters.Commerce.EngineProjectPath);
-    MSBuild(_projectFilePath, _msBuildSettings);
+    DotNetCorePublish(_projectFilePath.ToString(), _dotNetCorePublishSettings);
 };
 
 Action<DirectoryPath, string> applyAndDeleteCommerceEngineJsonTransformation = (commerceEngineDir, commerceRoleName) => {
@@ -103,4 +100,4 @@ Sitecore.Commerce.Tasks.PublishArtifactsTask = Task("Commerce :: Publish :: Publ
         publishCommerceEngineProject(_commerceSiteRootDir);
     });
 
-// ToDo: transformation apply for CI: how to do it better for 4 roles?
+// ToDo: transformation apply for CI: how to do it?
