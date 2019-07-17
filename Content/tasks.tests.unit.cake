@@ -38,7 +38,7 @@ Func<string, string, string, string, string, OpenCoverSettings> createOpenCoverS
     applyExclude(_coverSettings.ExcludedFileFilters,      xUnitTestsCoverageExcludeFileFilters,         x => x);
     applyExclude(_coverSettings.ExcludeDirectories,       xUnitTestsCoverageExcludeDirectories,         x => Directory($"{Sitecore.Parameters.SrcDir}/{x}"));
 
-    Func<IFileSystemInfo, bool> _excludeNodeModules = fileSystemInfo => !fileSystemInfo.Path.FullPath.EndsWith("node_modules", StringComparison.OrdinalIgnoreCase);
+    Func<IFileSystemInfo, bool> _excludeNodeModules = fileSystemInfo => fileSystemInfo.Path.FullPath.IndexOf("node_modules", StringComparison.OrdinalIgnoreCase) < 0;
     
     var _directories = GetDirectories(symbolsDirectoriesPattern, new GlobberSettings { 
         Predicate = _excludeNodeModules 
