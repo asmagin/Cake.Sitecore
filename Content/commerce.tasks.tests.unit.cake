@@ -1,7 +1,4 @@
 #tool "nuget:?package=OpenCover&version=4.7.922"
-#tool "nuget:?package=OpenCoverToCoberturaConverter&version=0.3.4"
-#tool "nuget:?package=ReportGenerator&version=4.0.13.1"
-#tool "nuget:?package=xunit.runner.console&version=2.4.1"
 
 Sitecore.Commerce.Tasks.RunServerUnitTestsTask = Task("Commerce :: Unit Tests :: Run Server Tests")
     .Description("Executes all available tests for server-side code using xUnit. Result will be placed into (`TESTS_OUTPUT_DIR`), also code coverage reports will be created in `cobertura` format in (`XUNIT_TESTS_COVERAGE_OUTPUT_DIR`) directory.")
@@ -14,18 +11,20 @@ Sitecore.Commerce.Tasks.RunServerUnitTestsTask = Task("Commerce :: Unit Tests ::
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.Commerce.TestsOutputDir, "TestsOutputDir", "COMMERCE_TESTS_OUTPUT_DIR");
 
         var _coverSettings = createOpenCoverSettings(
-                $"{Sitecore.Parameters.SrcDir}/**/bin/**",
+                $"{Sitecore.Parameters.SrcDir}/**/bin/{Sitecore.Parameters.Commerce.BuildConfiguration}/*",
                 Sitecore.Parameters.Commerce.XUnitTestsCoverageRegister,
                 Sitecore.Parameters.Commerce.XUnitTestsCoverageExcludeAttributeFilters,
                 Sitecore.Parameters.Commerce.XUnitTestsCoverageExcludeFileFilters,
                 Sitecore.Parameters.Commerce.XUnitTestsCoverageExcludeDirectories)
             .WithFilter($"+[{Sitecore.Parameters.Commerce.SolutionName}.*]*")
-            .WithFilter($"-[{Sitecore.Parameters.Commerce.SolutionName}.*.Tests*]*");
+            .WithFilter($"-[{Sitecore.Parameters.Commerce.SolutionName}.*.Tests*]*")
+            .WithFilter($"-[{Sitecore.Parameters.Commerce.SolutionName}.*.Testing*]*");
 
+        var _uniqueGuid = Guid.NewGuid();
         var _dotNetCoreTestSettings = new DotNetCoreTestSettings {
             NoBuild = true,
             NoRestore = true,
-            VSTestReportPath = $"{Sitecore.Parameters.Commerce.TestsOutputDir}/commerce-xUnitTestResults.xml"
+            Logger = $"trx;LogFileName=TestResults-{_uniqueGuid:N}.trx"
         };
 
         runOpenCoverWithReporting(
@@ -33,6 +32,17 @@ Sitecore.Commerce.Tasks.RunServerUnitTestsTask = Task("Commerce :: Unit Tests ::
             Sitecore.Parameters.Commerce.XUnitTestsCoverageOutputDir,
             _coverSettings
         );
+
+        DeleteFiles($"{Sitecore.Parameters.Commerce.TestsOutputDir}/commerce-xUnitTestResults-*.xml");
+        var _reportFiles = GetFiles($"{Sitecore.Parameters.SrcDir}/**/TestResults-{_uniqueGuid:N}.trx");
+        foreach (var _reportFile in _reportFiles) {
+            var _projectName = _reportFile.GetDirectory().Segments
+                .LastOrDefault(x => x.StartsWith(Sitecore.Parameters.Commerce.SolutionName, StringComparison.OrdinalIgnoreCase));
+
+            if (!string.IsNullOrEmpty(_projectName)) {
+                MoveFile(_reportFile, $"{Sitecore.Parameters.Commerce.TestsOutputDir}/commerce-xUnitTestResults-{_projectName}.xml");
+            }
+        }
     })
     .OnError(exception =>
     {
