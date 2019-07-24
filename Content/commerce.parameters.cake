@@ -121,7 +121,8 @@ public static partial class Sitecore
                 if (BuildConfiguration == "Debug") {
 
                     Sitecore.Parameters.Commerce.BaseLocalWebsiteRootDir = 
-                        GetAbsoluteDirPath(GetParameterValue(Constants.Commerce.BASE_LOCAL_WEBSITE_ROOT_DIR,       baseLocalWebsiteRootDir      ?? $"{Sitecore.Parameters.ScLocalWebsiteRootDir}/.." ?? "\\\\192.168.50.4\\c$\\inetpub\\wwwroot"));
+                        GetAbsoluteDirPath(GetParameterValue(Constants.Commerce.BASE_LOCAL_WEBSITE_ROOT_DIR,       baseLocalWebsiteRootDir      ??
+                        (Sitecore.Parameters.ScLocalWebsiteRootDir != null ? $"{Sitecore.Parameters.ScLocalWebsiteRootDir}/.." : null)          ?? "\\\\192.168.50.4\\c$\\inetpub\\wwwroot"));
 
                     Sitecore.Parameters.Commerce.AuthoringLocalWebsiteRootDir = 
                         GetAbsoluteDirPath(GetParameterValue(Constants.Commerce.AUTHORING_LOCAL_WEBSITE_ROOT_DIR,  authoringLocalWebsiteRootDir ?? $"{Sitecore.Parameters.Commerce.BaseLocalWebsiteRootDir}/CommerceAuthoring_sc9"));
