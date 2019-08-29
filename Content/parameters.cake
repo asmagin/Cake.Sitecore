@@ -141,7 +141,8 @@ public static partial class Sitecore
             string unicornConfigPath =             null,
             string unicornConfigurations =         null,
             string unicornSecret =                 null,
-            string unicornSerializationRoot =      null
+            string unicornSerializationRoot =      null,
+            string scLocalWebsiteRootDir =         null
             )
         {
             _context =                      context;
@@ -206,7 +207,6 @@ public static partial class Sitecore
             XUnitTestsCoverageExcludeFileFilters       = GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS,       xUnitTestsCoverageExcludeFileFilters       ?? "");
             XUnitTestsCoverageExcludeDirectories       = GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES,        xUnitTestsCoverageExcludeDirectories       ?? "");
             JestTestsCoverageOutputDir =    GetAbsoluteDirPath(GetParameterValue(Constants.JEST_TESTS_COVERAGE_OUTPUT_DIR,    jestTestsCoverageOutputDir ??    $"{TestsCoverageOutputDir}/jest"));
-            PublishingTargetDir =           GetPublishingTargetDir(                                                           publishingTargetDir);
 
             // Pathes
             NuGetConfigPath =               GetAbsoluteFilePath(GetParameterValue(Constants.NUGET_CONFIG_PATH,                nuGetConfigPath ??               $"{SrcDir}/nuget.config"));
@@ -215,6 +215,8 @@ public static partial class Sitecore
             UnicornConfigurations =         GetParameterValue(Constants.UNICORN_CONFIGURATIONS,                               unicornConfigurations ??         "");
             UnicornSecret =                 GetParameterValue(Constants.UNICORN_SECRET,                                       unicornSecret ??                 "");
             UnicornSerializationRoot =      GetParameterValue(Constants.UNICORN_SERIALIZATION_ROOT,                           unicornSerializationRoot ??      "unicorn");
+            ScLocalWebsiteRootDir =         GetParameterValue(Constants.SC_LOCAL_WEBSITE_ROOT_DIR,                            scLocalWebsiteRootDir ??         "\\\\192.168.50.4\\c$\\inetpub\\wwwroot\\sc9.local");
+            PublishingTargetDir =           GetPublishingTargetDir(                                                           publishingTargetDir);
 
             // Those parameters absolutely needed 
             Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SolutionName, "SolutionName", "SOLUTION_NAME");
@@ -282,14 +284,14 @@ public static partial class Sitecore
 
         private static string GetPublishingTargetDir(string defaultValue){
             var path = GetParameterValue(Constants.PUBLISHING_TARGET_DIR, defaultValue);
-            var localWebRoot = GetParameterValue(Constants.SC_LOCAL_WEBSITE_ROOT_DIR, "\\\\192.168.50.4\\c$\\inetpub\\wwwroot\\sc9.local");
 
             if (string.IsNullOrEmpty(path)) {
                 path = BuildConfiguration == "Debug"
-                    ? localWebRoot
+                    ? ScLocalWebsiteRootDir
                     : ArtifactsBuildDir;
             }
-            
+
+            _context.Information($"Publishing target dir: {path}");
             return GetAbsoluteFilePath(path);
         }
 
