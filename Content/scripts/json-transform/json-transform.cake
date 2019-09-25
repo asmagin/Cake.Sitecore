@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.Jdt;
 
 Action<ICakeContext, FilePath, FilePath> transformJsonFile = (ICakeContext context, FilePath filePath, FilePath transformFilePath) =>
 {
+    // TODO: use Newtonsoft.JSON 9.0.1 to merge files
     context.Information($"Transforming '{filePath}' file with '{transformFilePath}' transformation file");
     IJsonTransformationLogger logger = new CakeJsonTransformationLogger(context);
 

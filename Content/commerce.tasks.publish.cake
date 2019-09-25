@@ -52,6 +52,7 @@ Sitecore.Commerce.Tasks.PublishEngineAuthoringTask = Task("Commerce :: Publish :
     .Does(() => {
         Sitecore.Utils.AssertIfNull(Sitecore.Parameters.Commerce.AuthoringLocalWebsiteRootDir, "AuthoringLocalWebsiteRootDir", "COMMERCE_AUTHORING_LOCAL_WEBSITE_ROOT_DIR");
 
+        // TODO: move the following block to separate action
         var _commerceSiteRootDir = DirectoryPath.FromString(Sitecore.Parameters.Commerce.AuthoringLocalWebsiteRootDir);
         cleanCommerceSiteDirectoriesTask(_commerceSiteRootDir);
         publishCommerceEngineProject(_commerceSiteRootDir);
