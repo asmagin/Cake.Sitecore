@@ -71,28 +71,19 @@ Action<string, string> copySerializationFiles = (srcRootDir, layer) =>
 {
     Verbose($"Executing [copySerializationFiles] with params ({srcRootDir}, {layer})");
 
-    var _directoryList = GetDirectories($"{srcRootDir}/{layer}/*/serialization");
+    var _directoryList = 
+        GetDirectories($"{srcRootDir}/{layer}/*/serialization") +
+        GetDirectories($"{srcRootDir}/{layer}/*/serialization.content");
 
     foreach(var _directory in _directoryList)
     {
-        Verbose($"Copy Unicorn files from: {_directory.ToString()}");
+        Verbose($"Copy Unicorn files from: {_directory}");
 
-        var _pathSegments =  _directory.ToString().Split('/');
+        var _pathSegments = _directory.Segments;
         var _project = _pathSegments[_pathSegments.Length - 2];
+        var _serialization = _pathSegments[_pathSegments.Length - 1];
 
-        var _targetDir = $"{_directory}/../code/App_Data/{Sitecore.Parameters.UnicornSerializationRoot}/{layer}/{_project}/serialization";
-        CopyDirectory(_directory, _targetDir);
-    }
-
-    // another pass to collect content yml files
-    _directoryList = GetDirectories($"{srcRootDir}/{layer}/*/serialization.content");
-
-    foreach(var _directory in _directoryList)
-    {
-        var _pathSegments = _directory.ToString().Split('/');
-        var _project = _pathSegments[_pathSegments.Length - 2];
-
-        var _targetDir = $"{_directory}/../code/App_Data/{Sitecore.Parameters.UnicornSerializationRoot}/{layer}/{_project}/serialization.content";
+        var _targetDir = $"{_directory}/../code/App_Data/{Sitecore.Parameters.UnicornSerializationRoot}/{layer}/{_project}/{_serialization}";
         CopyDirectory(_directory, _targetDir);
     }
 };
@@ -105,7 +96,7 @@ Action<string, string, string, MSBuildToolVersion> publishProject = (projectFile
         .SetConfiguration(buildConfiguration)
         .SetVerbosity(Verbosity.Minimal)
         .UseToolVersion(msBuildToolVersion)
-        .WithTarget("Rebuild")
+        .WithTarget("Build")
         .WithProperty("DeployOnBuild", "true")
         .WithProperty("DeployDefaultTarget", "WebPublish")
         .WithProperty("WebPublishMethod", "FileSystem")
@@ -149,9 +140,11 @@ Sitecore.Tasks.PublishFoundationTask = Task("Publish :: Foundation")
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.BuildConfiguration, "SrcConfigsDir", "SRC_CONFIGS_DIR");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SrcDir, "SrcDir", "SRC_DIR");
 
-        if(Sitecore.Parameters.BuildConfiguration != "Debug") {
-            copySerializationFiles(Sitecore.Parameters.SrcDir, _layer);
-        }
+        // ToDo: allow to disable it
+        // if(Sitecore.Parameters.BuildConfiguration != "Debug") {
+        //     copySerializationFiles(Sitecore.Parameters.SrcDir, _layer);
+        // }
+
         copyClientAssets(Sitecore.Parameters.SrcDir, _layer, Sitecore.Parameters.SolutionName);
         publishLayer(
             Sitecore.Parameters.SrcDir,

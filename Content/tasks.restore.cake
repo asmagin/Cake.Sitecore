@@ -48,13 +48,13 @@ Sitecore.Tasks.RestoreNuGetPackagesTask = Task("Restore :: Restore NuGet Package
     });
 
 Sitecore.Tasks.RestoreNpmPackagesTask = Task("Restore :: Restore NPM Packages")
-    .Description("Restore Npm packages for a solution")
-    .Does(() => {
-        Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SrcDir, "SrcDir", "SRC_DIR");
+   .Description("Restore Npm packages for a solution")
+   .Does(() => {
+       Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SrcDir, "SrcDir", "SRC_DIR");
 
-        var settings = new NpmInstallSettings();
-        settings.LogLevel = NpmLogLevel.Error;
-        settings.FromPath(Sitecore.Parameters.SrcDir);
+       var settings = new NpmInstallSettings();
+       settings.LogLevel = NpmLogLevel.Error;
+       settings.FromPath(Sitecore.Parameters.SrcDir);
 
-        NpmInstall(settings);
-    });
+       NpmInstall(settings);
+   });
