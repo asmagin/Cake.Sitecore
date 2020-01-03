@@ -140,10 +140,9 @@ Sitecore.Tasks.PublishFoundationTask = Task("Publish :: Foundation")
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.BuildConfiguration, "SrcConfigsDir", "SRC_CONFIGS_DIR");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SrcDir, "SrcDir", "SRC_DIR");
 
-        // ToDo: allow to disable it
-        // if(Sitecore.Parameters.BuildConfiguration != "Debug") {
-        //     copySerializationFiles(Sitecore.Parameters.SrcDir, _layer);
-        // }
+        if (Sitecore.Parameters.PublishSerializationItems) {
+            copySerializationFiles(Sitecore.Parameters.SrcDir, _layer);
+        }
 
         copyClientAssets(Sitecore.Parameters.SrcDir, _layer, Sitecore.Parameters.SolutionName);
         publishLayer(

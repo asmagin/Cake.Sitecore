@@ -57,6 +57,7 @@ public static partial class Sitecore
         public static string XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES       { get; private set; }
         public static string JEST_TESTS_COVERAGE_OUTPUT_DIR    { get; private set; }
         public static string PUBLISHING_TARGET_DIR             { get; private set; }
+        public static string PUBLISH_SERIALIZATION_ITEMS       { get; private set; }
         public static string SC_LOCAL_WEBSITE_ROOT_DIR         { get; private set; }
 
         public static string NUGET_CONFIG_PATH                 { get; private set; }
@@ -115,6 +116,7 @@ public static partial class Sitecore
             string XunitTestsCoverageExcludeDirectories      = null,
             string JestTestsCoverageOutputDir    = null,
             string PublishingTargetDir           = null,
+            string PublishSerializationItems     = null,
             string ScLocalWebsiteRootDir         = null,
 
             string NuGetConfigPath               = null,
@@ -175,9 +177,10 @@ public static partial class Sitecore
             XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS      = XunitTestsCoverageExcludeFileFilters      ?? "XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS";
             XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES       = XunitTestsCoverageExcludeDirectories      ?? "XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES";
             JEST_TESTS_COVERAGE_OUTPUT_DIR    = JestTestsCoverageOutputDir    ?? "JEST_TESTS_COVERAGE_OUTPUT_DIR"; 
-            PUBLISHING_TARGET_DIR             = PublishingTargetDir           ?? "PUBLISHING_TARGET_DIR"; 
+            PUBLISHING_TARGET_DIR             = PublishingTargetDir           ?? "PUBLISHING_TARGET_DIR";
+            PUBLISH_SERIALIZATION_ITEMS       = PublishSerializationItems     ?? "PUBLISH_SERIALIZATION_ITEMS";
             SC_LOCAL_WEBSITE_ROOT_DIR         = ScLocalWebsiteRootDir         ?? "SC_LOCAL_WEBSITE_ROOT_DIR"; 
-            
+
             NUGET_CONFIG_PATH                 = NuGetConfigPath               ?? "NUGET_CONFIG_PATH";
             SOLUTION_FILE_PATH                = SolutionFilePath              ?? "SOLUTION_FILE_PATH"; 
             UNICORN_CONFIG_PATH               = UnicornConfigPath             ?? "UNICORN_CONFIG_PATH";

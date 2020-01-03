@@ -66,6 +66,7 @@ public static partial class Sitecore
         public static string XUnitTestsCoverageExcludeDirectories { get; private set; }
         public static string JestTestsCoverageOutputDir { get; private set; }
         public static string PublishingTargetDir { get; private set; }
+        public static bool   PublishSerializationItems { get; private set; }
         public static string ScLocalWebsiteRootDir { get; private set; }
 
         public static string NuGetConfigPath { get; private set; }
@@ -75,11 +76,10 @@ public static partial class Sitecore
         public static string UnicornSecret { get; private set; }
         public static string UnicornSerializationRoot { get; private set; }
 
-
         public static void InitParams(
             ICakeContext context,
             MSBuildToolVersion msBuildToolVersion,
-            
+
             // Add support of defining parameters in code
             string buildConfiguration =            null,
             string solutionName =                  null,
@@ -134,6 +134,7 @@ public static partial class Sitecore
             string xUnitTestsCoverageExcludeFileFilters      = null,
             string xUnitTestsCoverageExcludeDirectories      = null,
             string jestTestsCoverageOutputDir =    null,
+            string publishSerializationItems =     null,
             string publishingTargetDir =           null,
 
             string nuGetConfigPath =               null,
@@ -216,6 +217,7 @@ public static partial class Sitecore
             UnicornSecret =                 GetParameterValue(Constants.UNICORN_SECRET,                                       unicornSecret ??                 "");
             ScLocalWebsiteRootDir =         GetParameterValue(Constants.SC_LOCAL_WEBSITE_ROOT_DIR,                            scLocalWebsiteRootDir ??         "\\\\192.168.50.4\\c$\\inetpub\\wwwroot\\sc9.local");
             PublishingTargetDir =           GetPublishingTargetDir(                                                           publishingTargetDir);
+            PublishSerializationItems =     ToBoolean(GetParameterValue(Constants.PUBLISH_SERIALIZATION_ITEMS,                publishSerializationItems ??     (BuildConfiguration != "Debug").ToString()));
 
             // Those parameters absolutely needed 
             Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SolutionName, "SolutionName", "SOLUTION_NAME");
