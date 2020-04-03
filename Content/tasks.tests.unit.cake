@@ -6,10 +6,68 @@
 // extentions
 public static partial class Sitecore 
 { 
-    public static partial class Variables{
+    public static partial class Variables {
         public static bool UnitTestsFailed = false;
     }
 }
+
+Func<string, string, string, string, string, OpenCoverSettings> createOpenCoverSettings = (
+    symbolsDirectoriesPattern,
+    xUnitTestsCoverageRegister,
+    xUnitTestsCoverageExcludeAttributeFilters,
+    xUnitTestsCoverageExcludeFileFilters,
+    xUnitTestsCoverageExcludeDirectories
+) => {
+    var _coverSettings = new OpenCoverSettings();
+    _coverSettings.SkipAutoProps = true;
+    _coverSettings.Register = xUnitTestsCoverageRegister;
+    _coverSettings.MergeByHash = true;
+    _coverSettings.NoDefaultFilters = true;
+    _coverSettings.ReturnTargetCodeOffset = 0;
+
+    void applyExclude<T>(ISet<T> filtersSet, string paramValue, Func<string, T> mapper)
+    {
+        if (!string.IsNullOrEmpty(paramValue))
+        {
+            var excludes = paramValue.Split(',').Select(mapper);
+            filtersSet.UnionWith(excludes);
+        }
+    }
+
+    applyExclude(_coverSettings.ExcludedAttributeFilters, xUnitTestsCoverageExcludeAttributeFilters,    x => x);
+    applyExclude(_coverSettings.ExcludedFileFilters,      xUnitTestsCoverageExcludeFileFilters,         x => x);
+    applyExclude(_coverSettings.ExcludeDirectories,       xUnitTestsCoverageExcludeDirectories,         x => Directory($"{Sitecore.Parameters.SrcDir}/{x}"));
+
+    Func<IFileSystemInfo, bool> _excludeNodeModules = fileSystemInfo => fileSystemInfo.Path.FullPath.IndexOf("node_modules", StringComparison.OrdinalIgnoreCase) < 0;
+    
+    var _directories = GetDirectories(symbolsDirectoriesPattern, new GlobberSettings { 
+        Predicate = _excludeNodeModules 
+    });
+
+    foreach (var directory in _directories)
+    {
+        _coverSettings.SearchDirectories.Add(directory);
+    }
+
+    return _coverSettings;
+};
+
+Action<Action<ICakeContext>, string, OpenCoverSettings> runOpenCoverWithReporting = (Action<ICakeContext> action, string xUnitTestsCoverageOutputDir, OpenCoverSettings openCoverSettings) => {
+    EnsureDirectoryExists(xUnitTestsCoverageOutputDir);
+
+    var _openCoverResultsFilePath = new FilePath($"{xUnitTestsCoverageOutputDir}/coverage.xml");
+
+    OpenCover(action, _openCoverResultsFilePath, openCoverSettings);
+
+    ReportGenerator(_openCoverResultsFilePath, xUnitTestsCoverageOutputDir);
+
+    var _converterExecutablePath = Context.Tools.Resolve("OpenCoverToCoberturaConverter.exe");
+    StartProcess(_converterExecutablePath, new ProcessSettings {
+        Arguments = new ProcessArgumentBuilder()
+            .Append($"-input:\"{_openCoverResultsFilePath}\"")
+            .Append($"-output:\"{xUnitTestsCoverageOutputDir}/cobertura-coverage.xml\"")
+    });
+};
 
 Sitecore.Tasks.RunServerUnitTestsTask = Task("Unit Tests :: Run Server Tests")
     .Description("Executes all available tests for server-side code using xUnit. Result will be placed into (`TESTS_OUTPUT_DIR`), also code coverage reports will be created in `cobertura` format in (`XUNIT_TESTS_COVERAGE_OUTPUT_DIR`) directory.")
@@ -21,63 +79,28 @@ Sitecore.Tasks.RunServerUnitTestsTask = Task("Unit Tests :: Run Server Tests")
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.XUnitTestsCoverageRegister, "XUnitTestsCoverageRegister", "XUNIT_TESTS_COVERAGE_REGISTER");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.TestsOutputDir, "TestsOutputDir", "TESTS_OUTPUT_DIR");
 
-        var _coverSettings = new OpenCoverSettings()
+        var _coverSettings = createOpenCoverSettings(
+                $"{Sitecore.Parameters.SrcDir}/**/bin",
+                Sitecore.Parameters.XUnitTestsCoverageRegister,
+                Sitecore.Parameters.XUnitTestsCoverageExcludeAttributeFilters,
+                Sitecore.Parameters.XUnitTestsCoverageExcludeFileFilters,
+                Sitecore.Parameters.XUnitTestsCoverageExcludeDirectories)
             .WithFilter($"+[{Sitecore.Parameters.SolutionName}.*]*")
             .WithFilter($"-[{Sitecore.Parameters.SolutionName}.*.Tests*]*");
-        _coverSettings.SkipAutoProps = true;
-        _coverSettings.Register = Sitecore.Parameters.XUnitTestsCoverageRegister;
-        _coverSettings.MergeByHash = true;
-        _coverSettings.NoDefaultFilters = true;
-        _coverSettings.ReturnTargetCodeOffset = 0;
-
-        void applyExclude<T>(ISet<T> filtersSet, string paramValue, Func<string, T> mapper)
-        {
-            if (!string.IsNullOrEmpty(paramValue))
-            {
-                var excludes = paramValue.Split(',').Select(mapper);
-                filtersSet.UnionWith(excludes);
-            }
-        }
-
-        applyExclude(_coverSettings.ExcludedAttributeFilters, Sitecore.Parameters.XUnitTestsCoverageExcludeAttributeFilters, x => x);
-        applyExclude(_coverSettings.ExcludedFileFilters,      Sitecore.Parameters.XUnitTestsCoverageExcludeFileFilters, x => x);
-        applyExclude(_coverSettings.ExcludeDirectories,       Sitecore.Parameters.XUnitTestsCoverageExcludeDirectories, x => Directory($"{Sitecore.Parameters.SrcDir}/{x}"));
-
-        var _directories = GetDirectories(
-                $"{Sitecore.Parameters.SrcDir}/**/bin", 
-                fileSystemInfo => fileSystemInfo.Path.FullPath.IndexOf("node_modules", StringComparison.OrdinalIgnoreCase) < 0
-            );
-        foreach (var directory in _directories)
-        {
-            _coverSettings.SearchDirectories.Add(directory);
-        }
-
-        EnsureDirectoryExists(Sitecore.Parameters.XUnitTestsCoverageOutputDir);
-
-        var _openCoverResultsFilePath = new FilePath($"{Sitecore.Parameters.XUnitTestsCoverageOutputDir}/coverage.xml");
 
         var _xUnit2Settings = new XUnit2Settings {
-                XmlReport = true,
-                Parallelism = ParallelismOption.None,
-                NoAppDomain = false,
-                OutputDirectory = Sitecore.Parameters.TestsOutputDir,
-                ReportName = "xUnitTestResults"
-            };
+            XmlReport = true,
+            Parallelism = ParallelismOption.None,
+            NoAppDomain = false,
+            OutputDirectory = Sitecore.Parameters.TestsOutputDir,
+            ReportName = "xUnitTestResults"
+        };
 
-        OpenCover(
-            tool => { tool.XUnit2($"{Sitecore.Parameters.SrcDir}/**/tests/bin/*.Tests.dll", _xUnit2Settings); }, 
-            _openCoverResultsFilePath, 
+        runOpenCoverWithReporting(
+            tool => { tool.XUnit2($"{Sitecore.Parameters.SrcDir}/**/tests/bin/*.Tests.dll", _xUnit2Settings); },
+            Sitecore.Parameters.XUnitTestsCoverageOutputDir,
             _coverSettings
         );
-
-        ReportGenerator(_openCoverResultsFilePath, Sitecore.Parameters.XUnitTestsCoverageOutputDir);
-
-        var _converterExecutablePath = Context.Tools.Resolve("OpenCoverToCoberturaConverter.exe");
-        StartProcess(_converterExecutablePath, new ProcessSettings {
-            Arguments = new ProcessArgumentBuilder()
-                .Append($"-input:\"{_openCoverResultsFilePath}\"")
-                .Append($"-output:\"{Sitecore.Parameters.XUnitTestsCoverageOutputDir}/cobertura-coverage.xml\"")
-        });
     })
     .OnError(exception =>
     {
@@ -126,4 +149,4 @@ Sitecore.Tasks.MergeCoverageReportsTask = Task("Unit Tests :: Merge Coverage Rep
 
         var htmlReportFilePath = $"{Sitecore.Parameters.TestsCoverageOutputDir}/index.html";
         mergeHtmlReports(Context.Tools.Resolve("coverage/coberturaReport.tpl.html").ToString(), htmlReportFilePath);
-    });    
+    });

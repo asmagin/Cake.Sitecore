@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 public static partial class Sitecore 
 {
-    public static class Parameters
+    public static partial class Parameters
     {
         private const string SEM_VER_REGEX = "\\d+\\.\\d+\\.\\d+";
 
@@ -66,6 +66,7 @@ public static partial class Sitecore
         public static string XUnitTestsCoverageExcludeDirectories { get; private set; }
         public static string JestTestsCoverageOutputDir { get; private set; }
         public static string PublishingTargetDir { get; private set; }
+        public static bool   PublishSerializationItems { get; private set; }
         public static string ScLocalWebsiteRootDir { get; private set; }
 
         public static string NuGetConfigPath { get; private set; }
@@ -74,7 +75,6 @@ public static partial class Sitecore
         public static string UnicornConfigurations { get; private set; }
         public static string UnicornSecret { get; private set; }
         public static string UnicornSerializationRoot { get; private set; }
-
 
         public static void InitParams(
             ICakeContext context,
@@ -134,6 +134,7 @@ public static partial class Sitecore
             string xUnitTestsCoverageExcludeFileFilters      = null,
             string xUnitTestsCoverageExcludeDirectories      = null,
             string jestTestsCoverageOutputDir =    null,
+            string publishSerializationItems =     null,
             string publishingTargetDir =           null,
 
             string nuGetConfigPath =               null,
@@ -141,7 +142,8 @@ public static partial class Sitecore
             string unicornConfigPath =             null,
             string unicornConfigurations =         null,
             string unicornSecret =                 null,
-            string unicornSerializationRoot =      null
+            string unicornSerializationRoot =      null,
+            string scLocalWebsiteRootDir =         null
             )
         {
             _context =                      context;
@@ -206,7 +208,6 @@ public static partial class Sitecore
             XUnitTestsCoverageExcludeFileFilters       = GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS,       xUnitTestsCoverageExcludeFileFilters       ?? "");
             XUnitTestsCoverageExcludeDirectories       = GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES,        xUnitTestsCoverageExcludeDirectories       ?? "");
             JestTestsCoverageOutputDir =    GetAbsoluteDirPath(GetParameterValue(Constants.JEST_TESTS_COVERAGE_OUTPUT_DIR,    jestTestsCoverageOutputDir ??    $"{TestsCoverageOutputDir}/jest"));
-            PublishingTargetDir =           GetPublishingTargetDir(                                                           publishingTargetDir);
 
             // Pathes
             NuGetConfigPath =               GetAbsoluteFilePath(GetParameterValue(Constants.NUGET_CONFIG_PATH,                nuGetConfigPath ??               $"{SrcDir}/nuget.config"));
@@ -214,7 +215,9 @@ public static partial class Sitecore
             UnicornConfigPath =             GetUnicornConfigPath(GetParameterValue(Constants.UNICORN_CONFIG_PATH,             unicornConfigPath ??             ""));
             UnicornConfigurations =         GetParameterValue(Constants.UNICORN_CONFIGURATIONS,                               unicornConfigurations ??         "");
             UnicornSecret =                 GetParameterValue(Constants.UNICORN_SECRET,                                       unicornSecret ??                 "");
-            UnicornSerializationRoot =      GetParameterValue(Constants.UNICORN_SERIALIZATION_ROOT,                           unicornSerializationRoot ??      "unicorn");
+            ScLocalWebsiteRootDir =         GetParameterValue(Constants.SC_LOCAL_WEBSITE_ROOT_DIR,                            scLocalWebsiteRootDir ??         "\\\\192.168.50.4\\c$\\inetpub\\wwwroot\\sc9.local");
+            PublishingTargetDir =           GetPublishingTargetDir(                                                           publishingTargetDir);
+            PublishSerializationItems =     ToBoolean(GetParameterValue(Constants.PUBLISH_SERIALIZATION_ITEMS,                publishSerializationItems ??     (BuildConfiguration != "Debug").ToString()));
 
             // Those parameters absolutely needed 
             Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SolutionName, "SolutionName", "SOLUTION_NAME");
@@ -261,20 +264,20 @@ public static partial class Sitecore
         }
 
         // if parameter not passed via env or args default values would be provided
-        // "Debug" is assumed as a build configuration for local dev installation. 
+        // "Debug" is assumed as a build configuration for local dev installation.
         // In this case, unicorn configuration could be found in src
-        // In case of "Release" unicorm configuration can be found in artifacts build folder.
-        private static string GetUnicornConfigPath(string path){
+        // In case of "Release" unicorn configuration can be found in artifacts build folder.
+        private static string GetUnicornConfigPath(string path) {
             if (string.IsNullOrEmpty(path)) {
-                path =  BuildConfiguration == "Debug"
-                    ? $"{SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn/Unicorn.UI.config"
-                    : $"{BuildDir}/App_Config/Include/Unicorn/Unicorn.UI.config";
-            }
-            
-            if (!_context.FileExists(path)) {
-                path =  BuildConfiguration == "Debug"
-                    ? $"{SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn/Unicorn.zSharedSecret.config"
-                    : $"{BuildDir}/App_Config/Include/Unicorn/Unicorn.zSharedSecret.config";
+                var _basePath = BuildConfiguration == "Debug"
+                    ? $"{SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn"
+                    : $"{BuildDir}/App_Config/Include/Unicorn";
+
+                path = $"{_basePath}/Unicorn.zSharedSecret.config";
+
+                if (!_context.FileExists(path)) {
+                    path = $"{_basePath}/Unicorn.UI.config";
+                }
             }
 
             return GetAbsoluteFilePath(path);
@@ -282,14 +285,14 @@ public static partial class Sitecore
 
         private static string GetPublishingTargetDir(string defaultValue){
             var path = GetParameterValue(Constants.PUBLISHING_TARGET_DIR, defaultValue);
-            var localWebRoot = GetParameterValue(Constants.SC_LOCAL_WEBSITE_ROOT_DIR, "\\\\192.168.50.4\\c$\\inetpub\\wwwroot\\sc9.local");
 
             if (string.IsNullOrEmpty(path)) {
                 path = BuildConfiguration == "Debug"
-                    ? localWebRoot
+                    ? ScLocalWebsiteRootDir
                     : ArtifactsBuildDir;
             }
-            
+
+            _context.Verbose($"Publishing target dir: {path}");
             return GetAbsoluteFilePath(path);
         }
 

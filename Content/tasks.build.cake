@@ -1,4 +1,4 @@
-#addin "Cake.FileHelpers&version=3.1.0"
+#addin "Cake.FileHelpers&version=3.2.0"
 
 Sitecore.Tasks.GenerateVersionFileTask = Task("Build :: Generate Version.txt file")
     .Description("Creates a file with detailed information about the build in publishing target directory (`PUBLISHING_TARGET_DIR`)")
@@ -107,7 +107,8 @@ Sitecore.Tasks.BuildServerCodeTask = Task("Build :: Build Server Code")
             .SetConfiguration(Sitecore.Parameters.BuildConfiguration)
             .SetVerbosity(Verbosity.Minimal) // TODO: figure out how to get access to -Verbosity flag
             .UseToolVersion(Sitecore.Parameters.MsBuildToolVersion)
-            .WithTarget("Rebuild"); // TODO: move to configuration
+            .SetMaxCpuCount(new int?()) // TODO: make configurable
+            .WithTarget("Build"); // TODO: move to configuration
 
         MSBuild(Sitecore.Parameters.SolutionFilePath, msBuildConfig);
     });
