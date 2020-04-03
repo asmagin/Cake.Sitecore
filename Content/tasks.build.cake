@@ -107,7 +107,8 @@ Sitecore.Tasks.BuildServerCodeTask = Task("Build :: Build Server Code")
             .SetConfiguration(Sitecore.Parameters.BuildConfiguration)
             .SetVerbosity(Verbosity.Minimal) // TODO: figure out how to get access to -Verbosity flag
             .UseToolVersion(Sitecore.Parameters.MsBuildToolVersion)
-            .WithTarget("Rebuild"); // TODO: move to configuration
+            .SetMaxCpuCount(new int?()) // TODO: make configurable
+            .WithTarget("Build"); // TODO: move to configuration
 
         MSBuild(Sitecore.Parameters.SolutionFilePath, msBuildConfig);
     });

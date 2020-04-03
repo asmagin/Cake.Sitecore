@@ -34,7 +34,7 @@ Sitecore.Commerce.Tasks.BootstrapCommerceConfigurationTask = Task("Commerce :: B
         // 2 & 3 - Bootstrap Options & Bootstrap
         using (var httpClientHandler = new HttpClientHandler())
         {
-            using (var httpClient = new HttpClient(httpClientHandler) { BaseAddress = new Uri(Sitecore.Parameters.Commerce.OpsServerUrl) })
+            using (var httpClient = new HttpClient(httpClientHandler) { BaseAddress = new Uri(Sitecore.Parameters.Commerce.OpsServerUrl), Timeout = TimeSpan.FromMinutes(5) })
             {
                 Information($"Requesting OPTIONS for '{httpClient.BaseAddress}' commerce Bootstrap operation");
                 var optionsResponse = httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Options, "/commerceops/Bootstrap()") {

@@ -163,9 +163,10 @@ Sitecore.Tasks.PublishFeatureTask = Task("Publish :: Features")
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.BuildConfiguration, "SrcConfigsDir", "SRC_CONFIGS_DIR");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SrcDir, "SrcDir", "SRC_DIR");
 
-        if(Sitecore.Parameters.BuildConfiguration != "Debug") {
+        if (Sitecore.Parameters.PublishSerializationItems) {
             copySerializationFiles(Sitecore.Parameters.SrcDir, _layer);
         }
+
         copyClientAssets(Sitecore.Parameters.SrcDir, _layer, Sitecore.Parameters.SolutionName);
         publishLayer(
             Sitecore.Parameters.SrcDir,
@@ -185,9 +186,10 @@ Sitecore.Tasks.PublishProjectTask = Task("Publish :: Projects")
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.BuildConfiguration, "SrcConfigsDir", "SRC_CONFIGS_DIR");
         Sitecore.Utils.AssertIfNullOrEmpty(Sitecore.Parameters.SrcDir, "SrcDir", "SRC_DIR");
 
-        if(Sitecore.Parameters.BuildConfiguration != "Debug") {
+        if (Sitecore.Parameters.PublishSerializationItems) {
             copySerializationFiles(Sitecore.Parameters.SrcDir, _layer);
         }
+
         copyClientAssets(Sitecore.Parameters.SrcDir, _layer, Sitecore.Parameters.SolutionName);
         publishLayer(
             Sitecore.Parameters.SrcDir,

@@ -35,16 +35,46 @@ Action<DirectoryPath> publishCommerceEngineProject = (publishingTargetDir) => {
     DotNetCorePublish(_projectFilePath.ToString(), _dotNetCorePublishSettings);
 };
 
-Action<DirectoryPath, string> applyAndDeleteCommerceEngineJsonTransformation = (commerceEngineDir, commerceRoleName) => {
+Action<DirectoryPath, string> applyAndDeleteCommerceEngineRoleTransformation = (commerceEngineDir, commerceRoleName) => {
+    Verbose($"Checking directory '{commerceEngineDir}'");
     EnsureDirectoryExists(commerceEngineDir);
 
     // ToDo: patterns should be configured?
-    transformJsonFile(
-        Context,
-        commerceEngineDir.CombineWithFilePath(FilePath.FromString($"wwwroot\\config.json")),
-        commerceEngineDir.CombineWithFilePath(FilePath.FromString($"wwwroot\\config.transform.{commerceRoleName}.json")));
+    var baseFile = commerceEngineDir.CombineWithFilePath(FilePath.FromString($"wwwroot\\config.json"));
+    var transformFile = commerceEngineDir.CombineWithFilePath(FilePath.FromString($"wwwroot\\config.transform.{commerceRoleName}.json"));
 
+    Verbose($"Transforming '{baseFile}' file using '{transformFile}'");
+    transformJsonFile(Context, baseFile, transformFile);
+
+    Verbose($"Clearing transformation files");
     DeleteFiles($"{commerceEngineDir}/wwwroot/config.transform.*.json");
+};
+
+Action<DirectoryPath, string> applyAndDeleteCommerceEngineEnvironmentTransformation = (commerceEngineDir, environmentName) => {
+    var rootConfigFolder = commerceEngineDir.Combine(DirectoryPath.FromString($"wwwroot"));
+    EnsureDirectoryExists(rootConfigFolder);
+    Debug($"Checking files under '{rootConfigFolder} directory'");
+
+    var configFilePaths = Context.GetFiles($"{rootConfigFolder}/*/**/*.json");
+    foreach (var configFilePath in configFilePaths)
+    {
+        Verbose($"Processing '{configFilePath} file'");
+        var configDirectoryPath = configFilePath.GetDirectory();
+        var configFileName = configFilePath.GetFilename();
+
+        var transformFilePath = configDirectoryPath.CombineWithFilePath(FilePath.FromString($"{configFileName}.{environmentName}.transform"));
+        if (Context.FileExists(transformFilePath)) {
+            Verbose($"Transforming '{configFilePath}' file using '{transformFilePath}'");
+            transformJsonFile(Context, configFilePath, transformFilePath);
+        } else {
+            Debug($"The config file '{configFilePath}' does not have transformation file '{transformFilePath}'");
+        }
+
+        var transformFilePaths = Context.GetFiles($"{configDirectoryPath}/{configFileName}.*.transform");
+        if (transformFilePaths.Count() > 0) {
+            DeleteFiles(transformFilePaths);
+        }
+    }
 };
 
 Sitecore.Commerce.Tasks.PublishEngineAuthoringTask = Task("Commerce :: Publish :: Publish Engine to Authoring")
@@ -56,7 +86,8 @@ Sitecore.Commerce.Tasks.PublishEngineAuthoringTask = Task("Commerce :: Publish :
         var _commerceSiteRootDir = DirectoryPath.FromString(Sitecore.Parameters.Commerce.AuthoringLocalWebsiteRootDir);
         cleanCommerceSiteDirectoriesTask(_commerceSiteRootDir);
         publishCommerceEngineProject(_commerceSiteRootDir);
-        applyAndDeleteCommerceEngineJsonTransformation(_commerceSiteRootDir, "Authoring");
+        applyAndDeleteCommerceEngineEnvironmentTransformation(_commerceSiteRootDir, "Development");
+        applyAndDeleteCommerceEngineRoleTransformation(_commerceSiteRootDir, "Authoring");
     });
 
 Sitecore.Commerce.Tasks.PublishEngineMinionsTask = Task("Commerce :: Publish :: Publish Engine to Minions")
@@ -67,7 +98,8 @@ Sitecore.Commerce.Tasks.PublishEngineMinionsTask = Task("Commerce :: Publish :: 
         var _commerceSiteRootDir = DirectoryPath.FromString(Sitecore.Parameters.Commerce.MinionsLocalWebsiteRootDir);
         cleanCommerceSiteDirectoriesTask(_commerceSiteRootDir);
         publishCommerceEngineProject(_commerceSiteRootDir);
-        applyAndDeleteCommerceEngineJsonTransformation(_commerceSiteRootDir, "Minions");
+        applyAndDeleteCommerceEngineEnvironmentTransformation(_commerceSiteRootDir, "Development");
+        applyAndDeleteCommerceEngineRoleTransformation(_commerceSiteRootDir, "Minions");
     });
 
 Sitecore.Commerce.Tasks.PublishEngineOpsTask = Task("Commerce :: Publish :: Publish Engine to Ops")
@@ -78,7 +110,8 @@ Sitecore.Commerce.Tasks.PublishEngineOpsTask = Task("Commerce :: Publish :: Publ
         var _commerceSiteRootDir = DirectoryPath.FromString(Sitecore.Parameters.Commerce.OpsLocalWebsiteRootDir);
         cleanCommerceSiteDirectoriesTask(_commerceSiteRootDir);
         publishCommerceEngineProject(_commerceSiteRootDir);
-        applyAndDeleteCommerceEngineJsonTransformation(_commerceSiteRootDir, "Ops");
+        applyAndDeleteCommerceEngineEnvironmentTransformation(_commerceSiteRootDir, "Development");
+        applyAndDeleteCommerceEngineRoleTransformation(_commerceSiteRootDir, "Ops");
     });
 
 Sitecore.Commerce.Tasks.PublishEngineShopsTask = Task("Commerce :: Publish :: Publish Engine to Shops")
@@ -89,7 +122,8 @@ Sitecore.Commerce.Tasks.PublishEngineShopsTask = Task("Commerce :: Publish :: Pu
         var _commerceSiteRootDir = DirectoryPath.FromString(Sitecore.Parameters.Commerce.ShopsLocalWebsiteRootDir);
         cleanCommerceSiteDirectoriesTask(_commerceSiteRootDir);
         publishCommerceEngineProject(_commerceSiteRootDir);
-        applyAndDeleteCommerceEngineJsonTransformation(_commerceSiteRootDir, "Shops");
+        applyAndDeleteCommerceEngineEnvironmentTransformation(_commerceSiteRootDir, "Development");
+        applyAndDeleteCommerceEngineRoleTransformation(_commerceSiteRootDir, "Shops");
     });
 
 Sitecore.Commerce.Tasks.PublishArtifactsTask = Task("Commerce :: Publish :: Publish Artifacts")
@@ -99,6 +133,7 @@ Sitecore.Commerce.Tasks.PublishArtifactsTask = Task("Commerce :: Publish :: Publ
 
         var _commerceSiteRootDir = DirectoryPath.FromString(Sitecore.Parameters.Commerce.ArtifactsBuildDir);
         publishCommerceEngineProject(_commerceSiteRootDir);
+        applyAndDeleteCommerceEngineEnvironmentTransformation(_commerceSiteRootDir, "Environment");
     });
 
 // ToDo: transformation apply for CI: how to do it?

@@ -79,7 +79,7 @@ public static partial class Sitecore
         public static void InitParams(
             ICakeContext context,
             MSBuildToolVersion msBuildToolVersion,
-
+            
             // Add support of defining parameters in code
             string buildConfiguration =            null,
             string solutionName =                  null,
@@ -264,20 +264,20 @@ public static partial class Sitecore
         }
 
         // if parameter not passed via env or args default values would be provided
-        // "Debug" is assumed as a build configuration for local dev installation. 
+        // "Debug" is assumed as a build configuration for local dev installation.
         // In this case, unicorn configuration could be found in src
-        // In case of "Release" unicorm configuration can be found in artifacts build folder.
-        private static string GetUnicornConfigPath(string path){
+        // In case of "Release" unicorn configuration can be found in artifacts build folder.
+        private static string GetUnicornConfigPath(string path) {
             if (string.IsNullOrEmpty(path)) {
-                path =  BuildConfiguration == "Debug"
-                    ? $"{SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn/Unicorn.UI.config"
-                    : $"{BuildDir}/App_Config/Include/Unicorn/Unicorn.UI.config";
-            }
-            
-            if (!_context.FileExists(path)) {
-                path =  BuildConfiguration == "Debug"
-                    ? $"{SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn/Unicorn.zSharedSecret.config"
-                    : $"{BuildDir}/App_Config/Include/Unicorn/Unicorn.zSharedSecret.config";
+                var _basePath = BuildConfiguration == "Debug"
+                    ? $"{SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn"
+                    : $"{BuildDir}/App_Config/Include/Unicorn";
+
+                path = $"{_basePath}/Unicorn.zSharedSecret.config";
+
+                if (!_context.FileExists(path)) {
+                    path = $"{_basePath}/Unicorn.UI.config";
+                }
             }
 
             return GetAbsoluteFilePath(path);
@@ -292,7 +292,7 @@ public static partial class Sitecore
                     : ArtifactsBuildDir;
             }
 
-            _context.Information($"Publishing target dir: {path}");
+            _context.Verbose($"Publishing target dir: {path}");
             return GetAbsoluteFilePath(path);
         }
 
