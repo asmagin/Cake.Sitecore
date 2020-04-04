@@ -44,9 +44,10 @@ Sitecore.Tasks.RunServerUnitTestsTask = Task("Unit Tests :: Run Server Tests")
         applyExclude(_coverSettings.ExcludeDirectories,       Sitecore.Parameters.XUnitTestsCoverageExcludeDirectories, x => Directory($"{Sitecore.Parameters.SrcDir}/{x}"));
 
         var _directories = GetDirectories(
-                $"{Sitecore.Parameters.SrcDir}/**/bin", 
-                fileSystemInfo => fileSystemInfo.Path.FullPath.IndexOf("node_modules", StringComparison.OrdinalIgnoreCase) < 0
-            );
+            $"{Sitecore.Parameters.SrcDir}/**/bin",
+            new GlobberSettings {
+                Predicate = fileSystemInfo => fileSystemInfo.Path.FullPath.IndexOf("node_modules", StringComparison.OrdinalIgnoreCase) < 0
+            });
         foreach (var directory in _directories)
         {
             _coverSettings.SearchDirectories.Add(directory);
