@@ -12,4 +12,3 @@ Sitecore.Tasks.SyncAllUnicornItems = Task("Sync :: Unicorn")
         
         runUnicornSync(Sitecore.Parameters.ScSiteUrl, _unicornSecret, _scriptsDir, Sitecore.Parameters.UnicornConfigurations, Sitecore.Parameters.ScBasicAuth);
     });
- 

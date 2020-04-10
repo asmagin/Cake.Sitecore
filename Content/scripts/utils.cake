@@ -1,7 +1,7 @@
 // extentions
 public static partial class Sitecore 
 { 
-    public static class Utils{
+    public static partial class Utils {
         public static string ArgumentOrEnvironmentVariable(ICakeContext context, string argumentName, string defaultValue, string environmentNamePrefix = null) {
             return context.Argument<string>(argumentName, context.EnvironmentVariable(environmentNamePrefix + argumentName)) ?? defaultValue;
         }

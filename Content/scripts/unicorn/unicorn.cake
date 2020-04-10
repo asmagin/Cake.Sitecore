@@ -1,4 +1,4 @@
-#addin "Cake.Powershell&version=0.4.7"
+#addin "Cake.Powershell&version=0.4.8"
 
 Func<string, string, string> getUnicornSecret = (unicornConfigPath, unicornSecret) => {
     if (string.IsNullOrEmpty(unicornSecret))
