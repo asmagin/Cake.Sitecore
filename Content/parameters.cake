@@ -14,6 +14,7 @@ public static partial class Sitecore
 
         public static string BuildConfiguration { get; private set; }
         public static string SolutionName { get; private set; }
+        public static bool   SupportHelix20 { get; private set; }
 
         public static string ScAdminUser { get; private set; }
         public static string ScAdminPassword { get; private set; }
@@ -83,6 +84,7 @@ public static partial class Sitecore
             // Add support of defining parameters in code
             string buildConfiguration =            null,
             string solutionName =                  null,
+            string supportHelix20 =                null,
 
             string scAdminUser =                   null,
             string scAdminPassword =               null,
@@ -152,6 +154,7 @@ public static partial class Sitecore
             // Generic parameters
             BuildConfiguration =            GetParameterValue(Constants.BUILD_CONFIGURATION,                                  buildConfiguration ??            "Debug");
             SolutionName =                  GetParameterValue(Constants.SOLUTION_NAME,                                        solutionName ??                  "");
+            SupportHelix20 =                ToBoolean(GetParameterValue(Constants.SUPPORT_HELIX_20,                           supportHelix20 ??          "false"));
             
             // Sitecore parameters
             ScAdminUser =                   GetParameterValue(Constants.SC_ADMIN_USER,                                        scAdminUser ??                   "admin");
@@ -271,7 +274,9 @@ public static partial class Sitecore
         private static string GetUnicornConfigPath(string path) {
             if (string.IsNullOrEmpty(path)) {
                 var _basePath = BuildConfiguration == "Debug"
-                    ? $"{SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn"
+                    ? (SupportHelix20 
+                        ? $"{SrcDir}/Foundation/Serialization/website/App_Config/Include/Unicorn"
+                        : $"{SrcDir}/Foundation/Serialization/code/App_Config/Include/Unicorn" )
                     : $"{BuildDir}/App_Config/Include/Unicorn";
 
                 path = $"{_basePath}/Unicorn.zSharedSecret.config";
