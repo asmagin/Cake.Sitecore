@@ -5,6 +5,7 @@ public static partial class Sitecore
         // Generic parameters
         public static string BUILD_CONFIGURATION { get; private set; }
         public static string SOLUTION_NAME       { get; private set; }
+        public static string SUPPORT_HELIX_20    { get; private set; }
         // Sitecore parameters
         public static string SC_ADMIN_USER       { get; private set; }
         public static string SC_ADMIN_PASSWORD   { get; private set; }
@@ -70,6 +71,7 @@ public static partial class Sitecore
         public static void SetNames(
             string BuildConfiguration            = null,
             string SolutionName                  = null,
+            string SupportHelix20                = null,
             string ScAdminUser                   = null,
             string ScAdminPassword               = null,
             string ScBasicAuth                   = null,
@@ -130,6 +132,7 @@ public static partial class Sitecore
         {
             BUILD_CONFIGURATION               = BuildConfiguration            ?? "BUILD_CONFIGURATION";
             SOLUTION_NAME                     = SolutionName                  ?? "SOLUTION_NAME";
+            SUPPORT_HELIX_20                  = SupportHelix20                ?? "SUPPORT_HELIX_20";
             SC_ADMIN_USER                     = ScAdminUser                   ?? "SC_ADMIN_USER";
             SC_ADMIN_PASSWORD                 = ScAdminPassword               ?? "SC_ADMIN_PASSWORD";
             SC_BASICAUTH                      = ScBasicAuth                   ?? "SC_BASICAUTH";

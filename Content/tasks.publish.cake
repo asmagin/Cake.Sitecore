@@ -62,7 +62,9 @@ Action<string, string, string> copyClientAssets = (srcRootDir, layer, solutionNa
         var _project = _pathSegments[_pathSegments.Length -1];
 
         // copy client build artifacts into a project wildcard folder
-        var _targetDir = $"{_directory}/../../code/dist/{solutionName}/{layer}/{_project}";
+        var _targetDir = Sitecore.Parameters.SupportHelix20 
+            ? $"{_directory}/../../website/dist/{solutionName}/{layer}/{_project}" 
+            : $"{_directory}/../../code/dist/{solutionName}/{layer}/{_project}";
         CopyDirectory(_directory, _targetDir);
     }
 };
@@ -83,7 +85,9 @@ Action<string, string> copySerializationFiles = (srcRootDir, layer) =>
         var _project = _pathSegments[_pathSegments.Length - 2];
         var _serialization = _pathSegments[_pathSegments.Length - 1];
 
-        var _targetDir = $"{_directory}/../code/App_Data/{Sitecore.Parameters.UnicornSerializationRoot}/{layer}/{_project}/{_serialization}";
+        var _targetDir = Sitecore.Parameters.SupportHelix20 
+            ?  $"{_directory}/../website/App_Data/{Sitecore.Parameters.UnicornSerializationRoot}/{layer}/{_project}/{_serialization}"
+            :  $"{_directory}/../code/App_Data/{Sitecore.Parameters.UnicornSerializationRoot}/{layer}/{_project}/{_serialization}";
         CopyDirectory(_directory, _targetDir);
     }
 };
@@ -122,7 +126,9 @@ Action<string, string, string, string, MSBuildToolVersion> publishLayer = (srcRo
         }
     }*/
 
-    var _projectFilePathList = GetFiles($"{srcRootDir}/{layer}/**/code/*.csproj");
+    var _projectFilePathList = Sitecore.Parameters.SupportHelix20 
+        ? GetFiles($"{srcRootDir}/{layer}/**/website/*.csproj") 
+        : GetFiles($"{srcRootDir}/{layer}/**/code/*.csproj");
 
     foreach(var _projectFilePath in _projectFilePathList)
     {
