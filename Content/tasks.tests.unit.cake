@@ -62,7 +62,8 @@ Sitecore.Tasks.RunServerUnitTestsTask = Task("Unit Tests :: Run Server Tests")
                 Parallelism = ParallelismOption.None,
                 NoAppDomain = false,
                 OutputDirectory = Sitecore.Parameters.TestsOutputDir,
-                ReportName = "xUnitTestResults"
+                ReportName = "xUnitTestResults",
+                ShadowCopy = Sitecore.Parameters.XUnitShadowCopy
             };
 
         OpenCover(

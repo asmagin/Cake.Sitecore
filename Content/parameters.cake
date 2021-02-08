@@ -65,6 +65,7 @@ public static partial class Sitecore
         public static string XUnitTestsCoverageExcludeAttributeFilters { get; private set; }
         public static string XUnitTestsCoverageExcludeFileFilters { get; private set; }
         public static string XUnitTestsCoverageExcludeDirectories { get; private set; }
+        public static bool   XUnitShadowCopy { get; private set; }
         public static string JestTestsCoverageOutputDir { get; private set; }
         public static bool   PublishSerializationItems { get; private set; }
         public static string PublishingTargetDir { get; private set; }
@@ -135,6 +136,7 @@ public static partial class Sitecore
             string xUnitTestsCoverageExcludeAttributeFilters = null,
             string xUnitTestsCoverageExcludeFileFilters      = null,
             string xUnitTestsCoverageExcludeDirectories      = null,
+            string xUnitShadowCopy =               null,
             string jestTestsCoverageOutputDir =    null,
             string publishSerializationItems =     null,
             string publishingTargetDir =           null,
@@ -210,6 +212,7 @@ public static partial class Sitecore
             XUnitTestsCoverageExcludeAttributeFilters  = GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS,  xUnitTestsCoverageExcludeAttributeFilters  ?? "");
             XUnitTestsCoverageExcludeFileFilters       = GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS,       xUnitTestsCoverageExcludeFileFilters       ?? "");
             XUnitTestsCoverageExcludeDirectories       = GetParameterValue(Constants.XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES,        xUnitTestsCoverageExcludeDirectories       ?? "");
+            XUnitShadowCopy =               ToBoolean(GetParameterValue(Constants.XUNIT_SHADOW_COPY,                          xUnitShadowCopy ??               "true"));
             JestTestsCoverageOutputDir =    GetAbsoluteDirPath(GetParameterValue(Constants.JEST_TESTS_COVERAGE_OUTPUT_DIR,    jestTestsCoverageOutputDir ??    $"{TestsCoverageOutputDir}/jest"));
 
             // Pathes

@@ -56,6 +56,7 @@ public static partial class Sitecore
         public static string XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS { get; private set; }
         public static string XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS      { get; private set; }
         public static string XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES       { get; private set; }
+        public static string XUNIT_SHADOW_COPY         { get; private set; }
         public static string JEST_TESTS_COVERAGE_OUTPUT_DIR    { get; private set; }
         public static string PUBLISH_SERIALIZATION_ITEMS       { get; private set; }
         public static string PUBLISHING_TARGET_DIR             { get; private set; }
@@ -116,6 +117,7 @@ public static partial class Sitecore
             string XunitTestsCoverageExcludeAttributeFilters = null,
             string XunitTestsCoverageExcludeFileFilters      = null,
             string XunitTestsCoverageExcludeDirectories      = null,
+            string XunitShadowCopy               = null,
             string JestTestsCoverageOutputDir    = null,
             string PublishSerializationItems     = null,
             string PublishingTargetDir           = null,
@@ -179,6 +181,7 @@ public static partial class Sitecore
             XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS = XunitTestsCoverageExcludeAttributeFilters ?? "XUNIT_TESTS_COVERAGE_EXCLUDE_ATTRIBUTE_FILTERS";
             XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS      = XunitTestsCoverageExcludeFileFilters      ?? "XUNIT_TESTS_COVERAGE_EXCLUDE_FILE_FILTERS";
             XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES       = XunitTestsCoverageExcludeDirectories      ?? "XUNIT_TESTS_COVERAGE_EXCLUDE_DIRECTORIES";
+            XUNIT_SHADOW_COPY                 = XunitShadowCopy               ?? "XUNIT_SHADOW_COPY";
             JEST_TESTS_COVERAGE_OUTPUT_DIR    = JestTestsCoverageOutputDir    ?? "JEST_TESTS_COVERAGE_OUTPUT_DIR";
             PUBLISH_SERIALIZATION_ITEMS       = PublishSerializationItems     ?? "PUBLISH_SERIALIZATION_ITEMS";
             PUBLISHING_TARGET_DIR             = PublishingTargetDir           ?? "PUBLISHING_TARGET_DIR";
