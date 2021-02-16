@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-project = 'Habiton'
+project = 'Habiton Habitatovich'
 vagrant_root = File.dirname(__FILE__)
 local_serialization_root = "#{vagrant_root}/src"
 remote_serialization_root = '/inetpub/wwwroot/sc9.local/App_Data/unicorn'
