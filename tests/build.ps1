@@ -214,18 +214,19 @@ if (!(Test-Path $CAKE_EXE)) {
 
 # Build Cake arguments
 $cakeArguments = @("$Script");
-if ($Target) { $cakeArguments += "-target=$Target" }
-if ($Configuration) { $cakeArguments += "-configuration=$Configuration" }
-if ($Verbosity) { $cakeArguments += "-verbosity=$Verbosity" }
-if ($ShowDescription) { $cakeArguments += "-showdescription" }
-if ($DryRun) { $cakeArguments += "-dryrun" }
-if ($Experimental) { $cakeArguments += "-experimental" }
+if ($Target) { $cakeArguments += "--target=$Target" }
+if ($Configuration) { $cakeArguments += "--configuration=$Configuration" }
+if ($Verbosity) { $cakeArguments += "--verbosity=$Verbosity" }
+if ($ShowDescription) { $cakeArguments += "--showdescription" }
+if ($DryRun) { $cakeArguments += "--dryrun" }
+if ($Experimental) { $cakeArguments += "--experimental" }
 if ($Mono) { $cakeArguments += "-mono" }
-$cakeArguments += "-root=$(Join-Path $PSScriptRoot "..")"
 $cakeArguments += $ScriptArgs
 
 
 # Start Cake
 Write-Host "Running build script..."
-&$CAKE_EXE $cakeArguments
+Write-Host $CAKE_EXE
+Write-Host $cakeArguments
+&"$CAKE_EXE" $cakeArguments
 exit $LASTEXITCODE
