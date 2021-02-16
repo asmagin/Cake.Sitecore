@@ -4,7 +4,6 @@
 
 branches:  
   master:
-    tag: ci
     mode: ContinuousDeployment
     increment: Patch
     prevent-increment-of-merged-branch-version: false
