@@ -2,9 +2,11 @@
 # in github appveyor will build it without the -cixxx tag 
 # it will then be deployable cleanly to nuget.org
 
+mode: Mainline
+
 branches:  
   master:
-    mode: Mainline
+    mode: ContinuousDeployment
     increment: Patch
     prevent-increment-of-merged-branch-version: false
     track-merge-target: false
