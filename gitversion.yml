@@ -4,9 +4,9 @@
 
 branches:  
   master:
-    mode: ContinuousDeployment
-    increment: Minor
+    mode: Mainline
+    increment: Patch
     prevent-increment-of-merged-branch-version: false
-    track-merge-target: true
+    track-merge-target: false
 ignore:
   sha: []
