@@ -3,12 +3,3 @@
 # it will then be deployable cleanly to nuget.org
 
 mode: Mainline
-
-branches:  
-  master:
-    mode: ContinuousDeployment
-    increment: Patch
-    prevent-increment-of-merged-branch-version: false
-    track-merge-target: false
-ignore:
-  sha: []
