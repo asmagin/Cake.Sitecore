@@ -1,0 +1,81 @@
+# Cake.Sitecore.Recipe repository default pipeline
+# Tests cake scripts for the pull requests to master and release branches
+# On tag creation packs and publishes Cake.Sitecore.Recipe nuget package to the public feed
+
+trigger:
+- master
+- release/*
+- refs/tags/*
+
+pool:
+  vmImage: vs2017-win2016
+
+variables:
+    
+  - name: isTag
+    value: $[startswith(variables['Build.SourceBranch'], 'refs/tags/')]
+
+  - name: isPatchVersion
+    value: $[not(endswith(variables['Build.SourceBranchName'], '.0'))]
+    
+  - name: forceNugetPush
+    value: $[eq(variables['force-nuget-push'], '1')]
+
+steps:
+
+  - task: GitVersion@5
+    displayName: 'Run git version tool'
+    inputs:
+      runtime: 'core'
+      configFilePath: 'GitVersion.yml'
+      
+  - task: InlinePowershell@1
+    displayName: 'Run tests'
+    inputs:
+      Script: |
+        Push-Location $(System.DefaultWorkingDirectory)/tests
+        ./build.ps1 -Script "./tests.cake" -Verbosity Diagnostic
+        Pop-Location
+
+  - task: NuGetCommand@2
+    displayName: 'Pack nuget package'
+    inputs:
+      command: 'pack'
+      packagesToPack: 'Cake.Sitecore.Recipe.nuspec'
+      versioningScheme: 'byEnvVar'
+      versionEnvVar: 'GitVersion.FullSemVer'
+
+  - task: CopyFiles@2
+    displayName: 'Copy packages to artifacts dir'
+    inputs:
+      SourceFolder: '$(system.defaultworkingdirectory)'
+      Contents: '**\bin\$(BuildConfiguration)\**'
+      TargetFolder: '$(build.artifactstagingdirectory)'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish build artifacts'
+    inputs:
+      PathtoPublish: '$(build.artifactstagingdirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+
+  - task: NuGetCommand@2
+    displayName: Publish nuget packages to nuget.org
+    condition: or(and(succeeded(), eq(variables.isTag, true)), eq(variables.forceNugetPush, true))
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+      nuGetFeedType: 'external'
+      publishFeedCredentials: 'nuget-org-cake-sitecore-recipe'
+    
+  - task: GitHubRelease@1
+    displayName: Publish release notes
+    condition: and(succeeded(), and(eq(variables.isTag, true), eq(variables.isPatchVersion, false)))
+    inputs:
+      gitHubConnection: 'epam-contrib-bot-read-write'
+      repositoryName: 'epam/Cake.Sitecore.Recipe'
+      action: 'create'
+      target: '$(Build.SourceVersion)'
+      tagSource: 'gitTag'
+      changeLogCompareToRelease: 'lastFullRelease'
+      changeLogType: 'commitBased'

@@ -1,0 +1,35 @@
+branches:
+  master:
+    mode: ContinuousDeployment
+    tag: 'preview'
+    increment: Minor
+    track-merge-target: true
+    tracks-release-branches: true
+    is-release-branch: false
+    prevent-increment-of-merged-branch-version: false
+  release:
+    regex: release?[/]
+    mode: ContinuousDelivery
+    increment: Patch
+    tag: ''
+    is-release-branch: true
+    prevent-increment-of-merged-branch-version: true
+  feature:
+    regex: feature?[/]
+    mode: ContinuousDeployment
+    increment: Inherit
+    tag: 'feature'
+    is-release-branch: false
+    prevent-increment-of-merged-branch-version: true
+  bugfix:
+    regex: bugfix?[/]
+    mode: ContinuousDeployment
+    increment: Inherit
+    tag: 'bugfix'
+    is-release-branch: false
+    prevent-increment-of-merged-branch-version: true
+    source-branches: ['master', 'feature', 'release']
+  pull-request:
+    mode: ContinuousDeployment
+    tag: '-pr'
+
