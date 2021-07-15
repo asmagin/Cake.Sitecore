@@ -57,7 +57,23 @@ Sitecore.Tasks.RunServerUnitTestsTask = Task("Unit Tests :: Run Server Tests")
 
         var _openCoverResultsFilePath = new FilePath($"{Sitecore.Parameters.XUnitTestsCoverageOutputDir}/coverage.xml");
 
-        var parallelismOptionArgument = Sitecore.Parameters.XUnitTestsRunInParallel ? ParallelismOption.All : ParallelismOption.None;
+        var parallelismOptionArgument = ParallelismOption.None;
+        switch (Sitecore.Parameters.XUnitTestsRunInParallel)
+        {
+            case "All":
+                    parallelismOptionArgument = ParallelismOption.All;
+                    break;
+            case "Assemblies":
+                    parallelismOptionArgument = ParallelismOption.Assemblies;
+                    break;
+            case "Collections":
+                    parallelismOptionArgument = ParallelismOption.Collections;
+                    break;
+            default:
+                    parallelismOptionArgument = ParallelismOption.None;
+                    break;
+        }
+
         var _xUnit2Settings = new XUnit2Settings {
                 XmlReport = true,
                 Parallelism = parallelismOptionArgument,
