@@ -12,9 +12,10 @@ public static partial class Sitecore
 
         public static MSBuildToolVersion MsBuildToolVersion { get; private set; }
 
-        public static string BuildConfiguration { get; private set; }
-        public static string SolutionName { get; private set; }
-        public static bool   SupportHelix20 { get; private set; }
+        public static string   BuildConfiguration { get; private set; }
+        public static string   SolutionName { get; private set; }
+        public static string   XUnitTestsRunInParallel { get; private set; }
+        public static bool     SupportHelix20 { get; private set; }
 
         public static string ScAdminUser { get; private set; }
         public static string ScAdminPassword { get; private set; }
@@ -86,6 +87,7 @@ public static partial class Sitecore
             string buildConfiguration =            null,
             string solutionName =                  null,
             string supportHelix20 =                null,
+            string xUnitTestsRunInParallel =       null,
 
             string scAdminUser =                   null,
             string scAdminPassword =               null,
@@ -156,7 +158,8 @@ public static partial class Sitecore
             // Generic parameters
             BuildConfiguration =            GetParameterValue(Constants.BUILD_CONFIGURATION,                                  buildConfiguration ??            "Debug");
             SolutionName =                  GetParameterValue(Constants.SOLUTION_NAME,                                        solutionName ??                  "");
-            SupportHelix20 =                ToBoolean(GetParameterValue(Constants.SUPPORT_HELIX_20,                           supportHelix20 ??          "false"));
+            SupportHelix20 =                ToBoolean(GetParameterValue(Constants.SUPPORT_HELIX_20,                           supportHelix20 ??                "false"));
+            XUnitTestsRunInParallel =       GetParameterValue(Constants.XUNIT_TESTS_RUN_IN_PARALLEL,                          xUnitTestsRunInParallel ??       "");
             
             // Sitecore parameters
             ScAdminUser =                   GetParameterValue(Constants.SC_ADMIN_USER,                                        scAdminUser ??                   "admin");
