@@ -29,7 +29,7 @@ jobs:
         name: Set package version
         id: set-version
         run: |
-          $version = "${{ github.event.release.tag_name }}" -replace "v(\d+.\d+.\d+.*)", '$1') 
+          $version = ("${{ github.event.release.tag_name }}" -replace "v(\d+.\d+.\d+.*)", '$1')
           echo "BUILD_VERSION=${version}" >> $Env:GITHUB_ENV
 
       - shell: pwsh
@@ -48,4 +48,4 @@ jobs:
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
         run: |
-          nuget push "./Cake.Sitecore.${{ env.BUILD_VERSION }}.nupkg" -ApiKey "${{ env.NUGET_API_KEY }}" -SkipDuplicate
+          nuget push "./Cake.Sitecore.${{ env.BUILD_VERSION }}.nupkg" -ApiKey "${{ env.NUGET_API_KEY }}" -Source https://api.nuget.org/v3/index.json -SkipDuplicate
