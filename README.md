@@ -1,23 +1,7 @@
 # Cake.Sitecore
 
 [![NuGet version](https://img.shields.io/nuget/v/Cake.Sitecore.svg)](https://www.nuget.org/packages/Cake.Sitecore/)
-[![Build status](https://ci.appveyor.com/api/projects/status/tjmhfjucua3xko9q?svg=true)](https://ci.appveyor.com/project/asmagin/cake-sitecore)
-
-## Release notes
-# v.1.0.15
-Sitecore Powershell Extensions updated to version 5.0
-"ScAdminUser" parameter default fixed - "admin"
-.nuspec version bumped 
-
-# v.1.0.14
-Fixed issue with wrong assembly version generation. Removed build number from assemsbly version and make it 0 by default. Otherwise it breaks reference for the nuget packages generated for the same {Major}.{Minor}.{Patch} version
-
-# v.1.0.8
-Added new parameter Sitecore.Parameters.TestsFailImmediately with default boolean value = true. 
-In case of failed unit tests parameter Sitecore.Parameters.TestsFailImmediately controls if tasks Sitecore.Tasks.RunServerUnitTestsTaskName and Sitecore.Tasks.RunClientUnitTestsTaskName should fail immediately or not. Otherwise if Sitecore.Parameters.TestsFailImmediately = false unit test execution will throw an exception in the task Sitecore.Tasks.MergeCoverageReportsTaskName.
-You can pass value to the parameter with argument:
--TESTS_FAIL_IMMEDIATELY=false
-
+[![Build status](https://github.com/asmagin/Cake.Sitecore/actions/workflows/release.yaml/badge.svg?branch=master)](https://github.com/asmagin/Cake.Sitecore/actions/workflows/release.yaml)
 
 ## Overview
 The library provides a set of pre-build [CAKE build] tasks. Those tasks could be used to simplify a configuration of CI/CD for Helix-based Sitecore projects.
@@ -185,8 +169,23 @@ Copy Sitecore packages from source directory (`LIBS_PACKAGES_DIR`) to artifact d
 #### Sync :: Unicorn (`Sitecore.Tasks.SyncAllUnicornItemsName`)
 Executes Unicorn content synchronization using (`SC_SITE_URL`). Secret required to authenticate services should be located in a config file (`UNICORN_CONFIG_PATH`). List of configurations can be passed via parameter (`UNICORN_CONFIGURATIONS`)
 
+## Contributing
+Any feedback, [issues](https://github.com/asmagin/Cake.Sitecore/issues) or pull requests [pull requests](https://github.com/asmagin/Cake.Sitecore/pulls) are welcome and greatly appreciated.
 ## Samples
 Sample usage of a CAKE-build with Habitat could be found in [here](https://github.com/asmagin/Habitat/tree/cake)  
 
-## Contributing
-Any feedback, [issues](https://github.com/asmagin/Cake.Sitecore/issues) or pull requests [pull requests](https://github.com/asmagin/Cake.Sitecore/pulls) are welcome and greatly appreciated.
+
+## Release notes
+# v.1.0.15
+Sitecore Powershell Extensions updated to version 5.0
+"ScAdminUser" parameter default fixed - "admin"
+.nuspec version bumped 
+
+# v.1.0.14
+Fixed issue with wrong assembly version generation. Removed build number from assemsbly version and make it 0 by default. Otherwise it breaks reference for the nuget packages generated for the same {Major}.{Minor}.{Patch} version
+
+# v.1.0.8
+Added new parameter Sitecore.Parameters.TestsFailImmediately with default boolean value = true. 
+In case of failed unit tests parameter Sitecore.Parameters.TestsFailImmediately controls if tasks Sitecore.Tasks.RunServerUnitTestsTaskName and Sitecore.Tasks.RunClientUnitTestsTaskName should fail immediately or not. Otherwise if Sitecore.Parameters.TestsFailImmediately = false unit test execution will throw an exception in the task Sitecore.Tasks.MergeCoverageReportsTaskName.
+You can pass value to the parameter with argument:
+-TESTS_FAIL_IMMEDIATELY=false

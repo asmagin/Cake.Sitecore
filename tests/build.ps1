@@ -220,13 +220,12 @@ if ($Verbosity) { $cakeArguments += "--verbosity=$Verbosity" }
 if ($ShowDescription) { $cakeArguments += "--showdescription" }
 if ($DryRun) { $cakeArguments += "--dryrun" }
 if ($Experimental) { $cakeArguments += "--experimental" }
-if ($Mono) { $cakeArguments += "-mono" }
+if ($Mono) { $cakeArguments += "--mono" }
+$cakeArguments += "--root=$(Join-Path $PSScriptRoot "..")"
 $cakeArguments += $ScriptArgs
 
 
 # Start Cake
 Write-Host "Running build script..."
-Write-Host $CAKE_EXE
-Write-Host $cakeArguments
-&"$CAKE_EXE" $cakeArguments
+&$CAKE_EXE $cakeArguments
 exit $LASTEXITCODE
