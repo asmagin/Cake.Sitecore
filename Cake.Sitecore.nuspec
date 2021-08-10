@@ -12,8 +12,8 @@
     <projectUrl>https://github.com/asmagin/Cake.Sitecore</projectUrl>
     <description>My package description.</description>
     <summary>A set of Cake scripts and tools to compile and deploy Sitecore Helix projects.</summary>
-    <tags>sitecore, cake, build, helix, powershell, docker, scs</tags>
-    <iconUrl>https://cdn.rawgit.com/cake-contrib/graphics/a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png</iconUrl>
+    <tags>cake-recipe, sitecore, cake, build, helix, powershell, docker, scs</tags>
+    <iconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/recipe/cake-contrib-recipe-medium.png</iconUrl>
   </metadata>
   <files>
     <file src="content\" target="content\" />
