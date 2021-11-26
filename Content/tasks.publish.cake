@@ -101,6 +101,7 @@ Action<string, string, string, MSBuildToolVersion> publishProject = (projectFile
         .SetVerbosity(Verbosity.Minimal)
         .UseToolVersion(msBuildToolVersion)
         .WithTarget("Build")
+        .WithProperty("BuildProjectReferences", "false")
         .WithProperty("DeployOnBuild", "true")
         .WithProperty("DeployDefaultTarget", "WebPublish")
         .WithProperty("WebPublishMethod", "FileSystem")
